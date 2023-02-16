@@ -1,0 +1,103 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Saddam\virtual_learning_api\OsmosIsh.Web.API\OsmosIsh.Web.API.xml</DocumentationFile>
+    <NoWarn>1701;1702 ; 1591</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\images\corner-down-right.png" />
+    <Content Remove="wwwroot\images\Facebook.png" />
+    <Content Remove="wwwroot\images\headerbg.jpg" />
+    <Content Remove="wwwroot\images\Instagram.png" />
+    <Content Remove="wwwroot\images\logo.png" />
+    <Content Remove="wwwroot\images\Pinterest.png" />
+    <Content Remove="wwwroot\images\resetimage.jpg" />
+    <Content Remove="wwwroot\images\Twitter.png" />
+    <Content Remove="wwwroot\images\unnamed.jpg" />
+    <Content Remove="wwwroot\images\Youtube.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\images\corner-down-right.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\images\Facebook.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\images\headerbg.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\images\Instagram.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\images\logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\images\Pinterest.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\images\resetimage.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\images\Twitter.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\images\unnamed.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\images\Youtube.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AWSSDK.Chime" Version="3.3.113.8" />
+    <PackageReference Include="Caliburn.Micro.Core" Version="4.0.173" />
+    <PackageReference Include="Google.Apis.Auth" Version="1.45.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="3.1.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+    <PackageReference Include="MySql.Data" Version="8.0.23" />
+    <PackageReference Include="paypal.dotnetcore" Version="1.1.0" />
+    <PackageReference Include="Quartz" Version="3.1.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OsmosIsh.Core\OsmosIsh.Core.csproj" />
+    <ProjectReference Include="..\OsmosIsh.Data\OsmosIsh.Data.csproj" />
+    <ProjectReference Include="..\OsmosIsh.Repository\OsmosIsh.Repository.csproj" />
+    <ProjectReference Include="..\OsmosIsh.Service\OsmosIsh.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="OsmosIsh.Web.API.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="LogData\" />
+    <Folder Include="wwwroot\Upload\Series\Image\" />
+    <Folder Include="wwwroot\Upload\Series\Video\" />
+    <Folder Include="wwwroot\Upload\Series-Session\" />
+    <Folder Include="wwwroot\Upload\Session\Image\" />
+    <Folder Include="wwwroot\Upload\Session\Video\" />
+    <Folder Include="wwwroot\Upload\Students\" />
+  </ItemGroup>
+</Project>

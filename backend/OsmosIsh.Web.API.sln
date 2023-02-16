@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OsmosIsh.Web.API", "OsmosIsh.Web.API\OsmosIsh.Web.API.csproj", "{D3392C8B-B3C1-48A2-BAE1-1A1B75166731}"
+	ProjectSection(ProjectDependencies) = postProject
+		{763216F1-E95D-4F85-B962-BEA1555F3868} = {763216F1-E95D-4F85-B962-BEA1555F3868}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OsmosIsh.Service", "OsmosIsh.Service\OsmosIsh.Service.csproj", "{C7FE7F4F-FC09-45D4-8A8B-36F343237288}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OsmosIsh.Repository", "OsmosIsh.Repository\OsmosIsh.Repository.csproj", "{0F53ED64-1DA9-4633-8B97-2F22ECB30B87}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OsmosIsh.Data.Migration", "OsmosIsh.Data.Migration\OsmosIsh.Data.Migration.csproj", "{763216F1-E95D-4F85-B962-BEA1555F3868}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OsmosIsh.Core", "OsmosIsh.Core\OsmosIsh.Core.csproj", "{0358F7FB-2828-49B7-A489-F1392192A843}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OsmosIsh.Data", "OsmosIsh.Data\OsmosIsh.Data.csproj", "{8B97F352-51C7-4268-AB6F-2A294781030F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D3392C8B-B3C1-48A2-BAE1-1A1B75166731}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3392C8B-B3C1-48A2-BAE1-1A1B75166731}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3392C8B-B3C1-48A2-BAE1-1A1B75166731}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3392C8B-B3C1-48A2-BAE1-1A1B75166731}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7FE7F4F-FC09-45D4-8A8B-36F343237288}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7FE7F4F-FC09-45D4-8A8B-36F343237288}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7FE7F4F-FC09-45D4-8A8B-36F343237288}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7FE7F4F-FC09-45D4-8A8B-36F343237288}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F53ED64-1DA9-4633-8B97-2F22ECB30B87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F53ED64-1DA9-4633-8B97-2F22ECB30B87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F53ED64-1DA9-4633-8B97-2F22ECB30B87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F53ED64-1DA9-4633-8B97-2F22ECB30B87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{763216F1-E95D-4F85-B962-BEA1555F3868}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{763216F1-E95D-4F85-B962-BEA1555F3868}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{763216F1-E95D-4F85-B962-BEA1555F3868}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{763216F1-E95D-4F85-B962-BEA1555F3868}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0358F7FB-2828-49B7-A489-F1392192A843}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0358F7FB-2828-49B7-A489-F1392192A843}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0358F7FB-2828-49B7-A489-F1392192A843}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0358F7FB-2828-49B7-A489-F1392192A843}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B97F352-51C7-4268-AB6F-2A294781030F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B97F352-51C7-4268-AB6F-2A294781030F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B97F352-51C7-4268-AB6F-2A294781030F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B97F352-51C7-4268-AB6F-2A294781030F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4236CBC5-DA95-4F2F-9FD0-9D54C4FE4E4B}
+	EndGlobalSection
+EndGlobal

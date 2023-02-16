@@ -1,0 +1,385 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OsmosIsh.Web.API</name>
+    </assembly>
+    <members>
+        <member name="M:OsmosIsh.Web.API.Controllers.AdminAffiliateAPIController.CreateUpdateAffiliate(OsmosIsh.Core.DTOs.Request.CreateUpdateAffiliateRequest)">
+            <summary>
+            This API is used to create and update affiliate.
+            </summary>
+            <param name="createUpdateAffiliateRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.AdminAffiliateAPIController.BlockUnBlockeAffiliate(OsmosIsh.Core.DTOs.Request.BlockUnBlockAffiliateRequest)">
+            <summary>
+            This API is used to block and unblock affiliate.
+            </summary>
+            <param name="blockUnBlockAffiliateRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.AdminAffiliateAPIController.ValidateAffiliate(OsmosIsh.Core.DTOs.Request.ValideAffiliateRequest)">
+            <summary>
+            This API is validate affiliate.
+            </summary>
+            <param name="valideAffiliateRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.AdminCancelledSeriesPaymentAPIController.ResolveCancelledSeries(OsmosIsh.Core.DTOs.Request.AdminCancelledPaymentRequest)">
+            <summary>
+            This API is used to Create Payment.
+            </summary>
+            <param name="AdminDisputedPaymentRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.AdminCouponAPIController.CreateUpdateCoupon(OsmosIsh.Core.DTOs.Request.CreateUpdateCouponRequest)">
+            <summary>
+            This API is used to create and update coupon.
+            </summary>
+            <param name="createUpdateCouponRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.AdminCouponAPIController.BlockUnBlockCoupon(OsmosIsh.Core.DTOs.Request.BlockUnBlockCouponRequest)">
+            <summary>
+            This API is used to block and unblock coupon.
+            </summary>
+            <param name="blockUnBlockCouponRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.AdminFeaturedBlockAPIController.BlockFeaturedTeacher(OsmosIsh.Core.DTOs.Request.UpdateTeacherRequest)">
+            <summary>
+            This API is used to update Teacher fields by admin.
+            </summary>
+            <param name="updateTeacherRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.AdminFeaturedBlockAPIController.BlockFeaturedStudent(OsmosIsh.Core.DTOs.Request.UpdateStudentRequest)">
+            <summary>
+            This API is used to update Student fields by admin.
+            </summary>
+            <param name="updateStudentRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.AdminFeaturedBlockAPIController.BlockFeaturedSeries(OsmosIsh.Core.DTOs.Request.UpdateSeriesRequest)">
+            <summary>
+            This API is used to update Series fields by admin.
+            </summary>
+            <param name="updateSeriesRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.AdminFeaturedBlockAPIController.BlockFeaturedSession(OsmosIsh.Core.DTOs.Request.UpdateSessionRequest)">
+            <summary>
+            This API is used to update Session fields by admin.
+            </summary>
+            <param name="updateSessionRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.AdminFeaturedBlockAPIController.DisableTutorReview(OsmosIsh.Core.DTOs.Request.DisableReviewRequest)">
+            <summary>
+            This API is used to delete review by admin.
+            </summary>
+            <param name="disableReviewRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.AdminPaymentAPIController.Resolve(OsmosIsh.Core.DTOs.Request.AdminDisputedPaymentRequest)">
+            <summary>
+            This API is used to Create Payment.
+            </summary>
+            <param name="AdminDisputedPaymentRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.AmazonChimeAPIController.CreateMeeting(OsmosIsh.Core.DTOs.Request.AmazonChimeMeetingRequest)">
+            <summary>
+            This API is used for create meeting.
+            </summary>
+            <param name="amazonChimeMeetingRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.AmazonChimeAPIController.JoinMeeting(OsmosIsh.Core.DTOs.Request.AmazonChimeMeetingRequest)">
+            <summary>
+            This API is used to for Join meeting.
+            </summary>
+            <param name="amazonChimeMeetingRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.AmazonChimeAPIController.EndMeeting(OsmosIsh.Core.DTOs.Request.AmazonChimeMeetingRequest)">
+            <summary>
+            This API is used for end meeting.
+            </summary>
+            <param name="amazonChimeMeetingRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.AuthAPIController.Login(OsmosIsh.Core.DTOs.Request.LoginRequest)">
+            <summary>
+            This API is used for login.
+            </summary>
+            <param name="loginRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.AuthAPIController.ForgotPassword(OsmosIsh.Core.DTOs.Request.ForgotPasswordRequest)">
+            <summary>
+            This API is used to send email for forgot password.
+            </summary>
+            <param name="forgotPasswordRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.AuthAPIController.ResetForgotPassword(OsmosIsh.Core.DTOs.Request.ResetForgotPasswordRequest)">
+            <summary>
+            This API is used for reset forgot password.
+            </summary>
+            <param name="resetForgotPasswordRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.AuthAPIController.ChangePassword(OsmosIsh.Core.DTOs.Request.ChangePasswordRequest)">
+            <summary>
+            This API is used for Change password.
+            </summary>
+            <param name="changePasswordRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.AuthAPIController.CheckUser(OsmosIsh.Core.DTOs.Request.CheckUserRequest)">
+            <summary>
+            This API is used for Check User is already registered or not.
+            </summary>
+            <param name="CheckUserRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.AuthAPIController.SignUp(OsmosIsh.Core.DTOs.Request.SignUpRequest)">
+            <summary>
+            This API is used for signup.
+            </summary>
+            <param name="signUpRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.AuthAPIController.ExternalLogIn(OsmosIsh.Core.DTOs.Request.ExternalSignInRequest)">
+            <summary>
+            This API is used to sign in using google.
+            </summary>
+            <param name="externalSignInRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.AuthAPIController.ContactUs(OsmosIsh.Core.DTOs.Request.ContactUsRequest)">
+            <summary>
+            This API is used for ContactUs.
+            </summary>
+            <param name="contactUsRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.AuthAPIController.VerifyAccount(OsmosIsh.Core.DTOs.Request.VerifyAccountRequest)">
+            <summary>
+            This API is used for verify account.
+            </summary>
+            <param name="verifyAccountRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.AuthAPIController.ResendAccountVerification(OsmosIsh.Core.DTOs.Request.ResendAccountVerificationRequest)">
+            <summary>
+            This API is used for resend account verification.
+            </summary>
+            <param name="resendAccountVerificationRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.AuthAPIController.AdminUserLogin(OsmosIsh.Core.DTOs.Request.LoginRequest)">
+            <summary>
+            This API is used for login.
+            </summary>
+            <param name="loginRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.AuthAPIController.SendPhoneVerificationToken(OsmosIsh.Core.DTOs.Request.SendPhoneVerificationRequest)">
+            <summary>
+            This API is used for send SMS.
+            </summary>
+            <param name="sendPhoneVerificationRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.AuthAPIController.VerifyPhoneNumberToken(OsmosIsh.Core.DTOs.Request.VerifyPhoneNumberTokenRequest)">
+            <summary>
+            This API is used to verify phone number.
+            </summary>
+            <param name="verifyPhoneNumberTokenRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.ChatMessageController.UpdateMessageStatus(OsmosIsh.Core.DTOs.Request.UpdateMessageStatus)">
+            <summary>
+            This API is used to update Teacher profile.
+            </summary>
+            <param name="updateTeacherProfileRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.CommonAPIController.SaveUpdateEntity(OsmosIsh.Core.DTOs.Request.SaveRequest)">
+            <summary>
+            This API is used for Save/Update all Entity exists in Database.
+            </summary>
+            <param name="request"></param>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.CommonAPIController.GetData(OsmosIsh.Core.DTOs.Request.GetRequest)">
+            <summary>
+            This API is used for Get data for particular screen.
+            </summary>
+            <param name="request"></param>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.CommonAPIController.GetUnauthorizedData(OsmosIsh.Core.DTOs.Request.GetRequest)">
+            <summary>
+            This API is used for Get data for particular screen.
+            </summary>
+            <param name="request"></param>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.EnrollmentAPIController.CreateEnrollment(OsmosIsh.Core.DTOs.Request.CreateEnrollmentRequest)">
+            <summary>
+            This API is used to create and update enrollment.
+            </summary>
+            <param name="createUpdateSessionRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.EnrollmentAPIController.CreateMultipleEnrollments(OsmosIsh.Core.DTOs.Request.CreateMultipleEnrollmentsRequest)">
+            <summary>
+            This API is used to create multiple enrollment.
+            </summary>
+            <param name="createMultipleEnrollmentsRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.EnrollmentAPIController.DeleteEnrollment(OsmosIsh.Core.DTOs.Request.DeleteEnrollmentRequest)">
+            <summary>
+            This API is used to delete enrollment.
+            </summary>
+            <param name="DeleteEnrollmentRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.EnrollmentAPIController.EnrollmentSavedForLater(OsmosIsh.Core.DTOs.Request.SavedEnrollmentRequest)">
+            <summary>
+            This API is used to create and update saved enrollment.
+            </summary>
+            <param name="savedEnrollmentRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.EnrollmentAPIController.AddFavouriteTeacher(OsmosIsh.Core.DTOs.Request.FavoriteRequest)">
+            <summary>
+            This API is used to add favourite teacher.
+            </summary>
+            <param name="favoriteRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.EnrollmentAPIController.InsertModifyTransactionLog(OsmosIsh.Core.DTOs.Request.InsertModifyTransactionLogRequest)">
+            <summary>
+            This API is used to create and update transaction log.
+            </summary>
+            <param name="insertModifyTransactionLogRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.PaymentAPIController.Pay(OsmosIsh.Core.DTOs.Request.PaymentRequest)">
+            <summary>
+            This API is used to Create Payment.
+            </summary>
+            <param name="paymentRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.PaymentAPIController.ProcessStudentRefund(OsmosIsh.Core.DTOs.Request.CancelStudentClassRequest)">
+            <summary>
+            This API is used to process refund of student.
+            </summary>
+            <param name="cancelStudentClassRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.PaymentAPIController.ProcessTutorCancellationRefund(OsmosIsh.Core.DTOs.Request.TutorCancelClassRequest)">
+            <summary>
+            This API is used to process tutor refund.
+            </summary>
+            <param name="tutorCancelClassRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.SeriesAPIController.CreateSeries(OsmosIsh.Core.DTOs.Request.CreateSeriesRequest)">
+            <summary>
+            This API is used to create Series.
+            </summary>
+            <param name="createSeriesRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.SeriesAPIController.UpdateSeriesDetail(OsmosIsh.Core.DTOs.Request.UpdateSeriesDetailRequest)">
+            <summary>
+            This API is used to update Series.
+            </summary>
+            <param name="UpdateSeriesDetail"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.SeriesAPIController.UpdateSeriesSessionDetail(OsmosIsh.Core.DTOs.Request.UpdateSeriesSessionDetailRequest)">
+            <summary>
+            This API is used to update Series session.
+            </summary>
+            <param name="updateSeriesSessionDetailRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.SessionAPIController.CreateUpdateSession(OsmosIsh.Core.DTOs.Request.CreateUpdateSessionRequest)">
+            <summary>
+            This API is used to create and update session.
+            </summary>
+            <param name="createUpdateSessionRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.SessionAPIController.GeneratePrivateSessionRequest(OsmosIsh.Core.DTOs.Request.PrivateSessionRequest)">
+            <summary>
+            This API is used to generate private session request.
+            </summary>
+            <param name="privateSessionRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.SessionAPIController.DenyPrivateSessionRequest(OsmosIsh.Core.DTOs.Request.DenySessionRequest)">
+            <summary>
+            This API is used to generate private session request.
+            </summary>
+            <param name="denySessionRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.SessionAPIController.SessionReviewRating(OsmosIsh.Core.DTOs.Request.SessionReviewRatingRequest)">
+            <summary>
+            This API is used for session review request.
+            </summary>
+            <param name="sessionReviewRatingRequest"></param>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:OsmosIsh.Web.API.Controllers.SessionAPIController.CreateUpdatePrivateSessionAvailableSlots(OsmosIsh.Core.DTOs.Request.PrivateSessionAvailableDayRequest)" -->
+        <!-- Badly formed XML comment ignored for member "M:OsmosIsh.Web.API.Controllers.SessionAPIController.AcceptPrivateSessionRequest(OsmosIsh.Core.DTOs.Request.AcceptSessionRequest)" -->
+        <member name="M:OsmosIsh.Web.API.Controllers.StudentAPIController.UpdateStudentProfile(OsmosIsh.Core.DTOs.Request.UpdateStudentProfileRequest)">
+            <summary>
+            This API is used to update Student profile.
+            </summary>
+            <param name="updateStudentProfileRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.StudentAPIController.CreateStudent(OsmosIsh.Core.DTOs.Request.CreateStudentRequest)">
+            <summary>
+            This API is used to create Student.
+            </summary>
+            <param name="createStudentRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.StudentAPIController.ValidateCouponCode(OsmosIsh.Core.DTOs.Request.ValidateCouponRequest)">
+            <summary>
+            This API is validate affiliate.
+            </summary>
+            <param name="valideAffiliateRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.SubscriptionAPIController.SubscribeEmail(OsmosIsh.Core.DTOs.Request.SubscribeEmailRequest)">
+            <summary>
+            This API is used to scribed user with application.
+            </summary>
+            <param name="subscribeEmailRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.TeacherAPIController.UpdateTeacherProfile(OsmosIsh.Core.DTOs.Request.UpdateTeacherProfileRequest)">
+            <summary>
+            This API is used to update Teacher profile.
+            </summary>
+            <param name="updateTeacherProfileRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Web.API.Controllers.TeacherAPIController.CreateTutor(OsmosIsh.Core.DTOs.Request.CreateTutorRequest)">
+            <summary>
+            This API is used to create tutor.
+            </summary>
+            <param name="createTutorRequest"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,99 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>e2ab79d2-23b7-437d-a149-1853fbd21de5</UserSecretsId>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;1591</NoWarn>
+  </PropertyGroup>
+
+
+
+
+
+  <ItemGroup>
+    <EmbeddedResource Include="Scripts\Release.01\01_01_Countries.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\01_01_Coupons.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\01_01_ErrorLogs.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\01_01_GlobalCodeCategories.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\01_01_Packages.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\01_01_SessionCategories.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\01_02_APILogs.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\01_02_GlobalCodes.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\01_03_Users.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\01_04_Students.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\01_04_Teachers.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\01_04_UserActivities.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\01_05_Series.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\01_05_Transactions.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\01_06_Enrollments.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\01_06_Rating.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\01_06_SeriesDetail.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\01_06_Session.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\01_07_Schedule.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\01_07_SessionDetail.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\01_08_Reviews.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\01_08_Subscriptions.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\01_09_Images.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\01_10_PrivateSessionAvailabilities.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\01_11_Favorites.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\02_01_Countries.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\02_01_GlobalCodeCategories_GlobalCodes.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\02_01_SessionCategories.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\04_01_fn_minutesToHhMmFormat.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\04_01_fn_SeriesAverageRating.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\04_01_fn_SessionAverageRating.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\05_01_sp_GetCustomerReviews.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\05_01_sp_GetSeriesDetail.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\05_01_sp_GetSeriesSessions.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\05_01_sp_GetSessionCategories.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\05_01_sp_GetSessionDetail.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\05_01_sp_GetStudentDashboard.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\05_01_sp_GetStudentProfileDetail.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\05_01_sp_GetStudentRecentSession.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\05_01_sp_GetStudentsUpcomingEnrolledSessions.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\05_01_sp_GetStudentTodaysSession.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\05_01_sp_GetTutorDashboardDetail.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\05_01_sp_GetTutorProfileDetail.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\05_01_sp_GetTutorRecentSessions.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\05_01_sp_GetTutorUpcomingSessions.sql" />
+    <EmbeddedResource Include="Scripts\Release.01\05_01_sp_UpdateAPILog.sql" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="dbup-core" Version="4.3.1" />
+    <PackageReference Include="dbup-sqlserver" Version="4.3.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="3.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="3.1.0" />
+  </ItemGroup>
+  
+  <ItemGroup>
+	  <EmbeddedResource Include="Scripts\Release.01\04_01_fn_TeacherAverageRating.sql" />
+	  <EmbeddedResource Include="Scripts\Release.01\05_01_sp_GetAllAvailableTags.sql" />
+	  <EmbeddedResource Include="Scripts\Release.01\05_01_sp_GetTutorDetail.sql" />
+  </ItemGroup>
+  
+  <ItemGroup>
+	  <EmbeddedResource Include="Scripts\Release.01\05_01_sp_GetMyFavoriteTeachersList.sql" />
+	  <EmbeddedResource Include="Scripts\Release.01\05_01_sp_GetPopularSessions.sql" />
+	  <EmbeddedResource Include="Scripts\Release.01\05_01_sp_GetStudentsFavoriteSessions.sql" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <EmbeddedResource Include="Scripts\Release.01\01_10_ViewLogs.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
