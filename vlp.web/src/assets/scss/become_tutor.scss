@@ -1,0 +1,319 @@
+/*  become a tutor  */
+.becomeTutor {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin: 0;
+    padding: 120px 0 10px 0px;
+	
+	@media(max-width:767px){
+		 padding: 120px 0 10px 0px;
+	}
+	
+	.bannerHeading {
+		h1 {
+			font-size: 58px;
+			line-height: 70px;
+			margin: 0 0 25px 0;
+			font-weight: bold;
+			@media(max-width:767px){
+				font-size: 32px;
+				line-height: 36px;
+			}
+			br{
+				@media(max-width:767px){
+				 display:none;
+				}	
+			}
+		}
+	}
+	.btImage {
+		text-align: right;
+		@media(max-width:767px){
+			text-align: center;	
+		}
+		video{
+			// background-color: #1c3b50;
+			// padding: 10px;
+			// border-radius: 5px;
+			@media(max-width:576px){
+				width: 100%;
+				max-width: 100%;
+				min-width: 100%;
+				object-fit: cover;
+			}
+			&:focus{
+			  outline:none;
+			}
+			
+		}
+	}
+	.getToKnow{
+		h2 {
+			font-size: 45px;
+			line-height: normal;
+			color: #191a1c;
+			font-weight: bold;
+			@media(max-width:767px){
+				font-size: 30px;
+			}
+		}
+		p {
+			font-size: 16px;
+			line-height: 26px;
+			color: #545454;
+			font-family: 'open_sanslight';
+			margin: 0 0 8px 0;
+		}
+	}
+	
+	.signUpForm {
+		margin: 30px 0;
+		h3 {
+				background-color: #4c5a67;
+				color: #fff;
+				padding: 15px;
+				border-radius: 3px;
+			}
+			form {
+				background-color: #f9f9f9;
+				padding: 20px;
+			
+			
+			textarea {
+				min-height: 90px;
+			}
+			.facebook {
+				margin: 0 0 10px;
+				color: #fff;
+				background-color: #164675;
+				display: block;
+				font-size: 16px;
+				font-weight: 700;
+				padding: 10px 20px;
+				border-radius: 4px;
+				box-shadow: 0 2px 2px 0 rgba(41,48,59,.24), 0 0 2px 0 rgba(41,48,59,.12);
+				
+				@media(max-width:767px){
+					font-size: 14px;
+				}
+			}
+			.google {
+				margin: 0 0 10px;
+				color: #404040;
+				background-color: #fff;
+				display: block;
+				font-size: 16px;
+				padding: 10px 20px;
+				border-radius: 4px;
+				box-shadow: 0 2px 2px 0 rgba(41,48,59,.24),0 0 2px 0 rgba(41,48,59,.12);
+				width: 100%;
+				line-height: normal;
+				text-align: left;
+				font-family: "century_gothicregular";
+				border: none;
+				@media(max-width:767px){
+					font-size: 14px;
+				}
+			}
+			.googleIcon {
+				display: inline-block;
+				margin-right: 10px;
+			}
+			.logCss {
+				border-radius: 4px;
+				width: 100%;
+				height: 50px;
+				line-height: 35px;
+				font-size: 21px;
+				margin: 0 0 12px;
+				background-color:#1c3b50;
+			}
+			.fa-facebook {
+				margin-right: 17px;
+			}
+		}
+		.formPpText {
+			padding: 0 60px;
+			text-align: center;
+			
+			p {
+				font-size: 13px;
+			}
+		}
+	}
+	 
+	
+}
+.resizeImage {
+    border-radius: 5px;
+}
+.sidebaarSignUp {
+    background-color: rgba(0,0,0,0.07);
+    padding: 15px 15px 25px;
+    border-radius: 5px;
+}
+.alignSelf{
+	align-self: center;
+}
+.breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 4px 0;
+    margin-bottom: 1rem;
+    list-style: none;
+    background-color: transparent;
+    border-radius: 0;
+    border-bottom: 1px solid #ebebeb;
+	li{
+		margin-right: 25px;
+		color: #a0a6af;
+		font-weight: 500;
+		
+		a{
+			color: #1a1a23;
+			font-weight: 600;
+			position: relative;
+			
+			&:before {
+				position: absolute;
+				content: "";
+				right: -16px;
+				border-bottom: 2px solid #1a1a23;
+				border-right: 2px solid #1a1a23;
+				height: 7px;
+				width: 7px;
+				transform: rotate(-45deg);
+				top: 6px;
+			}
+		}
+	}
+}
+
+.expertTutor {
+	margin:20px 0;
+	position: relative;
+	
+	@media(max-width:767px){
+		margin: 0px;
+	}
+	.etReview{
+		&:hover{
+			.plusIcon {
+				display: block;
+			}
+			.socialMediaIcon {
+				display: block;
+			}
+		}
+	}
+	h2 {
+		font-size: 45px;
+		line-height: normal;
+		color: #191a1c;
+		font-weight: bold;
+		@media(max-width:767px){
+			font-size: 30px;
+		}
+	}
+	.btImage{
+		position: relative;
+		.etCircleImage {		 
+			margin-bottom: 25px;
+			position: relative;
+			height: 150px;
+			img{
+				object-fit: cover;
+				border-radius: 50%;	
+				background-color: #f9f9f9;
+			}
+		}
+		
+	}
+		
+	h4 {
+		color: #252628;
+		font-weight: 600;
+		font-size: 20px;
+		cursor: pointer;
+	}
+	h6 {
+		color: #252628;
+		font-weight: 600;
+		margin-top: 5px;
+	}
+	p {
+		font-size: 16px;
+		color: #7d7f82;
+		line-height: 28px;
+		margin-top: 15px;
+	}
+	.plusIcon {
+		background-color: #1c3b50;
+		width: 70px;
+		height: 40px;
+		margin: 0 auto;
+		display: flex;
+		justify-content: center;
+		align-items: flex-end;
+		top: -15px;
+		border-radius: 50%;
+		color: #fff;
+		display: none;
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+		-webkit-transform: translateX(-50%);
+		-moz-transform: translateX(-50%);
+		-ms-transform: translateX(-50%);
+		a{
+			position: relative;
+			top: 14px;
+		}
+		i{
+			color: #fff;
+		}
+	}
+	.socialMediaIcon {		
+		display: inline-block;
+		list-style: none;
+		color: #fff;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		display: none;
+		ul{
+			background-color: #1c3b50;
+			display: inline-block;
+			padding: 1px 10px;
+			border-radius: 3px;
+			li{
+				display: inline-block;
+				a{
+					    padding: 0 6px;
+					i{
+						color:#fff;
+					}
+				}
+			}
+		}
+		
+	}
+	.swiper-container{
+		padding:0 0 50px;
+	}
+}
+@media(max-width:767px){
+	.signUpBox {
+		margin-top: 30px;
+	}
+	.etReview {
+		margin-bottom: 40px;
+	}
+}
+
+
+
+

@@ -1,0 +1,105 @@
+.resetForm {
+    .filter {
+        padding: 0 0 30px;
+        flex-wrap: wrap;
+        .css-2b097c-container{
+            @media(max-width:767px){
+                margin:0 0 15px 0;
+              }
+        }
+    }
+
+    .blankSpace {
+        img {
+            max-width: 30%;
+            margin: 0 auto;
+        }
+    }
+}
+
+.thumbDiv1 {
+    margin: 0 0px 30px;
+    background-color: #fff;
+    border-radius: 20px;
+    transition: border .25s;
+    border: 1px solid #edeff5;
+    @media(max-width:767px){
+        margin:0 0 15px 0;
+      }
+    .thumbWrapper {
+        padding: 20px;
+        .psUserNamePic {
+            display: flex;
+            min-height: 65px;
+            align-items: center;
+            min-height: 65px;
+            .thumbImage {
+                // background-color: #eee;
+                border-radius: 50% !important;
+                margin-right: 15px;
+                float: left;
+                img{
+                    object-fit: cover;
+                    max-width: inherit;
+                    background-color: #f9f9f9;
+                    cursor: pointer;
+                }
+            }
+            h2{
+              cursor: pointer;
+              height: 35px;
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-line-clamp: 1;
+                -webkit-box-orient: vertical;
+                position: relative;
+                max-height: calc(var(--lh) * var(--max-lines));
+                padding-right: 0;
+            }
+        }
+
+    }
+
+    .thumbDesc {
+        h2 {
+            display: block;
+            width: 100%;
+            font-size: 20px !important;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .thumbTitle {
+            position: relative;
+            padding: 0;
+            align-items: center;
+            display: inline-block;
+            height: 40px;
+            margin: 0 0 5px 0;
+
+            .rattingStar {
+                i {
+                    color: #ffba1c;
+                    margin-right: 2px;
+                }
+            }
+        }
+
+    }
+
+    .bioDetails {
+        text-align: left;
+        display: block;
+        width: 100%;
+        float: left;
+        padding: 15px 20px;
+    }
+
+    .enrollNow {
+        .btn {
+            width: 100%;
+            border-radius: 0 0 20px 20px;
+            padding: 10px;
+        }
+    }
+}

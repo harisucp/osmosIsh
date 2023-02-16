@@ -1,0 +1,52 @@
+.notFoundForm {
+    .blankSpace {
+        margin: 0px;
+        padding: 60px;
+
+        h4 {
+            text-align: center;
+        }
+
+        img {
+            max-width: 60%;
+            margin: 0 0 0 3%;
+        }
+
+        .error-details {
+            text-align: center;
+            padding: 20px;
+
+            h5 {
+                font-size: 25px;
+                line-height: 35px;
+            }
+
+            p {
+                font-size: 18px;
+                line-height: 30px;
+                padding: 14px 0 !important;
+            }
+
+            span {
+                font-weight: bold;
+                cursor: pointer;
+            }
+
+            button {
+                border-radius: 4px;
+                padding: 6px 20px;
+
+                img {
+                    margin: 0px;
+                    padding: 0 8px 0 0;
+                }
+            }
+        }
+
+        p {
+            padding-bottom: 15px !important;
+            text-align: center;
+        }
+    }
+
+}

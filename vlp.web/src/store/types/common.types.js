@@ -1,0 +1,3 @@
+export const SEARCH_TEXT = 'SEARCH_TEXT';
+export const RESET_SEARCH_TEXT = 'RESET_SEARCH_TEXT';
+export const PERFORM_SEARCH = 'PERFORM_SEARCH';
