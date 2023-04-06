@@ -358,7 +358,7 @@ namespace OsmosIsh.Core.Shared.Static
             }
             return otp;
         }
-        
+
         public static string GenerateRefreshToken()
         {
             using (var rngCryptoServiceProvider = new RNGCryptoServiceProvider())
@@ -368,13 +368,7 @@ namespace OsmosIsh.Core.Shared.Static
                 return Convert.ToBase64String(randomBytes);
             }
         }
-        public static bool CheckIn24Hours(DateTime? date)
-        {
-            DateTime booking = Convert.ToDateTime(date);
-            DateTime ending = booking.AddHours(23).AddMinutes(59).AddSeconds(59);
-            var n = DateTime.Compare(DateTime.UtcNow,ending );
-            return ((n == -1)) ? false : true;
-        }
+
 
 
     }

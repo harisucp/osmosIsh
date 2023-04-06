@@ -256,7 +256,7 @@ namespace OsmosIsh.Web.API.Controllers
         public async Task<ActionResult> SendPhoneVerificationToken(SendPhoneVerificationRequest sendPhoneVerificationRequest)
         {
             _MainResponse = await _UserService.SendPhoneVerificationToken(sendPhoneVerificationRequest);
-            _JsonString = Mapper.ConvertWithoutNull<UserResponse>(_MainResponse);
+            _JsonString = Mapper.Convert<BaseResponse>(_MainResponse);
             return new OkObjectResult(_JsonString);
         }
 
