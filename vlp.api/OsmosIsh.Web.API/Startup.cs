@@ -68,11 +68,11 @@ namespace OsmosIsh.Web.API
             services.AddSingleton<RefundJobScheduler>();
             services.AddSingleton<SessionReminderJobScheduler>();
             services.AddSingleton<AffiliatePayoutScheduler>();
-            JobScheduler.Start();
-            ReCaptureJobScheduler.Start();
-            RefundJobScheduler.Start();
-            SessionReminderJobScheduler.Start();
-            AffiliatePayoutScheduler.Start();
+            //JobScheduler.Start();
+            //ReCaptureJobScheduler.Start();
+            //RefundJobScheduler.Start();
+            //SessionReminderJobScheduler.Start();
+            //AffiliatePayoutScheduler.Start();
 
             // DBContext
             var connection = Configuration.GetConnectionString("ApplicationContext");

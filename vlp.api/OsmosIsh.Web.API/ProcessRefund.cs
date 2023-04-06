@@ -1,4 +1,5 @@
-﻿using OsmosIsh.Core.DTOs.Request;
+﻿using Newtonsoft.Json;
+using OsmosIsh.Core.DTOs.Request;
 using OsmosIsh.Core.DTOs.Response;
 using OsmosIsh.Core.Shared.Static;
 using OsmosIsh.Service.Common;
@@ -68,7 +69,7 @@ namespace OsmosIsh.Web.API
                     {
                         try
                         {
-                            if (name.RefundAmount > 0)
+                            if (name.RefundAmount > 0 )
                             {
                                 var apiContext = PaypalConfiguration.GetAPIContext();
                                 string captureId = name.CaptureId;
@@ -85,6 +86,12 @@ namespace OsmosIsh.Web.API
                                 };
 
                                 var refunded = capture.Refund(apiContext, refund);
+
+                                var apiContextJSON = JsonConvert.SerializeObject(apiContext);
+                                var CaptureJSON = JsonConvert.SerializeObject(capture);
+                                var RefundJSON = JsonConvert.SerializeObject(refund);
+                                var ResponseRefundedJSON = JsonConvert.SerializeObject(refunded);
+
                                 tutorMissedSessionRefundResponse.CaptureId = name.CaptureId;
                                 tutorMissedSessionRefundResponse.RefundedAmount = refunded.amount.total;
                                 tutorMissedSessionRefundResponse.RefundId = refunded.id;
