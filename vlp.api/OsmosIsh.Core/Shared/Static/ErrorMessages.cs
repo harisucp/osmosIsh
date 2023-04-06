@@ -101,7 +101,6 @@ namespace OsmosIsh.Core.Shared.Static
         public const string ZERO_RECORDS = "No record(s) found.";
 
         public const string INVALID_NEW_PASSWORD = "New password can not be the same as old password.";
-        public const string OTP_TOKEN_REQUEST_REACHED = "Invalid OTP ! due to too many requests your account is locked. Please try after 24 hours";
 
         //public const string GENERAL_SYSTEM_ERROR = "Some thing went wrong please try again later or contact Osmosish support.";
     }
