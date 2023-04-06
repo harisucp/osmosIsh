@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.Data.SqlClient;
 using MySql.Data.MySqlClient;
+using Newtonsoft.Json;
 using OsmosIsh.Core.DTOs.Request;
 using OsmosIsh.Core.DTOs.Response;
 using OsmosIsh.Core.Shared.Static;
@@ -338,8 +339,35 @@ namespace OsmosIsh.Service.Service
         public async Task<MainResponse> SendPhoneVerificationToken(SendPhoneVerificationRequest sendPhoneVerificationRequest)
         {
             var userDetail = _UserRepository.GetSingle(x => x.UserId == sendPhoneVerificationRequest.UserId && x.RecordDeleted == "N" && x.Active == "Y");
+            var OTPAllowed = Convert.ToInt32(AppSettingConfigurations.AppSettings.OTPRequestAllowed);
             if (userDetail != null)
             {
+                if (Convert.ToBoolean(userDetail.IsLockout) && userDetail.OTPCount == OTPAllowed)
+                {
+                    if (CommonFunction.CheckIn24Hours(userDetail.OTPGeneratedDate))
+                    {
+                        userDetail.IsLockout = false;
+                        userDetail.OTPCount = 0;
+                        await _UserRepository.UpdateAsync(userDetail);
+                    }
+                    else
+                    {
+                        _MainResponse.Message = "your account is locked please try again after 24 hours";
+                        _MainResponse.Success = false;
+                        _MainResponse.UserResponse = new UserResponse() { IsLockOut = userDetail.IsLockout, UserId = userDetail.UserId };
+                        return _MainResponse;
+                    }
+                }
+                else if (userDetail.OTPCount == Convert.ToInt32(AppSettingConfigurations.AppSettings.OTPRequestAllowed))
+                {
+                    userDetail.IsLockout = true;
+                    await _UserRepository.UpdateAsync(userDetail);
+                    _MainResponse.Message = ErrorMessages.OTP_TOKEN_REQUEST_REACHED;
+                    _MainResponse.Success = false;
+                    _MainResponse.UserResponse = new UserResponse() { IsLockOut = userDetail.IsLockout , UserId = userDetail.UserId};
+                    return _MainResponse;
+
+                }
                 var phoneNumber = string.IsNullOrWhiteSpace(sendPhoneVerificationRequest.PhoneNumber) ? userDetail.PhoneNumber : sendPhoneVerificationRequest.PhoneNumber;
                 var newOTPGenerated = CommonFunction.GenerateCode();
                 var resp = SendTwillioSMS.SendSMS("Your Osmos-ish verification code is " + newOTPGenerated + ".", phoneNumber);
@@ -347,15 +375,19 @@ namespace OsmosIsh.Service.Service
                 {
                     _MainResponse.Message = SuccessMessage.PHONE_VERIFICATION_SUCCESS;
                     _MainResponse.Success = true;
+                    _MainResponse.UserResponse = new UserResponse() { IsLockOut = userDetail.IsLockout, UserId = userDetail.UserId };
                     userDetail.PhoneNumberVerified = "N";
                     userDetail.PhoneNumberVerificationOtp = newOTPGenerated;
                     userDetail.PhoneNumberOtpexpiration = DateTime.UtcNow.AddDays(1);
+                    userDetail.OTPCount += 1;
+                    userDetail.OTPGeneratedDate = DateTime.UtcNow;
                     await _UserRepository.UpdateAsync(userDetail);
                 }
                 else
                 {
                     _MainResponse.Message = resp;
                     _MainResponse.Success = false;
+                    _MainResponse.UserResponse = new UserResponse() { IsLockOut = userDetail.IsLockout, UserId = userDetail.UserId };
                 }
             }
             return _MainResponse;

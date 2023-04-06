@@ -45,6 +45,10 @@ namespace OsmosIsh.Data.DBEntities
         public string DeletedBy { get; set; }
         public DateTime? DeletedDate { get; set; }
 
+        public int? OTPCount { get; set; }
+        public bool? IsLockout { get; set; }
+        public DateTime? OTPGeneratedDate { get; set; }
+
         public virtual Countries Country { get; set; }
         public virtual GlobalCodes GenderNavigation { get; set; }
         public virtual ICollection<Students> Students { get; set; }

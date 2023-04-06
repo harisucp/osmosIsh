@@ -24,6 +24,7 @@ namespace OsmosIsh.Core.DTOs.Response
         public int? EnrollmentCount { get; set; }
         public string? ExternalProvider { get; set; }
         public string PhoneNumberVerified { get; set; }
+        public bool? IsLockOut { get; set; }
     }
     public class TeacherDetail
     {
