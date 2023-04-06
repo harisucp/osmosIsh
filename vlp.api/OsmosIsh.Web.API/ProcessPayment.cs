@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using OsmosIsh.Core.DTOs.Request;
+﻿using OsmosIsh.Core.DTOs.Request;
 using OsmosIsh.Core.Shared.Static;
 using OsmosIsh.Service.Common;
 using OsmosIsh.Service.IService;
@@ -109,13 +108,6 @@ namespace OsmosIsh.Web.API
 
                                 var createdPayout = payout.Create(apiContext, false);
                                 var payoutDetail = Payout.Get(apiContext, createdPayout.batch_header.payout_batch_id);
-
-                                var APIContextJSON = JsonConvert.SerializeObject(apiContext);
-                                var PayoutJSON = JsonConvert.SerializeObject(payout);
-                                var CreatedPayoutJSON = JsonConvert.SerializeObject(createdPayout);
-                                var payoutDetailsJSON = JsonConvert.SerializeObject(payoutDetail);
-
-
                                 payoutObject.payout_batch_id = payoutDetail.batch_header.payout_batch_id;
                                 payoutObject.sender_batch_id = payoutDetail.batch_header.sender_batch_header.sender_batch_id;
                                 payoutObject.amount = payoutDetail.batch_header.amount.value;
