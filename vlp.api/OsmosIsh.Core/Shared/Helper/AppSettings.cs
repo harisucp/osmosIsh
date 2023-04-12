@@ -30,6 +30,7 @@ namespace OsmosIsh.Core.Shared.Helper
         public string AccountSid { get; set; }
         public string AuthToken { get; set; }
         public string TwilioPhone { get; set; }
+        public string OTPRequestAllowed { get; set; }
         public string NumberTimeFirstTransactionCouponSent { get; set; }
         public string SendyAPIDbConnectionString { get; set; }
         public string SendySubscribeLink { get; set; }
