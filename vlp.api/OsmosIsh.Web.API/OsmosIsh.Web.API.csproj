@@ -9,6 +9,10 @@
     <NoWarn>1701;1702 ; 1591</NoWarn>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
+  </PropertyGroup>
+
   <ItemGroup>
     <Content Remove="wwwroot\images\corner-down-right.png" />
     <Content Remove="wwwroot\images\Facebook.png" />
