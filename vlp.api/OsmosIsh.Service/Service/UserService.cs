@@ -416,7 +416,29 @@ namespace OsmosIsh.Service.Service
             }
             return _MainResponse;
         }
-
+        public async Task<MainResponse> VerifyPhoneNumber(SendPhoneVerificationRequest verifyPhoneNumber)
+        {
+            var userDetail = _UserRepository.GetSingle(x => x.UserId == verifyPhoneNumber.UserId && x.RecordDeleted == "N" && x.Active == "Y" && x.PhoneNumberVerificationOtp == verifyPhoneNumberTokenRequest.OTP && x.PhoneNumberOtpexpiration > DateTime.UtcNow);
+            if (userDetail != null)
+            {
+                // Update information
+                userDetail.PhoneNumberVerificationOtp = null;
+                userDetail.PhoneNumberOtpexpiration = null;
+                userDetail.PhoneNumber = verifyPhoneNumber.PhoneNumber;
+                userDetail.PhoneNumberVerified = "Y";
+                userDetail.ModifiedBy = userDetail.Email;
+                userDetail.ModifiedDate = DateTime.UtcNow;
+                await _UserRepository.UpdateAsync(userDetail);
+                _MainResponse.Message = SuccessMessage.PHONE_NUMBER_SAVED_SUCCESS;
+                _MainResponse.Success = true;
+            }
+            else
+            {
+                _MainResponse.Message = ErrorMessages.GENERAL_SYSTEM_ERROR;
+                _MainResponse.Success = false;
+            }
+            return _MainResponse;
+        }
         public async Task<MainResponse> DeleteUser(DeleteUserRequest deleteUserRequest)
         {
             return await _UserRepository.DeleteUser(deleteUserRequest);

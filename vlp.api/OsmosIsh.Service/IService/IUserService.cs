@@ -23,6 +23,7 @@ namespace OsmosIsh.Service.IService
         Task<MainResponse> AdminLogin(LoginRequest loginRequest);
         Task<MainResponse> SendPhoneVerificationToken(SendPhoneVerificationRequest sendPhoneVerificationRequest);
         Task<MainResponse> VerifyPhoneNumberToken(VerifyPhoneNumberTokenRequest verifyPhoneNumberTokenRequest);
+        Task<MainResponse> VerifyPhoneNumber(SendPhoneVerificationRequest verifyPhoneNumber);
         Task<MainResponse> DeleteUser(DeleteUserRequest deleteUserRequest);
         Task<MainResponse> RefreshToken(RefreshTokenRequest refreshTokenRequest);
         Task<MainResponse> RevokeToken(RevokeTokenRequest revokeTokenRequest);
