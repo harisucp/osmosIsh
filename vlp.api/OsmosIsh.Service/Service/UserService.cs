@@ -418,7 +418,7 @@ namespace OsmosIsh.Service.Service
         }
         public async Task<MainResponse> VerifyPhoneNumber(SendPhoneVerificationRequest verifyPhoneNumber)
         {
-            var userDetail = _UserRepository.GetSingle(x => x.UserId == verifyPhoneNumber.UserId && x.RecordDeleted == "N" && x.Active == "Y" && x.PhoneNumberVerificationOtp == verifyPhoneNumberTokenRequest.OTP && x.PhoneNumberOtpexpiration > DateTime.UtcNow);
+            var userDetail = _UserRepository.GetSingle(x => x.UserId == verifyPhoneNumber.UserId && x.RecordDeleted == "N" && x.Active == "Y");
             if (userDetail != null)
             {
                 // Update information
