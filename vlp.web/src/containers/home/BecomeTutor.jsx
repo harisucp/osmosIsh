@@ -12,8 +12,9 @@ import GoogleButton from "../../shared/components/ui/form/GoogleButton";
 import Loader from 'react-loaders';
 import video from "../../assets/video/osmos-video.mp4";
 // import five from "../../assets/images/git-image.png";
-import { APP_URLS } from "../../config/api.config";
+import { APP_URLS, CAPTCHA_SITE_KEY } from "../../config/api.config";
 import Swiper from 'react-id-swiper';
+import ReCAPTCHA from "react-google-recaptcha"
 import 'swiper/css/swiper.css';
 // import { id } from 'date-fns/esm/locale';
 class BecomeTutorSignUp extends Component {
@@ -33,7 +34,9 @@ class BecomeTutorSignUp extends Component {
             dummyString: '',
             showSigninModal: false,
             allTutorData: [],
-            loading: false
+            loading: false,
+            site_key: CAPTCHA_SITE_KEY,
+            captchaRef: React.createRef()
         };
         this.validator = new SimpleReactValidator({
             messages: {
@@ -66,12 +69,13 @@ class BecomeTutorSignUp extends Component {
             // }
         }
     }
-    handleSignUp = () => {
+    handleSignUp = async () => {
         if (this.validator.allValid() === false) {
             this.validator.showMessages();
             this.forceUpdate();
             return false;
         }
+        const token = await this.state.captchaRef.current.getValue();
         const { signUpForm } = this.state;
         this.setState({ loading: true });
         apiService.post('SIGNUP', {
@@ -86,8 +90,9 @@ class BecomeTutorSignUp extends Component {
             .then(response => {
                 if (response.Success) {
                     this.props.actions.showAlert({ message: "Tutor Account Created successfully. A verification link has been sent to your registered email account. Please verify your account , In order to use Osmos-ish Services", variant: "success" });
+                    this.state.captchaRef.current.reset();
                     history.push(`${PUBLIC_URL}/`);
-                }else{
+                } else {
                     this.props.actions.showAlert({ message: response.Message, variant: "error" });
                 }
                 this.setState({ loading: false });
@@ -109,7 +114,7 @@ class BecomeTutorSignUp extends Component {
                     if (response.Data !== null && Object.keys(response.Data).length > 0 && response.Data.ResultDataList.length > 0) {
                         this.setState({ allTutorData: JSON.parse(response.Data.ResultDataList[0].data) });
                     }
-                }else{
+                } else {
                     this.props.actions.showAlert({ message: response.Message, variant: "error" });
                 }
                 this.setState({ loading: false });
@@ -172,12 +177,12 @@ class BecomeTutorSignUp extends Component {
                         this.handleSignUp();
                         this.handleClose();
                     }
-                }else{
+                } else {
                     this.props.actions.showAlert({ message: response.Message, variant: "error" });
                 }
                 this.setState({ loading: false });
             },
-            (error) => {
+                (error) => {
                     this.setState({ loading: false });
                     if (signUpForm.isExternalSignUp === false) {
                         this.setState({ dummyString: signUpForm.email });
@@ -202,7 +207,7 @@ class BecomeTutorSignUp extends Component {
         history.push(`${PUBLIC_URL}/TutorProfile/${TutorId}`);
     }
     render() {
-        const { signUpForm, allTutorData, loading, dummyString } = this.state;
+        const { signUpForm, allTutorData, loading, dummyString, site_key, captchaRef } = this.state;
         const params = {
             spaceBetween: 5,
             slidesPerView: 4,
@@ -306,7 +311,7 @@ class BecomeTutorSignUp extends Component {
                                                     <input type="checkbox" name="ageConfirmation" checked={signUpForm.ageConfirmation}
                                                         onChange={this.handleChange} /><span className="primary"></span>
                                                 </label> I understand that I must be at least 18 years old or have an adult create an account on my behalf in order to use Osmos-ish
-                                            {this.validator.message('ageConfirmation', signUpForm.ageConfirmation, 'required')}
+                                                {this.validator.message('ageConfirmation', signUpForm.ageConfirmation, 'required')}
                                             </div>
                                             <div className="form-group form-check inlineAlign">
                                                 <label className="checkbox">
@@ -317,13 +322,16 @@ class BecomeTutorSignUp extends Component {
                                                     onClick={this.handleTermConditionNavigate}
                                                     className="link-button">
                                                     Terms & Conditions
-                                                        </button> and <button
+                                                </button> and <button
                                                     type="button"
                                                     onClick={this.handlePrivatePolicyNavigate}
                                                     className="link-button">
                                                     Privacy Policy
                                                 </button>
                                                 {this.validator.message('policyConfirmation', signUpForm.policyConfirmation, 'required')}
+                                            </div>
+                                            <div className='captchaDiv'>
+                                                <ReCAPTCHA sitekey={site_key} ref={captchaRef} />
                                             </div>
                                             <div className="form-button">
                                                 <button className="btn btn-blue logCss" onClick={this.handleSignUp}>Sign Up</button>
@@ -347,11 +355,11 @@ class BecomeTutorSignUp extends Component {
                                         <hr />
                                         <div className="signUp">
                                             <p>Already have an account?
-                            <button
+                                                <button
                                                     type="button"
                                                     className="link-button" onClick={() => this.isShowSignIn(true)}>
                                                     Log In
-                                    </button></p>
+                                                </button></p>
                                         </div>
                                     </div>
                                 </div>
@@ -362,30 +370,30 @@ class BecomeTutorSignUp extends Component {
                 {
                     allTutorData &&
                     <section className="expertTutor">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-md-12 col-sm-12 text-center">
-                                <h2 className="mb-5">Expert Tutors</h2>
-                            </div>
-                            <div className="col-sm-12">
-                                <Swiper {...params}>
-                                    {allTutorData.map((item, index) => (
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-md-12 col-sm-12 text-center">
+                                    <h2 className="mb-5">Expert Tutors</h2>
+                                </div>
+                                <div className="col-sm-12">
+                                    <Swiper {...params}>
+                                        {allTutorData.map((item, index) => (
 
-                                        <div className="etReview text-center" key={index}>
-                                            <div className="btImage">
-                                                <div className="etCircleImage">
-                                                    <button type="button" onClick={() => this.handleTutorDetails(item.TeacherId)} className="link-button"><img src={`${APP_URLS.API_URL}${item.ImageFile}`} alt="tutorImage" width="150" height="150" /></button>
+                                            <div className="etReview text-center" key={index}>
+                                                <div className="btImage">
+                                                    <div className="etCircleImage">
+                                                        <button type="button" onClick={() => this.handleTutorDetails(item.TeacherId)} className="link-button"><img src={`${APP_URLS.API_URL}${item.ImageFile}`} alt="tutorImage" width="150" height="150" /></button>
+                                                    </div>
                                                 </div>
+                                                <h4 onClick={() => this.handleTutorDetails(item.TeacherId)}>{item.Name}</h4>
+                                                <h6>Tutor</h6>
                                             </div>
-                                            <h4 onClick={() => this.handleTutorDetails(item.TeacherId)}>{item.Name}</h4>
-                                            <h6>Tutor</h6>
-                                        </div>
-                                    ))}
-                                </Swiper>
+                                        ))}
+                                    </Swiper>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </section>
+                    </section>
                 }
                 <SignIn showSignIn={this.state.showSigninModal} onSignInClose={this.isShowSignIn}></SignIn>
                 {

@@ -12,7 +12,7 @@ import DropdownDate from "react-dropdown-date";
 import TwilioVerification from "../../containers/common/Twilio";
 import Button from '@material-ui/core/Button';
 import DeleteProfileModal from "../../containers/common/DeleteProfileModal";
-
+import moment from "moment";
 // File Pond
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
@@ -75,7 +75,9 @@ class CreateTutor extends Component {
         affiliateCode: "",
         phoneNumberVerified: ""
       },
+      IsLockOut: false,
       showTwilio: false,
+      isVerificatoinClicked: false,
       coutriesOption: [],
       countriesList: [],
       loading: false,
@@ -85,7 +87,10 @@ class CreateTutor extends Component {
       affiliateMessgae: "",
       affiliateStatus: "",
       isAffiliateAvailable: false,
-      showDeleteModal: false
+      showDeleteModal: false,
+      verifyPhoneMsg: '',
+      showVerifyMsg: false,
+      isValidNumber: true
     };
     this.validator = new SimpleReactValidator({
       messages: {
@@ -145,7 +150,7 @@ class CreateTutor extends Component {
                 },
               });
             }
-          }else{
+          } else {
             this.props.actions.showAlert({ message: response.Message, variant: "error" });
           }
           this.setState({ loading: false, getDataInprogress: false });
@@ -208,6 +213,7 @@ class CreateTutor extends Component {
       // this.validator = new SimpleReactValidator();
     }
     this.setState({ tutorProfileData });
+    this.handleOnBlur(meta.name, tutorProfileData[meta.name]);
   };
 
   handleChange = (e) => {
@@ -237,6 +243,16 @@ class CreateTutor extends Component {
   };
 
   handlePhoneNumber = (value, country, e, formattedValue, invokedBy) => {
+    console.log(value, country, e, formattedValue);
+    let selCountryFormatLength = country.format.length;
+    let valueLength = formattedValue.length;
+
+    if (valueLength != selCountryFormatLength) {
+      this.setState({ isValidNumber: false })
+    } else {
+      this.setState({ isValidNumber: true })
+    }
+    console.log(formattedValue);
     const { tutorProfileData, verifiedPhoneNumber } = this.state;
     tutorProfileData[invokedBy] = formattedValue;
     if (verifiedPhoneNumber != formattedValue) {
@@ -248,15 +264,30 @@ class CreateTutor extends Component {
     this.setState({ tutorProfileData });
   };
 
+  // vailadtePhoneNumber = (value, country) => {
+  //   console.log(value, country, country.format.length);
+  //   if (value.match(/12345/)) {
+  //     return 'Invalid value: ' + value + ', ' + country.name;
+  //   } else if (value.match(/1234/)) {
+  //     return false;
+  //   } else {
+  //     return true;
+  //   }
+  // }
+
   addTags = (value, name) => {
-    const { tutorProfileData } = this.state;
-    tutorProfileData[name].push(value.charAt(0).toUpperCase() + value.slice(1));
-    this.setState({ tutorProfileData });
+    if (/^[a-zA-Z0-9 ]*[a-zA-Z ]+[a-zA-Z0-9 ]*$/.test(value)) {
+      const { tutorProfileData } = this.state;
+      tutorProfileData[name].push(value.charAt(0).toUpperCase() + value.slice(1));
+      this.setState({ tutorProfileData });
+      this.handleOnBlur(name, tutorProfileData[name]);
+    }
   };
   removeTags = (chip, index, name) => {
     const { tutorProfileData } = this.state;
     tutorProfileData[name].splice(index, 1);
     this.setState({ tutorProfileData });
+    this.handleOnBlur(name, tutorProfileData[name]);
   };
 
   handleFileUpload = (fileItems) => {
@@ -264,6 +295,7 @@ class CreateTutor extends Component {
     if (fileItems[0] && fileItems[0].fileType.search("image") > -1) {
       tutorProfileData.image = fileItems.map((fileItem) => fileItem.file);
       tutorProfileData.isImageUpdated = true;
+      this.converFileToBase64(tutorProfileData.image);
     } else {
       tutorProfileData.image = [];
       tutorProfileData.isImageUpdated = true;
@@ -271,10 +303,24 @@ class CreateTutor extends Component {
     this.setState({ tutorProfileData });
   };
 
+  converFileToBase64 = (file) => {
+    let that = this;
+    const { tutorProfileData } = this.state;
+    var reader = new FileReader();
+    reader.onloadend = function () {
+      tutorProfileData.base64file = reader.result
+      that.setState({ tutorProfileData });
+      that.handleOnBlur('imagefile', reader.result);
+    }
+    reader.readAsDataURL(file[0]);
+
+  }
+
   hadleDateChange = (date) => {
     const { tutorProfileData } = this.state;
     tutorProfileData["dateofbirth"] = formatDate(date);
     this.setState({ tutorProfileData });
+    this.handleOnBlur("dateofbirth", tutorProfileData["dateofbirth"]);
   };
 
   handleDeSelect = (value) => {
@@ -282,6 +328,7 @@ class CreateTutor extends Component {
       const { tutorProfileData } = this.state;
       tutorProfileData["dateofbirth"] = "";
       this.setState({ tutorProfileData });
+      this.handleOnBlur("dateofbirth", "");
     }
   };
 
@@ -292,6 +339,109 @@ class CreateTutor extends Component {
     this.setState({ showImage: false, tutorProfileData });
   };
 
+  handleOnBlur = (name, value, isPayPalPhone = false) => {
+    console.log(name, value);
+    var formData = new FormData();
+    const { tutorProfileData } = this.state;
+    tutorProfileData[name] = value;
+    this.setState({ tutorProfileData });
+    formData.append('Type', 'TEACHER');
+    formData.append('Id', this.props.auth.user.UserId);
+    formData.append('IsInterestOrDescription', ['description', 'interest'].includes(name));
+    formData.append('isPayPal', isPayPalPhone === true ? true : ['paypalAccountType', 'paypalAccount'].includes(name) ? true : false);
+    if (isPayPalPhone === true) {
+      formData.append('FieldName', 'paypalAccount');
+      formData.append('Value', tutorProfileData.paypalAccount);
+    } else {
+      formData.append('FieldName', name);
+      formData.append('Value', value);
+    }
+    this.updateData(formData, false, "UPDATESTUDENTORTEACHERPROFILE");
+  }
+  updateData = (dataToUpdate, isRedirect, endPoint = "UPDATETEACHERPROFILE") => {
+    this.setState({ loading: true });
+
+    apiService.postFile(endPoint, dataToUpdate).then(
+      (response) => {
+        if (response.Success) {
+          let data = response.Data;
+          if (data) {
+            this.validator = new SimpleReactValidator();
+            localStorageService.updateAuthUser(
+              data.FirstName,
+              data.LastName,
+              data.UserImage,
+              "tutor"
+            );
+            this.props.actions.loginSuccess(localStorageService.getUserDetail());
+            this.props.actions.changeUserMode("tutor");
+          }
+          this.props.actions.showAlert({
+            message: response.Message,
+            variant: "success",
+            open: false,
+          });
+          if (isRedirect) {
+            history.push(`${PUBLIC_URL}/TutorProfile/${this.state.tutorProfileData.teacherId}`);
+          } else {
+            this.setState({ loading: false });
+          }
+        } else {
+          this.props.actions.showAlert({ message: response.Message, variant: "error" });
+          console.log(this.state.tutorProfileData);
+        }
+        this.setState({ loading: false });
+      },
+      (error) =>
+        this.setState((prevState) => {
+          this.props.actions.showAlert({ message: error !== undefined ? error : 'Something went wrong please try again !!', variant: "error" });
+
+          this.setState({ loading: false });
+        })
+    );
+  }
+
+  phoneVerification = () => {
+    if (!this.state.isValidNumber) {
+      this.setState({ showVerifyMsg: true, verifyPhoneMsg: 'Please Enter valid Number' });
+      this.startCountDown();
+      return false;
+    }
+    this.setState({ loading: true });
+    const { tutorProfileData } = this.state;
+    apiService.post('VERIFYPHONE', {
+      "userId": this.props.auth.user.UserId,
+      "phoneNumber": tutorProfileData.phoneNumber
+    })
+      .then(response => {
+        if (response.Success) {
+          this.setState({ showVerifyMsg: true, verifyPhoneMsg: response.Message });
+        } else {
+          this.setState({ showVerifyMsg: true, verifyPhoneMsg: response.Message });
+        }
+        this.setState({ loading: false });
+        this.startCountDown();
+      },
+        (error) =>
+          this.setState((prevState) => {
+            this.props.actions.showAlert({ message: error !== undefined ? error : 'Something went wrong please try again !!', variant: "error" });
+            this.setState({ loading: false });
+          })
+      );
+  }
+
+  startCountDown() {
+    let countDown = 5; // 2 minutes in seconds
+
+    const interval = setInterval(() => {
+
+      if (--countDown < 0) {
+        clearInterval(interval);
+        this.setState({ showVerifyMsg: false, verifyPhoneMsg: '' })
+        // console.log('Time is up!');
+      }
+    }, 1000); // update the timer every second
+  }
   handleSubmit = (e) => {
     e.preventDefault();
     if (this.validator.allValid() === false) {
@@ -320,7 +470,7 @@ class CreateTutor extends Component {
         key === "languages"
       ) {
         formData.append(key, val.toString());
-      } else if (key === "description" || key === "instaProfile" || key === "linkedinProfile" ) {
+      } else if (key === "description" || key === "instaProfile" || key === "linkedinProfile") {
         formData.append(key, val !== null ? val : "");
       } else {
         formData.append(key, val);
@@ -347,7 +497,7 @@ class CreateTutor extends Component {
           history.push(
             `${PUBLIC_URL}/TutorProfile/${this.state.tutorProfileData.teacherId}`
           );
-        }else{
+        } else {
           this.props.actions.showAlert({ message: response.Message, variant: "error" });
         }
         this.setState({ loading: false });
@@ -360,6 +510,12 @@ class CreateTutor extends Component {
     );
   };
 
+  setLockStatus = (data) => {
+    console.log(data);
+    if (data != null) {
+      this.setState({ IsLockOut: data?.IsLockOut });
+    }
+  }
   // REsponse from twilio api
   setVerificationStatus = (status) => {
 
@@ -377,7 +533,11 @@ class CreateTutor extends Component {
   };
 
   showTwilioPopup = (status) => {
-    this.setState({ showTwilio: status });
+    console.log(moment(commonFunctions.getUtcDate));
+    this.setState({
+      isVerificatoinClicked: true,
+      showTwilio: status
+    });
   }
 
   validateAffiliateCode = () => {
@@ -405,7 +565,7 @@ class CreateTutor extends Component {
     this.setState({ showDeleteModal: !showDeleteModal });
   }
   render() {
-    const { tutorProfileData, coutriesOption, loading, getDataInprogress, showTwilio, affiliateMessgae, affiliateStatus, isAffiliateAvailable,showDeleteModal } = this.state;
+    const { tutorProfileData, coutriesOption, loading, getDataInprogress, isValidNumber, verifyPhoneMsg, showVerifyMsg, showTwilio, IsLockOut, isVerificatoinClicked, affiliateMessgae, affiliateStatus, isAffiliateAvailable, showDeleteModal } = this.state;
     const { auth } = this.props;
 
     let accountTypeOptions = [
@@ -440,7 +600,7 @@ class CreateTutor extends Component {
                           )}
                           {!this.state.showImage && (
                             <FilePond
-                            labelIdle='Drag & Drop Your
+                              labelIdle='Drag & Drop Your
                             <span className="filepond--label-action">Picture or Browse.
                             1:1 ratio, 5MB max size</span>'
                               allowMultiple={false}
@@ -473,11 +633,13 @@ class CreateTutor extends Component {
                             type="text"
                             className="form-control"
                             name="firstName"
+                            maxLength={50}
                             onChange={this.handleChange}
                             value={tutorProfileData.firstName}
-                            onBlur={() =>
+                            onBlur={(e) => {
                               this.validator.showMessageFor("firstName")
-                            }
+                              this.handleOnBlur(e.target.name, e.target.value)
+                            }}
                           />
                           {this.validator.message(
                             "First Name",
@@ -495,9 +657,10 @@ class CreateTutor extends Component {
                             name="lastName"
                             onChange={this.handleChange}
                             value={tutorProfileData.lastName}
-                            onBlur={() =>
+                            onBlur={(e) => {
                               this.validator.showMessageFor("lastName")
-                            }
+                              this.handleOnBlur(e.target.name, e.target.value)
+                            }}
                           />
                           {this.validator.message(
                             "Last Name",
@@ -533,17 +696,32 @@ class CreateTutor extends Component {
                         <div className="form-group padleft">
                           <label for="uname1">Phone</label>
                           <PhoneInput name="phoneNumber" country="us" className="form-control" value={tutorProfileData.phoneNumber} onChange={(value, country, e, formattedValue) => this.handlePhoneNumber(value, country, e, formattedValue, "phoneNumber")}
-                            onBlur={() => this.validator.showMessageFor("phoneNumber")} />
+                            isValid={() => isValidNumber}
+                            onBlur={() => {
+                              this.validator.showMessageFor("phoneNumber")
+                              this.phoneVerification()
+                            }} />
                           {this.validator.message("phoneNumber", tutorProfileData.phoneNumber, "required")}
-                          {(() => {
+                          {showVerifyMsg && <p>{verifyPhoneMsg}</p>}
+                          {/* {(() => {
                             if (tutorProfileData.phoneNumberVerified === "N") {
-                              return <div>Phone number not verified. <label className="verifyPhoneNumberLink" onClick={() => this.showTwilioPopup(true)}><u>Click here to verify.</u></label></div>
+                              return <div>Phone number not verified.
+                                {(() => {
+                                  if (IsLockOut) {
+                                    return <label className="lockOutMsg"> Please Try Later</label>
+                                  } else {
+                                    return <label className="verifyPhoneNumberLink " onClick={() => this.showTwilioPopup(true)}><u>Click here to verify.</u></label>
+                                  }
+                                })()
+                                }
+                              </div>
                             }
                             else {
                               return <label>Phone number verified</label>
+
                             }
 
-                          })()}
+                          })()} */}
                         </div>
                       </div>
                     </div>
@@ -737,9 +915,10 @@ class CreateTutor extends Component {
                             )}
                             onChange={this.handleSelectChange}
                             options={accountTypeOptions}
-                            onBlur={() =>
+                            onBlur={(e) => {
                               this.validator.showMessageFor("country")
-                            }
+                              // this.handleOnBlur(e.target.name, e.target.value)
+                            }}
                           />
                           {this.validator.message(
                             "Account Type",
@@ -755,7 +934,7 @@ class CreateTutor extends Component {
                               <Fragment>
                                 <label for="uname1" className="lightColor">
                                   Account Detail
-                              </label>
+                                </label>
                                 <PhoneInput
                                   name="paypalAccount"
                                   country="us"
@@ -770,8 +949,10 @@ class CreateTutor extends Component {
                                       "paypalAccount"
                                     )
                                   }
-                                  onBlur={() =>
+                                  onBlur={(e) => {
                                     this.validator.showMessageFor("paypalAccount")
+                                    this.handleOnBlur(e.target.name, e.target.value, true)
+                                  }
                                   }
                                 />
                                 {this.validator.message(
@@ -792,9 +973,10 @@ class CreateTutor extends Component {
                                 name="paypalAccount"
                                 onChange={this.handleChange}
                                 value={tutorProfileData.paypalAccount}
-                                onBlur={() =>
+                                onBlur={(e) => {
                                   this.validator.showMessageFor("paypalAccount")
-                                }
+                                  this.handleOnBlur(e.target.name, e.target.value)
+                                }}
                               />
                               {this.validator.message("Paypal Account", tutorProfileData.paypalAccount, "required|email")}
                             </Fragment>
@@ -822,11 +1004,10 @@ class CreateTutor extends Component {
                                 name="affiliateCode"
                                 onChange={this.handleChange}
                                 value={tutorProfileData.affiliateCode}
-                                onBlur={() =>
-                                  this.validator.showMessageFor(
-                                    "affiliateCode"
-                                  )
-                                }
+                                onBlur={(e) => {
+                                  this.validator.showMessageFor("affiliateCode")
+                                  this.handleOnBlur(e.target.name, e.target.value)
+                                }}
                                 disabled={isAffiliateAvailable}
 
                               />
@@ -836,7 +1017,7 @@ class CreateTutor extends Component {
                             {tutorProfileData.affiliateCode !== "" && isAffiliateAvailable === false &&
                               <Button variant="contained" color="primary" onClick={this.validateAffiliateCode} className="ml-2">
                                 Verify
-                          </Button>
+                              </Button>
                             }
                           </div>
                           <label className={affiliateStatus === true ? "stausValid" : "stausInValid"}>{affiliateMessgae}</label>
@@ -857,12 +1038,12 @@ class CreateTutor extends Component {
                           Save
                         </button>
                         <button
-                            className="btn btn-blue grey-button"
-                            type="button"
-                            onClick={() => this.showDeletePopup()}
-                          >
-                            Delete Account
-                          </button>
+                          className="btn btn-blue grey-button"
+                          type="button"
+                          onClick={() => this.showDeletePopup()}
+                        >
+                          Delete Account
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -881,7 +1062,7 @@ class CreateTutor extends Component {
             )}
           </div>
         </section>
-        <TwilioVerification showTwilioPoup={showTwilio} VerificationNumber={tutorProfileData.phoneNumber} onVerified={this.setVerificationStatus} onTwilioClose={this.showTwilioPopup}> </TwilioVerification>
+        <TwilioVerification showTwilioPoup={showTwilio} VerificationNumber={tutorProfileData.phoneNumber} onVerified={this.setVerificationStatus} onLockStatus={this.setLockStatus} onTwilioClose={this.showTwilioPopup}> </TwilioVerification>
         <DeleteProfileModal showModal={showDeleteModal} onDeleteProfileModalClose={this.showDeletePopup} teacherId={tutorProfileData.teacherId}></DeleteProfileModal>
       </Fragment>
     );

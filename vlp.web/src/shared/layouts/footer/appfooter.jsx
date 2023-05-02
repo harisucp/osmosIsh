@@ -34,7 +34,7 @@ class AppFooter extends Component {
     handleTermConditionNavigate = () => {
         history.push(`${PUBLIC_URL}/TermCondition`);
     }
-    handleNavigateTo = (path) =>{
+    handleNavigateTo = (path) => {
         history.push(`${PUBLIC_URL}/${path}`);
     }
 
@@ -53,7 +53,7 @@ class AppFooter extends Component {
                                 <div className="col-lg-5 col-md-12">
                                     <div className="footerDesc">
                                         <h5 className="lowerCase">Osmos-ish</h5>
-                                        
+
                                         <p>A live engagement platform connecting hosts and users with a built-in and easy-to-use payment integration. Hosts can set their own rates and schedule, while users can choose from a variety of subjects.</p>
                                     </div>
                                 </div>
@@ -61,8 +61,8 @@ class AppFooter extends Component {
                                     <div className="footerDesc">
                                         <h5>Company</h5>
                                         <ul>
-                                            <li><button type="button" className="link-button" onClick={()=>this.handleNavigateTo('')}><i className="fa fa-caret-right" aria-hidden="true"></i> Home</button></li>
-                                            <li><button type="button" className="link-button" onClick={()=>this.handleNavigateTo('ContactUs')}><i className="fa fa-caret-right" aria-hidden="true"></i> Contact Us</button></li>
+                                            <li><button type="button" className="link-button" onClick={() => this.handleNavigateTo('')}><i className="fa fa-caret-right" aria-hidden="true"></i> Home</button></li>
+                                            <li><button type="button" className="link-button" onClick={() => this.handleNavigateTo('ContactUs')}><i className="fa fa-caret-right" aria-hidden="true"></i> Contact Us</button></li>
                                             <li><a className="link-button" href="/blog"><i className="fa fa-caret-right" aria-hidden="true"></i> Blog</a></li>
 
                                         </ul>
@@ -72,9 +72,9 @@ class AppFooter extends Component {
                                     <div className="footerDesc">
                                         <h5>How it Works</h5>
                                         <ul>
-                                            <li><button type="button" className="link-button" onClick={()=>this.handleNavigateTo('HowItwork')}><i className="fa fa-caret-right" aria-hidden="true"></i> How It Works</button></li>
-                                            <li><button type="button" className="link-button" onClick={()=>this.handleNavigateTo('Faq/Hosts')}><i className="fa fa-caret-right" aria-hidden="true"></i> FAQ</button></li>
-                                            <li><button type="button" className="link-button" onClick={()=>this.handleNavigateTo('Faq/affiliateProgram')}><i className="fa fa-caret-right" aria-hidden="true"></i> Affiliate Program</button></li>  
+                                            <li><button type="button" className="link-button" onClick={() => this.handleNavigateTo('HowItwork')}><i className="fa fa-caret-right" aria-hidden="true"></i> How It Works</button></li>
+                                            <li><button type="button" className="link-button" onClick={() => this.handleNavigateTo('Faq/Hosts')}><i className="fa fa-caret-right" aria-hidden="true"></i> FAQ</button></li>
+                                            {/* <li><button type="button" className="link-button" onClick={()=>this.handleNavigateTo('Faq/affiliateProgram')}><i className="fa fa-caret-right" aria-hidden="true"></i> Affiliate Program</button></li>   */}
                                         </ul>
                                     </div>
                                 </div>
@@ -87,7 +87,7 @@ class AppFooter extends Component {
                                         </div> */}
                                         <div className="socialLinks">
                                             <ul className="d-flex">
-                                                <li><a href="https://www.instagram.com/osmos.ish/" title="Instagram"><img width="20" height="20"  src={require("../../../assets/images/insta-image.png")} className="instaImage" alt="insta-image"></img></a></li>
+                                                <li><a href="https://www.instagram.com/osmos.ish/" title="Instagram"><img width="20" height="20" src={require("../../../assets/images/insta-image.png")} className="instaImage" alt="insta-image"></img></a></li>
                                                 <li><a href="https://www.facebook.com/osmosish" title="Facebook"><i className="fa fa-facebook"></i></a></li>
                                                 <li><a href="https://twitter.com/osmos_ish" title="Twitter"><i className="fa fa-twitter"></i></a></li>
                                                 <li><a href="https://www.pinterest.com/Osmosish/" title="Pinterest"><i className="fa fa-pinterest"></i></a></li>
@@ -152,7 +152,7 @@ class AppFooter extends Component {
                                     <ul>
                                         <li><button type="button" className="link-button" onClick={this.handleTermConditionNavigate}>Terms &amp; Conditions</button></li>
                                         <li>
-                                            <button type="button" className="link-button" onClick={this.handlePrivatePolicyNavigate}><img width="15" height="19"  src={require("../../../assets/images/privacy-policy_icon.png")} alt="image"></img> Privacy Policy</button>
+                                            <button type="button" className="link-button" onClick={this.handlePrivatePolicyNavigate}><img width="15" height="19" src={require("../../../assets/images/privacy-policy_icon.png")} alt="image"></img> Privacy Policy</button>
                                         </li>
                                     </ul>
                                 </div>
@@ -172,5 +172,5 @@ class AppFooter extends Component {
         )
     }
 }
-  
+
 export default AppFooter;

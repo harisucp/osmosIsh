@@ -230,7 +230,7 @@ class AppHeader extends Component {
                 variant: "error",
               });
             }
-          }else{
+          } else {
             this.props.actions.showAlert({ message: response.Message, variant: "error" });
           }
           this.setState({ loading: false });
@@ -274,7 +274,7 @@ class AppHeader extends Component {
   };
 
   handleChange = (e) => {
-    
+
     //this.setState({ searchText: e.target.value });
     this.props.actions.headerSearch(e.target.value);
   };
@@ -282,8 +282,7 @@ class AppHeader extends Component {
   handleFilterRecord = () => {
     this.props.actions.performSearch(true);
     console.log(history.location.pathname);
-    if(history.location.pathname != "/CourseSearch")
-    {
+    if (history.location.pathname != "/CourseSearch") {
       history.push(
         `${PUBLIC_URL}/CourseSearch`
       );
@@ -399,13 +398,13 @@ class AppHeader extends Component {
                     className="navbar-brand"
                     href={`${PUBLIC_URL === "" ? "/" : PUBLIC_URL}`}
                   >
-                    <img width="50" height="47" 
+                    <img width="50" height="47"
                       src={require("../../../assets/images/logo.png")}
                       alt="logo"
                     />
                     {
                       <span className="logoText">
-                        Osmos-ish 
+                        Osmos-ish
                         <strong className="text-danger">BETA</strong>
                       </span>
                     }
@@ -574,10 +573,10 @@ class AppHeader extends Component {
                             {" "}
                             FAQ
                           </MenuItem>
-                          <MenuItem onClick={() => this.handleRedirect("/Faq/affiliateProgram")}>
+                          {/* <MenuItem onClick={() => this.handleRedirect("/Faq/affiliateProgram")}>
                             {" "}
                             Affiliate Program
-                          </MenuItem>
+                          </MenuItem> */}
                         </Menu>
                       </>
                       {(() => {
@@ -587,17 +586,17 @@ class AppHeader extends Component {
                               <li className={`nav-item ${activeMenu === "Faq" ? "active" : ""} mobileMenu`} onClick={() => this.toggle("Faq")}                                  >
                                 <NavLink className="nav-link" to={`${PUBLIC_URL}/Faq/Hosts`}>
                                   Faq
-                                    </NavLink>
+                                </NavLink>
                               </li>
                               <li className={`nav-item ${activeMenu === "HowItwork" ? "active" : ""} mobileMenu`} onClick={() => this.toggle("HowItwork")}                                  >
                                 <NavLink className="nav-link" to={`${PUBLIC_URL}/HowItwork`}>
                                   How It Works
-                                   </NavLink>
+                                </NavLink>
                               </li>
                               <li className={`nav-item ${activeMenu === "AffiliateProgram" ? "active" : ""} mobileMenu`} onClick={() => this.toggle("AffiliateProgram")}                                  >
                                 <NavLink className="nav-link" to={`${PUBLIC_URL}/Faq/affiliateProgram`}>
                                   Affiliate Program
-                                   </NavLink>
+                                </NavLink>
                               </li>
 
 
@@ -942,17 +941,17 @@ class AppHeader extends Component {
                               <li className={`nav-item ${activeMenu === "Faq" ? "active" : ""} mobileMenu`} onClick={() => this.toggle("Faq")}                                  >
                                 <NavLink className="nav-link" to={`${PUBLIC_URL}/Faq/Hosts`}>
                                   Faq
-                                    </NavLink>
+                                </NavLink>
                               </li>
                               <li className={`nav-item ${activeMenu === "HowItwork" ? "active" : ""} mobileMenu`} onClick={() => this.toggle("HowItwork")}                                  >
                                 <NavLink className="nav-link" to={`${PUBLIC_URL}/HowItwork`}>
                                   How It Works
-                                   </NavLink>
+                                </NavLink>
                               </li>
                               <li className={`nav-item ${activeMenu === "AffiliateProgram" ? "active" : ""} mobileMenu`} onClick={() => this.toggle("AffiliateProgram")}                                  >
                                 <NavLink className="nav-link" to={`${PUBLIC_URL}/Faq/affiliateProgram`}>
                                   Affiliate Program
-                                   </NavLink>
+                                </NavLink>
                               </li>
 
                               <li
@@ -1019,7 +1018,7 @@ class AppHeader extends Component {
                                 onClick={() => this.isShowSignIn(true)}
                               >
                                 <a className="nav-link">
-                                  <img width="25" height="19" 
+                                  <img width="25" height="19"
                                     src={require("../../../assets/images/loginicon.png")}
                                   />
                                   Sign In
@@ -1030,7 +1029,7 @@ class AppHeader extends Component {
                                 onClick={() => this.isShowSignUp(true)}
                               >
                                 <a className="nav-link">
-                                  <img width="25" height="19" 
+                                  <img width="25" height="19"
                                     src={require("../../../assets/images/sign-up.png")}
                                   />
                                   Sign Up
@@ -1089,7 +1088,7 @@ const mapStateToProps = (state) => {
     auth: state.auth,
     cart: state.cart,
     userMode: state.auth.userMode,
-    search : state.common.search
+    search: state.common.search
 
   };
 };

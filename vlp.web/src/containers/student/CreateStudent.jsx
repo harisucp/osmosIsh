@@ -62,7 +62,11 @@ class CreateStudent extends Component {
       showImage: false,
       showTwilio: false,
       verifiedPhoneNumber: "",
-      showDeleteModal: false
+      showDeleteModal: false,
+      IsLockOut: false,
+      verifyPhoneMsg: '',
+      showVerifyMsg: false,
+      isValidNumber: true
     };
     this.validator = new SimpleReactValidator();
   }
@@ -71,7 +75,12 @@ class CreateStudent extends Component {
   };
 
   //API calls------------------------------------------------------
-
+  setLockStatus = (data) => {
+    console.log(data);
+    if (data != null) {
+      this.setState({ IsLockOut: data?.IsLockOut });
+    }
+  }
   getStudentDetail = () => {
     this.setState({ loading: true });
     apiService
@@ -128,7 +137,7 @@ class CreateStudent extends Component {
                 verifiedPhoneNumber: studentDetail.PhoneNumberVerified === "Y" ? studentDetail.PhoneNumber : "",
               });
             }
-          }else{
+          } else {
             this.props.actions.showAlert({ message: response.Message, variant: "error" });
           }
           this.setState({ loading: false });
@@ -193,9 +202,18 @@ class CreateStudent extends Component {
     const { studentProfileData, countriesList } = this.state;
     studentProfileData[meta.name] = opt.value;
     this.setState({ studentProfileData });
+    this.handleOnBlur(meta.name, studentProfileData[meta.name]);
   };
 
   handlePhoneNumber = (value, country, e, formattedValue) => {
+    let selCountryFormatLength = country.format.length;
+    let valueLength = formattedValue.length;
+
+    if (valueLength != selCountryFormatLength) {
+      this.setState({ isValidNumber: false })
+    } else {
+      this.setState({ isValidNumber: true })
+    }
     const { studentProfileData, verifiedPhoneNumber } = this.state;
     if (verifiedPhoneNumber != formattedValue) {
       studentProfileData["phoneNumberVerified"] = "N";
@@ -205,35 +223,86 @@ class CreateStudent extends Component {
     }
     studentProfileData["phoneNumber"] = formattedValue;
     this.setState({ studentProfileData });
+    // this.handleOnBlur("phoneNumber", formattedValue);
   };
 
+  phoneVerification = () => {
+    if (!this.state.isValidNumber) {
+      this.setState({ showVerifyMsg: true, verifyPhoneMsg: 'Please Enter valid Number' });
+      this.startCountDown();
+      return false;
+    }
+    this.setState({ loading: true });
+    const { studentProfileData } = this.state;
+    apiService.post('VERIFYPHONE', {
+      "userId": this.props.auth.user.UserId,
+      "phoneNumber": studentProfileData.phoneNumber
+    })
+      .then(response => {
+        if (response.Success) {
+          this.setState({ showVerifyMsg: true, verifyPhoneMsg: response.Message });
+        } else {
+          this.setState({ showVerifyMsg: true, verifyPhoneMsg: response.Message });
+        }
+        this.setState({ loading: false });
+        this.startCountDown();
+      },
+        (error) =>
+          this.setState((prevState) => {
+            this.props.actions.showAlert({ message: error !== undefined ? error : 'Something went wrong please try again !!', variant: "error" });
+            this.setState({ loading: false });
+          })
+      );
+  }
+
+  startCountDown() {
+    let countDown = 5; // 2 minutes in seconds
+
+    const interval = setInterval(() => {
+
+      if (--countDown < 0) {
+        clearInterval(interval);
+        this.setState({ showVerifyMsg: false, verifyPhoneMsg: '' })
+        // console.log('Time is up!');
+      }
+    }, 1000); // update the timer every second
+  }
   handleChange = (e) => {
     const { studentProfileData } = this.state;
     studentProfileData[e.target.name] = e.target.value;
     this.setState({ studentProfileData });
   };
 
-  handleOnBlur = (e) => {
+  handleOnBlur = (name, value) => {
+    console.log(name, { value });
     var formData = new FormData();
     const { studentProfileData } = this.state;
-    studentProfileData[e.target.name] = e.target.value;
+    studentProfileData[name] = value;
     this.setState({ studentProfileData });
-    formData.append('studentId', studentProfileData.studentId);
-    formData.append(e.target.name, e.target.value);
-    this.updateData(formData, false);
+    formData.append('Type', 'STUDENT');
+    formData.append('Id', this.props.auth.user.UserId);
+    formData.append('IsInterestOrDescription', ['description', 'interest'].includes(name));
+    formData.append('FieldName', name);
+    formData.append('Value', value);
+    this.updateData(formData, false, "UPDATESTUDENTORTEACHERPROFILE");
   }
   addTags = (value, name) => {
-    const { studentProfileData } = this.state;
-    studentProfileData[name].push(
-      value.charAt(0).toUpperCase() + value.slice(1)
-    );
-    this.setState({ studentProfileData });
+    if (/^[a-zA-Z0-9 ]*[a-zA-Z ]+[a-zA-Z0-9 ]*$/.test(value)) {
+      const { studentProfileData } = this.state;
+      studentProfileData[name].push(
+        value.charAt(0).toUpperCase() + value.slice(1)
+      );
+      this.setState({ studentProfileData });
+      this.handleOnBlur(name, studentProfileData[name]);
+    }
   };
 
   removeTags = (chip, index, name) => {
     const { studentProfileData } = this.state;
     studentProfileData[name].splice(index, 1);
     this.setState({ studentProfileData });
+    this.handleOnBlur(name, studentProfileData[name]);
+
   };
 
   handleFileUpload = (fileItems) => {
@@ -241,17 +310,34 @@ class CreateStudent extends Component {
     if (fileItems[0] && fileItems[0].fileType.search("image") > -1) {
       studentProfileData.image = fileItems.map((fileItem) => fileItem.file);
       studentProfileData.isImageUpdated = true;
+      this.converFileToBase64(studentProfileData.image);
     } else {
       studentProfileData.image = [];
       studentProfileData.isImageUpdated = true;
     }
     this.setState({ studentProfileData });
+
+
   };
+
+  converFileToBase64 = (file) => {
+    let that = this;
+    const { studentProfileData } = this.state;
+    var reader = new FileReader();
+    reader.onloadend = function () {
+      studentProfileData.base64file = reader.result
+      that.setState({ studentProfileData });
+      that.handleOnBlur('imagefile', reader.result);
+    }
+    reader.readAsDataURL(file[0]);
+
+  }
 
   hadleDateChange = (date) => {
     const { studentProfileData } = this.state;
     studentProfileData["dateofbirth"] = formatDate(date);
     this.setState({ studentProfileData });
+    this.handleOnBlur("dateofbirth", studentProfileData["dateofbirth"]);
   };
 
   handleDeSelect = (value) => {
@@ -259,6 +345,7 @@ class CreateStudent extends Component {
       const { studentProfileData } = this.state;
       studentProfileData["dateofbirth"] = "";
       this.setState({ studentProfileData });
+      this.handleOnBlur("dateofbirth", "");
     }
   };
 
@@ -275,8 +362,11 @@ class CreateStudent extends Component {
       this.props.actions.showAlert({ message: "Please verify your phone number.", variant: "error" });
       return false;
     }
+    console.log(this.state.studentProfileData);
+
     var formData = new FormData();
     Object.entries(this.state.studentProfileData).map(function ([key, val]) {
+      console.log(key, val);
       if (key === "image" && val !== null) {
         formData.append(key, val[0]);
       } else if (
@@ -294,33 +384,36 @@ class CreateStudent extends Component {
     this.updateData(formData, true);
   };
 
-  updateData = (dataToUpdate, isRedirect) => {
+  updateData = (dataToUpdate, isRedirect, endPoint = "UPDATESTUDENTPROFILE") => {
     this.setState({ loading: true });
 
-    apiService.postFile("UPDATESTUDENTPROFILE", dataToUpdate).then(
+    apiService.postFile(endPoint, dataToUpdate).then(
       (response) => {
         if (response.Success) {
           let data = response.Data;
-          this.validator = new SimpleReactValidator();
-          localStorageService.updateAuthUser(
-            data.FirstName,
-            data.LastName,
-            data.UserImage
-          );
-          this.props.actions.loginSuccess(localStorageService.getUserDetail());
-          this.props.actions.changeUserMode("student");
+          if (data) {
+            this.validator = new SimpleReactValidator();
+            localStorageService.updateAuthUser(
+              data.FirstName,
+              data.LastName,
+              data.UserImage
+            );
+            this.props.actions.loginSuccess(localStorageService.getUserDetail());
+            this.props.actions.changeUserMode("student");
+          }
           this.props.actions.showAlert({
             message: response.Message,
             variant: "success",
             open: false,
           });
-          if(isRedirect){
+          if (isRedirect) {
             history.push(`${PUBLIC_URL}/StudentDashboard`);
-          }else{
+          } else {
             this.setState({ loading: false });
           }
-        }else{
+        } else {
           this.props.actions.showAlert({ message: response.Message, variant: "error" });
+          console.log(this.state.studentProfileData);
         }
         this.setState({ loading: false });
       },
@@ -358,7 +451,7 @@ class CreateStudent extends Component {
     this.setState({ showDeleteModal: !showDeleteModal });
   }
   render() {
-    const { studentProfileData, coutriesOption, loading, showTwilio, showDeleteModal } = this.state;
+    const { studentProfileData, coutriesOption, loading, showTwilio, showDeleteModal, IsLockOut, isValidNumber, verifyPhoneMsg, showVerifyMsg } = this.state;
     return (
       <Fragment>
         <section className="series-Session">
@@ -378,7 +471,7 @@ class CreateStudent extends Component {
                                 onClick={this.ChangeImage}
                               >
                                 {" "}
-                                <img width="" height="" 
+                                <img width="" height=""
                                   src={studentProfileData.image}
                                   alt="image"
                                 />
@@ -416,12 +509,13 @@ class CreateStudent extends Component {
                               type="text"
                               className="form-control"
                               name="firstName"
+                              maxLength={50}
                               onChange={this.handleChange}
                               value={studentProfileData.firstName}
                               onBlur={(e) => {
-                                  this.validator.showMessageFor("firstName")
-                                  // this.handleOnBlur(e)
-                                }
+                                this.validator.showMessageFor("firstName")
+                                this.handleOnBlur(e.target.name, e.target.value)
+                              }
                               }
                             />
                             {this.validator.message(
@@ -438,13 +532,14 @@ class CreateStudent extends Component {
                               type="text"
                               className="form-control"
                               name="lastName"
+                              maxLength={50}
                               onChange={this.handleChange}
                               value={studentProfileData.lastName}
                               onBlur={(e) => {
                                 this.validator.showMessageFor("lastName");
-                                // this.handleOnBlur(e)
+                                this.handleOnBlur(e.target.name, e.target.value)
                               }
-                                
+
                               }
                             />
                             {this.validator.message(
@@ -468,9 +563,8 @@ class CreateStudent extends Component {
                               onChange={this.handleCountryChange}
                               options={coutriesOption}
                               onBlur={(e) => {
-                                  this.validator.showMessageFor("country");
-                                  // this.handleOnBlur(e);
-                                }
+                                this.validator.showMessageFor("country");
+                              }
                               }
                             />
                             {this.validator.message(
@@ -503,10 +597,11 @@ class CreateStudent extends Component {
                                     formattedValue
                                   )
                                 }
+                                isValid={() => isValidNumber}
                                 onBlur={(e) => {
-                                    this.validator.showMessageFor("phoneNumber");
-                                    // this.handleOnBlur(e);
-                                  }
+                                  this.validator.showMessageFor("phoneNumber");
+                                  this.phoneVerification()
+                                }
                                 }
                               />
                             </div>
@@ -515,14 +610,25 @@ class CreateStudent extends Component {
                               studentProfileData.phoneNumber,
                               "required"
                             )}
-                            {(() => {
+                            {showVerifyMsg && <p>{verifyPhoneMsg}</p>}
+                            {/* {(() => {
                               if (studentProfileData.phoneNumberVerified === "N") {
-                                return <div>Phone number not verified. <label className="verifyPhoneNumberLink" onClick={() => this.showTwilioPopup(true)}><u>Click here to verify.</u></label></div>
+                                return <div>Phone number not verified.
+                                  {(() => {
+                                    if (IsLockOut) {
+                                      return <label className="lockOutMsg"> Please Try Later</label>
+                                    } else {
+                                      return <label className="verifyPhoneNumberLink" onClick={() => this.showTwilioPopup(true)}><u>Click here to verify.</u></label>
+                                    }
+                                  })()
+                                  }
+
+                                </div>
                               }
                               else {
                                 return <label>Phone number verified</label>
                               }
-                            })()}
+                            })()} */}
 
                           </div>
                         </div>
@@ -628,6 +734,9 @@ class CreateStudent extends Component {
                               value={studentProfileData.description}
                               name="description"
                               onChange={this.handleChange}
+                              onBlur={(e) => {
+                                this.handleOnBlur(e.target.name, e.target.value)
+                              }}
                               placeholder="Description"
                             ></textarea>
                           </div>
@@ -675,7 +784,7 @@ class CreateStudent extends Component {
             )}
           </div>
         </section>
-        <TwilioVerification showTwilioPoup={showTwilio} VerificationNumber={studentProfileData.phoneNumber} onVerified={this.setVerificationStatus} onTwilioClose={this.showTwilioPopup}> </TwilioVerification>
+        <TwilioVerification showTwilioPoup={showTwilio} VerificationNumber={studentProfileData.phoneNumber} onVerified={this.setVerificationStatus} onLockStatus={this.setLockStatus} onTwilioClose={this.showTwilioPopup}> </TwilioVerification>
         <DeleteProfileModal showModal={showDeleteModal} onDeleteProfileModalClose={this.showDeletePopup} studentId={studentProfileData.studentId}></DeleteProfileModal>
       </Fragment>
     );

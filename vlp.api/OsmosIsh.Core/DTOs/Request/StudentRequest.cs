@@ -46,6 +46,8 @@ namespace OsmosIsh.Core.DTOs.Request
         [DefaultValue("true")]
         public bool IsInterestOrDescription { get; set; }
 
+        public bool IsPayPal { get; set; }
+
     }
     public class CreateStudentRequest
     {

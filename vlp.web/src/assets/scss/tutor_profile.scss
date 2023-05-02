@@ -243,6 +243,13 @@
 	}
 }
 
+.react-tel-input {
+	&.form-control {
+		padding: 0 !important;
+		border: 0 !important;
+	}
+}
+
 .rightSideBar {
 
 	h3 {
@@ -261,7 +268,7 @@
 
 .studentFeedback {
 	padding: 40px 0;
-	width:100%;
+	width: 100%;
 
 	.reviewsTitle {
 		margin: 0 0 30px 0;
@@ -274,9 +281,11 @@
 		margin-bottom: 20px;
 		padding-bottom: 10px;
 		border-bottom: 1px solid #eee;
-			@media(max-width: 767px){
-				flex-flow: wrap;
-			}
+
+		@media(max-width: 767px) {
+			flex-flow: wrap;
+		}
+
 		.reviewImage {
 			padding: 0 30px 0 0;
 
@@ -293,19 +302,23 @@
 			h5 {
 				margin: 0 0 5px 0;
 			}
-			.postedDate{
+
+			.postedDate {
 				font-size: 12px;
 				color: #8d8d8d;
-				margin-top:5px;
+				margin-top: 5px;
 			}
-			.MuiRating-root{
+
+			.MuiRating-root {
 				margin-left: 5px;
 			}
 		}
 	}
 }
+
 .contentPostDate {
 	font-size: 13px;
+
 	time {
 		font-weight: 600;
 	}
@@ -351,12 +364,14 @@
 .statsBlock {
 	width: 30%;
 	margin: 0 0 11px 0;
-	color: #1c3b50;	
-	@media(max-width:991px){
+	color: #1c3b50;
+
+	@media(max-width:991px) {
 		width: 50%;
 		text-align: left;
 	}
-	@media(max-width:480px){
+
+	@media(max-width:480px) {
 		width: 100%;
 	}
 }

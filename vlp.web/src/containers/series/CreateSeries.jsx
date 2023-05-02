@@ -18,6 +18,7 @@ import { confirmAlert } from 'react-confirm-alert';
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import { FilePond, registerPlugin } from "react-filepond";
 import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
+import FilePondPluginImageValidateSize from 'filepond-plugin-image-validate-size';
 import "filepond/dist/filepond.min.css";
 import { APP_URLS } from "../../config/api.config";
 //-- Datetime Picker
@@ -29,12 +30,12 @@ import "rc-time-picker/assets/index.css";
 import TimePicker from "rc-time-picker";
 import { localStorageService } from "../../services/localStorageService";
 import SessionSeriesPreview from "../common/SessionSeriesPreview";
-registerPlugin(FilePondPluginFileValidateType);
+registerPlugin(FilePondPluginFileValidateType, FilePondPluginImageValidateSize);
 class CreateSeries extends Component {
   constructor(props) {
     super(props);
     let { auth, match } = this.props;
-    
+
     this.state = {
       seriesData: {
         seriesId: match.params.SeriesId > 0 ? match.params.SeriesId : -1,
@@ -56,7 +57,7 @@ class CreateSeries extends Component {
         selectedWeekDays: [],
         actionPerformedBy: auth.user.FirstName,
         isImageUpdated: false,
-        copySeriesId:0
+        copySeriesId: 0
       },
       seriesCategories: [],
       seriesDetail: [],
@@ -66,7 +67,8 @@ class CreateSeries extends Component {
       showImage: false,
       previewData: {},
       showPreviewData: false,
-      copySeries: match.params.copyseries === "true" ? true : false
+      copySeries: match.params.copyseries === "true" ? true : false,
+      showRatioError: false
     };
     this.validator = new SimpleReactValidator({
       messages: {
@@ -173,7 +175,7 @@ class CreateSeries extends Component {
         if (response.Success) {
           if (response.Data !== null && Object.keys(response.Data).length > 0 && response.Data.ResultDataList.length > 0) {
             let seriesDetail = response.Data.ResultDataList[0];
-            const { seriesData,copySeries } = this.state;
+            const { seriesData, copySeries } = this.state;
             this.setState({
               seriesData: {
                 ...seriesData,
@@ -183,7 +185,7 @@ class CreateSeries extends Component {
                 description: seriesDetail.Description,
                 agenda: seriesDetail.Agenda,
                 image: seriesDetail.Image ? APP_URLS.API_URL + seriesDetail.Image : null,
-                copySeriesId:copySeries?seriesData.seriesId:0,
+                copySeriesId: copySeries ? seriesData.seriesId : 0,
                 video: seriesDetail.Video,
                 numberOfJoineesAllowed: Number(seriesDetail.NumberOfJoineesAllowed),
                 seriesFee: Number(seriesDetail.SeriesFee),
@@ -203,7 +205,7 @@ class CreateSeries extends Component {
               }
             });
           }
-        }else{
+        } else {
           this.props.actions.showAlert({ message: response.Message, variant: "error" });
         }
         this.setState({ loading: false });
@@ -220,7 +222,7 @@ class CreateSeries extends Component {
       );
   };
   preValidateCreateSeries = () => {
-    
+
     if (this.validator.allValid() === false) {
       this.validator.showMessages();
       this.forceUpdate();
@@ -251,8 +253,8 @@ class CreateSeries extends Component {
 
   }
 
-  cancelPreview = () =>{
-    this.setState({showPreviewData: false, previewData: {}})
+  cancelPreview = () => {
+    this.setState({ showPreviewData: false, previewData: {} })
   }
 
   showPreview = () => {
@@ -270,7 +272,7 @@ class CreateSeries extends Component {
         typeof (val) !== "undefined" &&
         val.length > 0
       ) {
-        
+
         formData[key] = val[0];
       } else if (key === "duration") {
         var d = new Date(moment(val).format("MM/DD/YYYY hh:mm A"));
@@ -278,7 +280,7 @@ class CreateSeries extends Component {
         formData[key] = minutes;
       } else if (key === "startDateTime") {
         // formData.append(key, commonFunctions.convertToFormattedUtc(val, "YYYY-MM-DD hh:mm A"));
-        formData[key] = 
+        formData[key] =
           moment
             .tz(
               moment(val).format("MM/DD/YYYY h:mm:ss A"),
@@ -293,14 +295,14 @@ class CreateSeries extends Component {
         formData[key] = val;
       }
     });
-    
+
     const userInfo = localStorageService.getUserDetail();
     const newFormData = {
       SessionId: null,
       SeriesId: formData.seriesId,
       Title: formData.seriesTitle,
       Description: formData.description,
-      Name: userInfo["FirstName"]  +" "+ userInfo["LastName"],
+      Name: userInfo["FirstName"] + " " + userInfo["LastName"],
       TeacherId: formData.teacherId,
       ImageFile: seriesData.base64file || seriesData.image,
       TeacherImageFile: userInfo.UserImage,
@@ -313,7 +315,7 @@ class CreateSeries extends Component {
       Rating: 0,
       RatingCount: 0,
     }
-    this.setState({previewData: newFormData, showPreviewData: true})
+    this.setState({ previewData: newFormData, showPreviewData: true })
   }
 
   createSeries = () => {
@@ -371,6 +373,7 @@ class CreateSeries extends Component {
       }
     });
     this.setState({ loading: true });
+    console.log(formData);
     apiService.postFile("CREATESERIES", formData).then(
       (response) => {
         if (response.Success) {
@@ -379,7 +382,7 @@ class CreateSeries extends Component {
             variant: "success",
           });
           history.push(`${PUBLIC_URL}/TutorDashBoard`);
-        }else{
+        } else {
           this.props.actions.showAlert({ message: response.Message, variant: "error" });
         }
         this.setState({ loading: false });
@@ -403,9 +406,11 @@ class CreateSeries extends Component {
   handleTextChange = (e) => {
     console.log(e.target.value);
     const { seriesData } = this.state;
-    if (e.target.name === "seriesTitle") {
-      seriesData[e.target.name] =
-        e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1);
+    if (e.target.name === "seriesTitle" && e.target.value != '') {
+      if (/^[a-zA-Z0-9 ]*[a-zA-Z ]+[a-zA-Z0-9 ]*$/.test(e.target.value)) {
+        seriesData[e.target.name] =
+          e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1);
+      }
     } else if (e.target.name === "seriesFee") {
       seriesData[e.target.name] =
         e.target.value !== "" ? Number(e.target.value) : "";
@@ -481,35 +486,86 @@ class CreateSeries extends Component {
   };
 
   handleFileUpload = (fileItems) => {
-    let { seriesData, isVideoUpdated, isImageUpdated } = this.state;
-    if (fileItems[0] && fileItems[0].fileType.search("image") > -1) {
-      seriesData.image = fileItems.map((fileItem) => fileItem.file);
-      seriesData.video = [];
-      this.converFileToBase64(seriesData.image);
-    } else if (fileItems[0] && fileItems[0].fileType.search("video") > -1) {
-      seriesData.video = fileItems.map((fileItem) => fileItem.file);
-      seriesData.image = [];
-    } else {
-      seriesData.image = [];
-      seriesData.video = [];
+    // console.log(fileItems);
+    if (!this.state.showRatioError) {
+      let { seriesData, isVideoUpdated, isImageUpdated } = this.state;
+      if (fileItems[0] && fileItems[0].fileType.search("image") > -1) {
+        seriesData.image = fileItems.map((fileItem) => fileItem.file);
+        seriesData.video = [];
+        // this.converFileToBase64(seriesData.image);
+      } else if (fileItems[0] && fileItems[0].fileType.search("video") > -1) {
+        seriesData.video = fileItems.map((fileItem) => fileItem.file);
+        seriesData.image = [];
+      } else {
+        seriesData.image = [];
+        seriesData.video = [];
+      }
+      this.setState({ seriesData });
     }
-    this.setState({ seriesData });
+
   };
 
-  converFileToBase64 = (file)=> {
+  checkImageRatio = (fileItem) => {
     let that = this;
-    const {seriesData} = this.state;
-        var reader = new FileReader();
-        reader.onloadend = function() {
-          seriesData.base64file = reader.result
-          that.setState({seriesData});
+    var reader = new FileReader();
+    reader.readAsDataURL(fileItem.file);
+    reader.onloadend = function () {
+      //Initiate the JavaScript Image object.
+      var image = new Image();
+
+      //Set the Base64 string return from FileReader as source.
+      image.src = reader.result;
+      //Validate the File Height and Width.
+      image.onload = function () {
+        var height = this.height;
+        var width = this.width;
+        var ratio = height / width;
+        console.log(ratio);
+        if (ratio > 0.6 && ratio < 0.7) {
+          return true;
+        } else {
+          that.setState({
+            showRatioError: true
+          })
+          return false;
         }
-        reader.readAsDataURL(file[0]);
+
+      };
+    }
+
   }
-  addChip = (value, name) => {
+  converFileToBase64 = (file) => {
+    console.log(file);
+    let that = this;
+    let imageFile = file[0];
     const { seriesData } = this.state;
-    seriesData[name].push(value.charAt(0).toUpperCase() + value.slice(1));
-    this.setState({ seriesData });
+    var reader = new FileReader();
+    reader.onloadend = function () {
+      seriesData.base64file = reader.result
+      that.setState({ seriesData });
+    }
+    if (imageFile) {
+      reader.readAsDataURL(imageFile);
+    }
+  }
+
+  // converFileToBase64 = (file) => {
+  //   let that = this;
+  //   const { sessionData } = this.state;
+  //   var reader = new FileReader();
+  //   reader.onloadend = function () {
+  //     sessionData.base64file = reader.result
+  //     that.setState({ sessionData });
+  //   }
+  //   reader.readAsDataURL(file[0]);
+  // }
+  addChip = (value, name) => {
+    if (/^[a-zA-Z0-9 ]*[a-zA-Z ]+[a-zA-Z0-9 ]*$/.test(value)) {
+      const { seriesData } = this.state;
+      seriesData[name].push(value.charAt(0).toUpperCase() + value.slice(1));
+      this.setState({ seriesData });
+    }
+
   };
 
   removeChip = (chip, index, name) => {
@@ -637,7 +693,7 @@ class CreateSeries extends Component {
                               <span className="closeButton">
                                 <i class="fa fa-times" aria-hidden="true"></i>
                               </span>
-                              <img width="" height=""  src={seriesData.image} alt="image" />
+                              <img width="" height="" src={seriesData.image} alt="image" />
                             </div>
                           )}
                           {!this.state.showImage && (
@@ -651,7 +707,12 @@ class CreateSeries extends Component {
                               maxFileSize="5MB"
                               labelMaxFileSize="File types allowed: JPG,PNG"
                               labelMaxFileSizeExceeded="Maximum file size is 5MB."
+                              imagePreviewFilterItem={this.checkImageRatio}
                             />)
+                          }
+                          {(!this.state.showImage && this.state.showRatioError) && (
+                            <p className="text-danger">Please Try to upload 3:2 ratio Image for Cover</p>
+                          )
                           }
                         </div>
                       </div>
@@ -731,11 +792,11 @@ class CreateSeries extends Component {
                           <div className="form-control commonInputField">
                             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                               <DateTimePicker
-                               autoOk={true}
+                                autoOk={true}
                                 variant="inline"
                                 inputVariant="outlined"
                                 minDate={new Date()}
-                                minutesStep={15}
+                                minutesStep={5}
                                 value={seriesData.startDateTime}
                                 onChange={(value) => this.handleDateControls(value, "startDateTime")}
                                 format="MM/dd/yyyy hh:mm a"
@@ -755,7 +816,7 @@ class CreateSeries extends Component {
                           <label htmlFor="uname1">Duration of each class</label>
                           <TimePicker
                             showSecond={false}
-                            minuteStep={15}
+                            minuteStep={5}
                             value={seriesData.duration}
                             style={{ width: "100%" }}
                             onChange={this.handleDurationChange}

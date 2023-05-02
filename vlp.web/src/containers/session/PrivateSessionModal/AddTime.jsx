@@ -6,14 +6,12 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const AddHours = ({ list, day_index, handleRemoveClick, handleAddHours, handleChange }) => {
     let array = list;
-    
     if (array) {
-        return ( 
+        return (
             <div>
-                { array.map((x, i) => {
-                    let StartTime = moment(new Date(`1999-09-09 ${x['Start']}`.replace(/-/g,"/")));
-                    let EndTime = moment(new Date(`1999-09-09 ${x['End']}`.replace(/-/g,"/")));
-                    console.log(StartTime); 
+                {array.map((x, i) => {
+                    let StartTime = moment(new Date(`1999-09-09 ${x['Start']}`.replace(/-/g, "/")));
+                    let EndTime = moment(new Date(`1999-09-09 ${x['End']}`.replace(/-/g, "/")));
                     return (
                         <div className="timeSlot" key={i}>
                             <TimePicker

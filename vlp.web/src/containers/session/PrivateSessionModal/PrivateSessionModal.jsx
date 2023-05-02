@@ -46,43 +46,97 @@ class PrivateSessionModal extends Component {
     let privateSessionAvailableArr = privateSessionAvailableDays[index];
     let privateSessionAvailableDaySlotsArray =
       privateSessionAvailableArr["PrivateSessionAvailableDaySlots"];
+    let lastRecordOfArray = privateSessionAvailableDaySlotsArray[privateSessionAvailableDaySlotsArray.length - 1];
+    let startTime = moment(`1999-09-09 ${lastRecordOfArray.End}`.replace(/-/g, "/")).format("hh:mm a");
+    let endTime = moment(`1999-09-09 ${startTime}`.replace(/-/g, "/")).add(1, 'hours').format("hh:mm a");
     privateSessionAvailableDaySlotsArray.push({
-      Start: "09:00 am",
-      End: "10:00 am",
+      Start: startTime,
+      End: endTime,
     });
     this.setState({ privateSessionAvailableDays });
   };
 
   // handle click event of the Remove button
   handleRemoveClick = (index, name) => {
+    console.log(index, name);
     const list = this.state.privateSessionAvailableDays;
     let arr = list[name]["PrivateSessionAvailableDaySlots"];
     arr.splice(index, 1);
     this.setState({ privateSessionAvailableDays: list });
   };
 
+
+  checkTimeAvailability(selectedTime, existingTimeSlots, selectedIndex, name) {
+    console.log(selectedTime, existingTimeSlots);
+    for (const [index, timeSlot] of existingTimeSlots.entries()) {
+      // const start = moment(timeSlot.Start, "h:mma").unix();
+      const prevStart = existingTimeSlots[selectedIndex-1] && moment(existingTimeSlots[selectedIndex-1]?.Start, "h:mma").unix();
+      const nextStart = existingTimeSlots[selectedIndex+1] && moment(existingTimeSlots[selectedIndex+1]?.Start, "h:mma").unix();
+      // const end = moment(timeSlot.End, "h:mma").unix();
+      const prevEnd = existingTimeSlots[selectedIndex-1] && moment(existingTimeSlots[selectedIndex-1]?.End, "h:mma").unix();
+      const nextEnd = existingTimeSlots[selectedIndex+1] && moment(existingTimeSlots[selectedIndex+1]?.End, "h:mma").unix();
+      const selected = moment(selectedTime, "h:mma").unix();
+      // console.log(index, selectedIndex, timeSlot.Start, start, nextStart, timeSlot.End, end, nextEnd, selectedTime, selected);
+        if(index !== selectedIndex && ((name == 'Start' && (prevStart && selected <= prevStart) || (prevEnd && selected < prevEnd)) || (name == 'End' && (nextStart && selected > nextStart) && (nextEnd && selected >= nextEnd)))){
+        // console.log('in if');
+        return true;
+      }
+      // if (moment(selectedTime, "h:mma").isBefore(moment(start, "h:mma")) || moment(selectedTime, "h:mma").isBefore(moment(end, "h:mma"))) {
+      //   console.log('in if');
+      //   return true;
+      // }
+    }
+    return false;
+  }
+
   // handle input change
   handleChange = (e, index, day_name, name) => {
+    console.log(e, index, day_name, name);
     const list = JSON.parse(
       JSON.stringify(this.state.privateSessionAvailableDays)
     );
+    const tempList = JSON.parse(
+      JSON.stringify(this.state.privateSessionAvailableDays)
+    );
+    // console.log({ list }, { tempList });
+
     const { tutorProfileData } = this.state;
     if (name) {
       if (e === null) {
         list[day_name]["PrivateSessionAvailableDaySlots"][index][name] = "";
       } else {
-        list[day_name]["PrivateSessionAvailableDaySlots"][index][name] = moment(
-          e
-        ).format("hh:mm a");
+        if (tempList[day_name]["PrivateSessionAvailableDaySlots"].length > 1) {
+          let duplicateCheck = this.checkTimeAvailability(moment(
+            e
+          ).format("hh:mm a"), tempList[day_name]["PrivateSessionAvailableDaySlots"], index, name);
+          // console.log(duplicateCheck, 'dup');
+          if (duplicateCheck) {
+            this.props.actions.showAlert({
+              message: "You cannot add one slot multiple time",
+              variant: "error",
+            });
+          } else {
+            list[day_name]["PrivateSessionAvailableDaySlots"][index][name] = moment(
+              e
+            ).format("hh:mm a");
+          }
+        } else {
+          list[day_name]["PrivateSessionAvailableDaySlots"][index][name] = moment(
+            e
+          ).format("hh:mm a");
+        }
+        // list[day_name]["PrivateSessionAvailableDaySlots"][index][name] = moment(
+        //   e
+        // ).format("hh:mm a");
       }
       let startTime =
         list[day_name]["PrivateSessionAvailableDaySlots"][index]["Start"];
       let endTime =
         list[day_name]["PrivateSessionAvailableDaySlots"][index]["End"];
 
-      startTime = moment(`1999-09-09 ${startTime}`.replace(/-/g,"/")).format("h:mma");
-      endTime = moment(`1999-09-09 ${endTime}`.replace(/-/g,"/")).format("h:mma");
-
+      startTime = moment(`1999-09-09 ${startTime}`.replace(/-/g, "/")).format("h:mma");
+      endTime = moment(`1999-09-09 ${endTime}`.replace(/-/g, "/")).format("h:mma");
+      // console.log(list);
       if (moment(startTime, "h:mma").isBefore(moment(endTime, "h:mma"))) {
         this.setState({ privateSessionAvailableDays: list });
         console.log("Correct. Start Time is below End Time");
@@ -172,6 +226,16 @@ class PrivateSessionModal extends Component {
                 PrivateSessionAvailable = JSON.parse(
                   PrivateSessionAvailableDaySlots[0].PrivateSessionAvailableDays
                 );
+                PrivateSessionAvailable.map((item, i) => {
+                  if (item.PrivateSessionAvailableDaySlots)
+                    item.PrivateSessionAvailableDaySlots.map((slot, j) => {
+                      console.log(slot.Start);
+                      slot.Start = "09:00 am";
+                      slot.End = "10:00 am";
+                      console.log(slot);
+                    })
+                })
+
               }
               tutorProfileData["privateSession"] =
                 PrivateSessionAvailableDaySlots[0]["PrivateSession"];

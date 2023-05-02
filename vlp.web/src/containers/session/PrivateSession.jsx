@@ -40,7 +40,7 @@ class PrivateSession extends Component {
             pageNumber: 1,
             pageSize: 30,
             totalcount: 0,
-            sortBy:''
+            sortBy: ''
         };
         this.addToFavourite = this.addToFavourite.bind(this);
     }
@@ -53,7 +53,7 @@ class PrivateSession extends Component {
     }
 
     handleSelectChange = (opt, meta) => {
-        this.setState({ categoryId: opt.value});
+        this.setState({ categoryId: opt.value });
         this.getAllTutor(opt.value, false, false);
     };
 
@@ -109,7 +109,7 @@ class PrivateSession extends Component {
                         } else {
                             this.setState({ allTutorData: null });
                         }
-                    }else{
+                    } else {
                         this.props.actions.showAlert({ message: response.Message, variant: "error" });
                     }
                     this.setState({ loading: false, isRequestDone: true });
@@ -200,7 +200,7 @@ class PrivateSession extends Component {
                             message: response.Message,
                             variant: "success",
                         });
-                    }else{
+                    } else {
                         this.props.actions.showAlert({ message: response.Message, variant: "error" });
                     }
                 },
@@ -322,7 +322,7 @@ class PrivateSession extends Component {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    
+
                                                 </div>
                                             </div>
                                         </div>
@@ -342,7 +342,7 @@ class PrivateSession extends Component {
                                                 />
                                             </div>
                                             {allTutorData.map((item, index) => (
-                                                
+
                                                 <div className="col-lg-4 col-md-6 col-sm-6" key={index}>
                                                     <div className="thumbDiv1">
                                                         <div className="thumbWrapper">
@@ -425,7 +425,7 @@ class PrivateSession extends Component {
                                                                 }
                                                             >
                                                                 See Profile
-                              </button>
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -450,7 +450,7 @@ class PrivateSession extends Component {
                                             {" "}
                                             <div className="col-sm-12">
                                                 <div className="blankSpace">
-                                                    <img width="332" height="252" 
+                                                    <img width="332" height="252"
                                                         src={require("../../assets/images/undraw_empty.png")}
                                                     ></img>
                                                     {(!loading && isRequestDone) && (

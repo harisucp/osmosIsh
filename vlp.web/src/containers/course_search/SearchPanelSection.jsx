@@ -32,7 +32,7 @@ class SearchPanel extends Component {
    constructor(props) {
       super(props);
       this.state = {
-         startDatenew : moment().toString(),
+         startDatenew: moment().toString(),
          filterOptions: {
             searchText: props.search || null,//done
             searchType: props.isAll ? "All Classes" : "Series & Session",
@@ -62,8 +62,8 @@ class SearchPanel extends Component {
          isRequestDone: false,
          sortBy: '',
          country: 0,
-         sortedSelectedOption : { value: '', label: '' },
-         sortedMeta : {
+         sortedSelectedOption: { value: '', label: '' },
+         sortedMeta: {
             "action": "select-option",
             "name": "sortBy"
          },
@@ -102,12 +102,11 @@ class SearchPanel extends Component {
          this.setState({ filterOptions: { ...this.state.filterOptions, searchText: this.props.search } });
          this.getCourseSearchData(this.props.search);
       }
-      if(this.props.performSearch && this.props.performSearch !== prevProps.performSearch)
-      {
+      if (this.props.performSearch && this.props.performSearch !== prevProps.performSearch) {
          this.getCourseSearchData(this.props.headerSearch);
       }
    }
-   
+
 
    getCourseSearchData = (searchText, isLoading = true, isRequest = false) => {
       this.setState({ loading: isLoading, isRequestDone: isRequest });
@@ -137,7 +136,7 @@ class SearchPanel extends Component {
                if (response.Data !== null && Object.keys(response.Data).length > 0 && response.Data.ResultDataList.length > 0) {
                   let data = response.Data.ResultDataList;
                   let courseData = data.filter(item => item.SeriesId == null || (item.SeriesId > 0 && item.SeriesDetail !== null));
-                  courseData = data.filter(item => { 
+                  courseData = data.filter(item => {
                      // console.log(moment(moment.utc(item.StartTime).local().format('MM-DD-YYYY')).unix(), moment(formatedStartTime).unix(), moment(moment.utc(item.EndTime).local().format('MM-DD-YYYY')).unix() , moment(formatedEndTime).unix(), (moment(moment.utc(item.StartTime).local().format('MM-DD-YYYY')).unix() >= moment(formatedStartTime).unix()) && (moment(moment.utc(item.EndTime).local().format('MM-DD-YYYY')).unix() <= moment(formatedEndTime).unix())); 
                      return (moment(moment.utc(item.StartTime).local().format('MM-DD-YYYY')).unix() >= moment(formatedStartTime).unix()) && (moment(moment.utc(item.EndTime).local().format('MM-DD-YYYY')).unix() <= moment(formatedEndTime).unix())
                   });
@@ -145,22 +144,22 @@ class SearchPanel extends Component {
                   if (sortBy) {
                      this.setState({ courseSearchData: courseData, fetchedRowsCount: data.length });
                      this.handleSelectChange(this.state.sortedSelectedOption, this.state.sortedMeta);
-                  }else{
-                      sortJsonArray(courseData, 'StartTime', 'asc');
-                      this.setState({ courseSearchData: courseData, fetchedRowsCount: data.length });
+                  } else {
+                     sortJsonArray(courseData, 'StartTime', 'asc');
+                     this.setState({ courseSearchData: courseData, fetchedRowsCount: data.length });
                   }
-                  
+
                }
                else {
                   this.setState({ courseSearchData: [] });
                }
-            }else{
+            } else {
                this.props.actions.showAlert({ message: response.Message, variant: "error" });
             }
             this.setState({ loading: false, isRequestDone: true });
          },
             (error) => {
-            console.log(error);
+               console.log(error);
                this.setState((prevState) => {
                   this.props.actions.showAlert({ message: error !== undefined ? error : 'Something went wrong please try again !!', variant: "error" });
                   this.setState({ loading: false, isRequestDone: true });
@@ -244,7 +243,7 @@ class SearchPanel extends Component {
          this.setState({ dataModeValue: 1, dataMode: 'list' });
       }
    }
-   
+
    handleTextChange = (e) => {
       const { filterOptions } = this.state;
       // if(e.target.value === ""){
@@ -259,39 +258,39 @@ class SearchPanel extends Component {
       console.log(opt, meta);
       const { filterOptions } = this.state;
       if (meta.name === 'sortBy') {
-            const sortArr = this.state.courseSearchData.sort((a,b)=>{
-               if(opt.value === 'asc'){
-                  var x = (a['StartTime'] === null) ? "" : "" + a['StartTime'],
+         const sortArr = this.state.courseSearchData.sort((a, b) => {
+            if (opt.value === 'asc') {
+               var x = (a['StartTime'] === null) ? "" : "" + a['StartTime'],
                   y = (b['StartTime'] === null) ? "" : "" + b['StartTime'];
-                  return x < y ? -1 :(x > y ? 1 : 0);
-               }else if(opt.value === 'des'){
-                  var x = (a['StartTime'] === null) ? "" : "" + a['StartTime'],
+               return x < y ? -1 : (x > y ? 1 : 0);
+            } else if (opt.value === 'des') {
+               var x = (a['StartTime'] === null) ? "" : "" + a['StartTime'],
                   y = (b['StartTime'] === null) ? "" : "" + b['StartTime'];
-                  return x < y ? 1 :(x > y ? -1 : 0);
-               }else if(opt.value === 'hl'){
-                  var x = (a['Fee'] === null) ? "" : a['Fee'],
+               return x < y ? 1 : (x > y ? -1 : 0);
+            } else if (opt.value === 'hl') {
+               var x = (a['Fee'] === null) ? "" : a['Fee'],
                   y = (b['Fee'] === null) ? "" : b['Fee'];
-                  return x < y ? 1 :(x > y ? -1 : 0);
-               } else if(opt.value === 'lh'){
-                  var x = (a['Fee'] === null) ? "" : a['Fee'],
+               return x < y ? 1 : (x > y ? -1 : 0);
+            } else if (opt.value === 'lh') {
+               var x = (a['Fee'] === null) ? "" : a['Fee'],
                   y = (b['Fee'] === null) ? "" : b['Fee'];
-                  return x < y ? -1 :(x > y ? 1 : 0);
-               } else if(opt.value === 'rating'){
-                  var x = (a['Rating'] === null) ? "" : a['Rating'],
+               return x < y ? -1 : (x > y ? 1 : 0);
+            } else if (opt.value === 'rating') {
+               var x = (a['Rating'] === null) ? "" : a['Rating'],
                   y = (b['Rating'] === null) ? "" : b['Rating'];
-                  return x < y ? 1 :(x > y ? -1 : 0);
-               } else if(opt.value === 'ratingCount'){
-                  var x = (a['RatingCount'] === null) ? "" : a['RatingCount'],
+               return x < y ? 1 : (x > y ? -1 : 0);
+            } else if (opt.value === 'ratingCount') {
+               var x = (a['RatingCount'] === null) ? "" : a['RatingCount'],
                   y = (b['RatingCount'] === null) ? "" : b['RatingCount'];
-                  return x < y ? 1 :(x > y ? -1 : 0);
-               }
+               return x < y ? 1 : (x > y ? -1 : 0);
+            }
          })
-        
+
          this.setState(() => ({
             sortBy: opt.value,
-            sortedSelectedOption : opt
+            sortedSelectedOption: opt
          }));
-         
+
       }
       else {
          if (meta.name === 'pageSize') {
@@ -337,79 +336,79 @@ class SearchPanel extends Component {
       this.getCourseSearchData(filterOptions.searchText);
    }
 
-   handleMinPriceChange = (event) =>{
+   handleMinPriceChange = (event) => {
       const re = /^[0-9\b]+$/;
-      if(re.test(event.target.value)){
-         const minprice =+event.target.value;
-      const { filterOptions } = this.state;
-      filterOptions.price[0] = minprice;
-      // if(minprice > filterOptions.price[1]){
-      //    filterOptions.price[0] = +event.target.value.slice(0, -1);
-      //    this.setState({ filterOptions });
-      //    return false;
-      // }
-      this.setState({ filterOptions });
-      if(event.target.value !== ''){
-         this.getCourseSearchData(filterOptions.searchText);
+      if (re.test(event.target.value)) {
+         const minprice = +event.target.value;
+         const { filterOptions } = this.state;
+         filterOptions.price[0] = minprice;
+         // if(minprice > filterOptions.price[1]){
+         //    filterOptions.price[0] = +event.target.value.slice(0, -1);
+         //    this.setState({ filterOptions });
+         //    return false;
+         // }
+         this.setState({ filterOptions });
+         if (event.target.value !== '') {
+            this.getCourseSearchData(filterOptions.searchText);
+         }
       }
-      }
-      
+
    }
 
-   handleMaxPriceChange = (event) =>{
+   handleMaxPriceChange = (event) => {
       const re = /^[0-9\b]+$/;
-      if(re.test(event.target.value)){
-      const maxprice =+event.target.value;
-      const { filterOptions } = this.state;
-      filterOptions.price[1] = maxprice;
-      // if(maxprice < filterOptions.price[0]){
-      //    filterOptions.price[1] = +event.target.value.slice(0, -1);
-      //    this.setState({ filterOptions });
-      //    return false;
-      // }
-      this.setState({ filterOptions });
-      if(event.target.value !== ''){
-         this.getCourseSearchData(filterOptions.searchText);
+      if (re.test(event.target.value)) {
+         const maxprice = +event.target.value;
+         const { filterOptions } = this.state;
+         filterOptions.price[1] = maxprice;
+         // if(maxprice < filterOptions.price[0]){
+         //    filterOptions.price[1] = +event.target.value.slice(0, -1);
+         //    this.setState({ filterOptions });
+         //    return false;
+         // }
+         this.setState({ filterOptions });
+         if (event.target.value !== '') {
+            this.getCourseSearchData(filterOptions.searchText);
+         }
       }
-   }
    }
 
    handleStartDateChange = date => {
-      console.log(moment().toString() );
-      
+      console.log(moment().toString());
+
       const { filterOptions } = this.state;
-      if (!date || date.toString() == "Invalid Date"|| moment(date) < moment()){
+      if (!date || date.toString() == "Invalid Date" || moment(date) < moment()) {
          const newFilterOptions = Object.assign({}, {
-            ...filterOptions, 
-            startDate : moment().toString(),
-            endDate : moment().add(2, 'months').toString()
+            ...filterOptions,
+            startDate: moment().toString(),
+            endDate: moment().add(2, 'months').toString()
          })
-         this.setState({ filterOptions : newFilterOptions });
-      }else{
+         this.setState({ filterOptions: newFilterOptions });
+      } else {
          filterOptions.startDate = date.toString();
          filterOptions.endDate = moment(date).add(2, 'months').toString();
          this.setState({ filterOptions });
          this.getCourseSearchData(filterOptions.searchText);
       }
-      
-      
+
+
    };
 
-   handleEndDateChange = (date, value)  => {
-      
+   handleEndDateChange = (date, value) => {
+
       const { filterOptions } = this.state;
-      if (!date || date.toString() == "Invalid Date" || moment(date) < moment()){
+      if (!date || date.toString() == "Invalid Date" || moment(date) < moment()) {
          const newFilterOptions = Object.assign({}, {
-            ...filterOptions, 
-            endDate : moment(filterOptions.startDate).add(2, 'months')
+            ...filterOptions,
+            endDate: moment(filterOptions.startDate).add(2, 'months')
          })
-         this.setState({ filterOptions : newFilterOptions });
-      }else{
+         this.setState({ filterOptions: newFilterOptions });
+      } else {
          filterOptions.endDate = date;
          this.setState({ filterOptions });
          this.getCourseSearchData(filterOptions.searchText);
       }
-      
+
    };
 
    handleApplyFilter = () => {
@@ -717,10 +716,10 @@ class SearchPanel extends Component {
                                  </div>
                                  <div className="filterPrice">
                                     <label style={{ border: '0', color: '#1c3b50', fontWeight: 'bold' }}>$</label>
-                                    <input type="text" id="amountMin"  onChange={this.handleMinPriceChange} value={filterOptions.price[0]} style={{ border: '0',width:'50px', color: '#1c3b50', fontWeight: 'bold' }} />
+                                    <input type="text" id="amountMin" onChange={this.handleMinPriceChange} value={filterOptions.price[0]} style={{ border: '0', width: '50px', color: '#1c3b50', fontWeight: 'bold' }} />
                                     <label style={{ border: '0', color: '#1c3b50', fontWeight: 'bold' }}>$</label>
-                                    <input type="text" id="amountMax"  onChange={this.handleMaxPriceChange} value={filterOptions.price[1]} style={{ border: '0',width:'80px', color: '#1c3b50', fontWeight: 'bold' }}/>
-                                     {/* <input type="text" id="amount"  value={`$${filterOptions.price[0]}`} style={{ border: '0', color: '#1c3b50', fontWeight: 'bold' }}/>
+                                    <input type="text" id="amountMax" onChange={this.handleMaxPriceChange} value={filterOptions.price[1]} style={{ border: '0', width: '80px', color: '#1c3b50', fontWeight: 'bold' }} />
+                                    {/* <input type="text" id="amount"  value={`$${filterOptions.price[0]}`} style={{ border: '0', color: '#1c3b50', fontWeight: 'bold' }}/>
                                     <input type="text" id="amount" value={`$${filterOptions.price[1]}`} style={{ border: '0', color: '#1c3b50', fontWeight: 'bold' }} /> */}
                                     <Slider
                                        onChangeCommitted={this.handleSliderCommitted}
@@ -878,7 +877,7 @@ class SearchPanel extends Component {
                                     </div>
                                     <div className="priceDiv">
                                        <span className="price">$ {data.Fee}</span>
-                                       <span className="users" title="Spots Left"><i className="fa fa-users"></i>{data.TotalSeats  - data.OccupiedSeats}</span>
+                                       <span className="users" title="Spots Left"><i className="fa fa-users"></i>{data.TotalSeats - data.OccupiedSeats}</span>
                                     </div>
                                     <div className="enrollNow" onClick={() => this.handleViewDetails(data.SeriesId, data.SessionId)}><a className="btn btn-blue">Enroll Now</a></div>
                                  </div>

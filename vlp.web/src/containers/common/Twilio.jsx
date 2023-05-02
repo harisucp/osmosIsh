@@ -17,12 +17,17 @@ class Twilio extends Component {
             otp: "",
             verificationNumber: "",
             showModal: false,
-            loading: false
+            loading: false,
+            interval: null,
+            minutes: 0,
+            seconds: 0,
+            showTimer: false
         }
     }
     handleChange = otp => this.setState({ otp });
 
     handleClose = () => {
+        this.clearCountDown(this.state.interval);
         this.setState({ otp: "" });
         this.props.onTwilioClose(false);
     }
@@ -45,12 +50,18 @@ class Twilio extends Component {
             "phoneNumber": phoneNumber
         })
             .then(response => {
+                // let data = { "UserId": 5414, "IsLockOut": true }
+                // let success = true;
                 if (response.Success) {
                     this.setState({ showModal: true });
+                    this.startCountDown();
+                    this.props.onLockStatus(response.Data);
                     this.props.actions.showAlert({ message: response.Message, variant: "success" });
                 }
                 else {
+                    this.props.onLockStatus(response.Data);
                     this.props.actions.showAlert({ message: response.Message, variant: "error" });
+                    this.clearCountDown(this.state.interval);
                     this.handleClose();
                 }
                 this.setState({ loading: false });
@@ -64,6 +75,40 @@ class Twilio extends Component {
             );
     }
 
+    startCountDown() {
+        let countDown = 120; // 2 minutes in seconds
+
+        const interval = setInterval(() => {
+            const minutes = Math.floor(countDown / 60);
+            let seconds = countDown % 60;
+
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+
+            // console.log(`${minutes}:${seconds}`);
+
+            this.setState({
+                showTimer: true,
+                minutes: minutes,
+                seconds: seconds,
+                interval: interval
+            })
+
+            // console.log(`${this.state.minutes}:${this.state.seconds}`);
+
+            if (--countDown < 0) {
+                this.clearCountDown(interval);
+                this.setState({ showTimer: false })
+                // console.log('Time is up!');
+            }
+        }, 1000); // update the timer every second
+    }
+
+    clearCountDown(interval) {
+        console.log('clear ');
+        this.setState({ showTimer: false })
+        clearInterval(interval);
+    }
+
     verifyPhoneNumber = () => {
         const { auth } = this.props;
         let userId = auth.user.UserId;
@@ -73,8 +118,9 @@ class Twilio extends Component {
             if (response.Success) {
                 this.props.onVerified(true);
                 this.props.actions.showAlert({ message: response.Message, variant: "success" });
+                this.clearCountDown(this.state.interval);
                 this.handleClose();
-            }else{
+            } else {
                 this.props.actions.showAlert({ message: response.Message, variant: "error" });
             }
             this.setState({ loading: false });
@@ -88,7 +134,7 @@ class Twilio extends Component {
         );
     }
     render() {
-        const { loading, showModal } = this.state;
+        const { loading, showModal, showTimer, minutes, seconds } = this.state;
         return (
             <div>
                 <Fragment>
@@ -102,7 +148,7 @@ class Twilio extends Component {
                         <Modal.Header closeButton>
                             <Modal.Title >
                                 Enter verification code
-                              </Modal.Title>
+                            </Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
                             <div className="twiliopopup formWrapper">
@@ -120,7 +166,11 @@ class Twilio extends Component {
                             </div>
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button type="button" className="link-button" onClick={() => this.sendPhoneVerificationToken(this.state.verificationNumber)}>Resend OTP</Button>
+                            {
+                                showTimer && <span>{minutes}:{seconds}</span>
+                            }
+
+                            <Button type="button" disabled={showTimer} className="link-button" onClick={() => this.sendPhoneVerificationToken(this.state.verificationNumber)}>Resend OTP</Button>
                             <Button variant="contained" color="primary" onClick={this.verifyPhoneNumber}>Submit</Button>
                         </Modal.Footer>
                     </Modal >

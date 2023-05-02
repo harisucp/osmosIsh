@@ -97,7 +97,7 @@ class TeacherDashboard extends Component {
                 teacherDashboardData: dashboardData,
               });
             }
-          }else{
+          } else {
             this.props.actions.showAlert({ message: response.Message, variant: "error" });
           }
           this.setState({ loading: false });
@@ -296,17 +296,17 @@ class TeacherDashboard extends Component {
                           ({userTimezone}){/* ({rowData.TimeZone}) */}
                         </Fragment>
                       ) : (
-                          <Fragment>
-                            <div data-testid="td-before" className="tdBefore">
-                              Start Time
+                        <Fragment>
+                          <div data-testid="td-before" className="tdBefore">
+                            Start Time
                           </div>
-                            <FormatDateTime
-                              date={rowData.StartTime}
-                              format="MMM DD, YYYY hh:mm A"
-                            ></FormatDateTime>{" "}
+                          <FormatDateTime
+                            date={rowData.StartTime}
+                            format="MMM DD, YYYY hh:mm A"
+                          ></FormatDateTime>{" "}
                           ({userTimezone}){/* ({rowData.TimeZone}) */}
-                          </Fragment>
-                        ),
+                        </Fragment>
+                      ),
                   },
                   {
                     title: "Session Duration",
@@ -363,23 +363,23 @@ class TeacherDashboard extends Component {
                               </Button>
                             </Tooltip>
                           ) : (
-                              <Tooltip
-                                title="View Detail"
-                                aria-label="view"
-                                className="viewBlue"
+                            <Tooltip
+                              title="View Detail"
+                              aria-label="view"
+                              className="viewBlue"
+                            >
+                              <Button
+                                variant="outlined"
+                                size="small"
+                                onClick={() =>
+                                  this.handleViewDetails(0, rowData.SessionId)
+                                }
+                                color="indo"
                               >
-                                <Button
-                                  variant="outlined"
-                                  size="small"
-                                  onClick={() =>
-                                    this.handleViewDetails(0, rowData.SessionId)
-                                  }
-                                  color="indo"
-                                >
-                                  <i class="fa fa-eye"></i>
-                                </Button>
-                              </Tooltip>
-                            )}
+                                <i class="fa fa-eye"></i>
+                              </Button>
+                            </Tooltip>
+                          )}
                           <Tooltip title={`Duplicate ${rowData.Type}`} aria-label="view">
                             <Button size="small" onClick={() => this.handleCopyClass(rowData.SeriesId, rowData.SessionId)}>
                               <i class="fa fa-files-o"></i>
@@ -415,8 +415,8 @@ class TeacherDashboard extends Component {
                       {props.renderData && props.renderData.length === 0 ? (
                         <div className="alignCenterExt">No Records found</div>
                       ) : (
-                          <MTableBody {...props} />
-                        )}
+                        <MTableBody {...props} />
+                      )}
                     </Fragment>
                   ),
                 }}
@@ -479,17 +479,17 @@ class TeacherDashboard extends Component {
                           ({userTimezone}){/* ({rowData.TimeZone}) */}
                         </Fragment>
                       ) : (
-                          <Fragment>
-                            <div data-testid="td-before" className="tdBefore">
-                              Start Time
+                        <Fragment>
+                          <div data-testid="td-before" className="tdBefore">
+                            Start Time
                           </div>
-                            <FormatDateTime
-                              date={rowData.StartTime}
-                              format="MMM DD, YYYY hh:mm A"
-                            ></FormatDateTime>{" "}
+                          <FormatDateTime
+                            date={rowData.StartTime}
+                            format="MMM DD, YYYY hh:mm A"
+                          ></FormatDateTime>{" "}
                           ({userTimezone}){/* ({rowData.TimeZone}) */}
-                          </Fragment>
-                        ),
+                        </Fragment>
+                      ),
                   },
                   {
                     title: "Session/Series Duration",
@@ -534,122 +534,122 @@ class TeacherDashboard extends Component {
                     width: "35%",
                     render: (rowData) => (
                       <Fragment>
-                        
+
                         {" "}
                         <div data-testid="td-before" className="tdBefore">
                           Action
                         </div>{" "}
                         <div class="tbActionBtn">
                           <Tooltip>
-                            <AddToCalendar buttonLabel="Add To Calendar"  event={{ title: rowData.Title, description: description, location: "osmosish.com", startTime: rowData.StartTime, endTime: rowData.Endtime }} />
+                            <AddToCalendar buttonLabel="Add To Calendar" event={{ title: rowData.Title, description: description, location: "osmosish.com", startTime: rowData.StartTime, endTime: rowData.Endtime }} />
                           </Tooltip>
                           {rowData.SessionStatus === "N" &&
                             rowData.SeriesId > 0 ? (
-                              <Fragment>
-                                <Tooltip
-                                  title="View Detail"
-                                  aria-label="view"
-                                  className="viewBlue"
+                            <Fragment>
+                              <Tooltip
+                                title="View Detail"
+                                aria-label="view"
+                                className="viewBlue"
+                              >
+                                <Button
+                                  variant="outlined"
+                                  onClick={() =>
+                                    this.handleViewDetails(rowData.SeriesId, 0)
+                                  }
+                                  size="small"
+                                  color="primary"
                                 >
-                                  <Button
-                                    variant="outlined"
-                                    onClick={() =>
-                                      this.handleViewDetails(rowData.SeriesId, 0)
-                                    }
-                                    size="small"
-                                    color="primary"
+                                  <i class="fa fa-eye"></i>
+                                </Button>
+                              </Tooltip>
+                              {/* {moment(JSON.parse(rowData.SeriesSessions)[0].StartTime).isAfter(moment(), 'second') && */}
+                              {moment().isBefore(
+                                commonFunctions
+                                  .getUtcDatetime(
+                                    JSON.parse(rowData.SeriesSessions)[0]
+                                      .StartTime
+                                  )
+                                  .subtract(24, "hours"),
+                                "second"
+                              ) && (
+                                  <Tooltip
+                                    title="Some fields are editable when students aren't enrolled and there are more than 24 hours before the session begins"
+                                    aria-label="view"
+                                    className="success"
                                   >
-                                    <i class="fa fa-eye"></i>
-                                  </Button>
-                                </Tooltip>
-                                {/* {moment(JSON.parse(rowData.SeriesSessions)[0].StartTime).isAfter(moment(), 'second') && */}
-                                {moment().isBefore(
-                                  commonFunctions
-                                    .getUtcDatetime(
-                                      JSON.parse(rowData.SeriesSessions)[0]
-                                        .StartTime
-                                    )
-                                    .subtract(24, "hours"),
-                                  "second"
-                                ) && (
-                                    <Tooltip
-                                      title="Some fields are editable when students aren't enrolled and there are more than 24 hours before the session begins"
-                                      aria-label="view"
-                                      className="success"
+                                    <Button
+                                      variant="outlined"
+                                      onClick={() =>
+                                        this.handleEditDetails(
+                                          rowData.SeriesId,
+                                          0
+                                        )
+                                      }
+                                      size="small"
+                                      color="primary"
                                     >
-                                      <Button
-                                        variant="outlined"
-                                        onClick={() =>
-                                          this.handleEditDetails(
-                                            rowData.SeriesId,
-                                            0
-                                          )
-                                        }
-                                        size="small"
-                                        color="primary"
-                                      >
-                                        <i class="material-icons">edit</i>
-                                      </Button>
-                                    </Tooltip>
-                                  )}
-                                <Tooltip
-                                  title="Cancel"
-                                  aria-label="view"
-                                  className="danger"
+                                      <i class="material-icons">edit</i>
+                                    </Button>
+                                  </Tooltip>
+                                )}
+                              <Tooltip
+                                title="Cancel"
+                                aria-label="view"
+                                className="danger"
+                              >
+                                <Button
+                                  variant="outlined"
+                                  size="small"
+                                  color="secondary"
+                                  onClick={() =>
+                                    this.handleConfirmation(rowData.SeriesId, 0)
+                                  }
                                 >
-                                  <Button
-                                    variant="outlined"
-                                    size="small"
-                                    color="secondary"
-                                    onClick={() =>
-                                      this.handleConfirmation(rowData.SeriesId, 0)
-                                    }
-                                  >
-                                    <i class="material-icons">close</i>
-                                  </Button>
-                                </Tooltip>
-                              </Fragment>
-                            ) : rowData.SessionStatus === "N" ? (
-                              <Fragment>
-                                <Tooltip
-                                  title="View Detail"
-                                  aria-label="view"
-                                  className="viewBlue"
+                                  <i class="material-icons">close</i>
+                                </Button>
+                              </Tooltip>
+                            </Fragment>
+                          ) : rowData.SessionStatus === "N" ? (
+                            <Fragment>
+                              <Tooltip
+                                title="View Detail"
+                                aria-label="view"
+                                className="viewBlue"
+                              >
+                                <Button
+                                  variant="outlined"
+                                  size="small"
+                                  onClick={() =>
+                                    this.handleViewDetails(0, rowData.SessionId)
+                                  }
+                                  color="primary"
                                 >
-                                  <Button
-                                    variant="outlined"
-                                    size="small"
-                                    onClick={() =>
-                                      this.handleViewDetails(0, rowData.SessionId)
-                                    }
-                                    color="primary"
-                                  >
-                                    <i class="fa fa-eye"></i>
-                                  </Button>
-                                </Tooltip>
-                                {moment().isBefore(commonFunctions.getUtcDatetime(rowData.StartTime).subtract(24, "hours"),
-                                  "second"
-                                ) && (<Tooltip
-                                  title="Some fields are editable when students aren't enrolled and there are more than 24 hours before the session begins"
-                                  aria-label="view"
-                                  className="success"
-                                >
-                                  <Button variant="outlined" size="small" onClick={() => this.handleEditDetails(0, rowData.SessionId)} color="primary">
-                                    <i class="material-icons">edit</i>
-                                  </Button>
-                                </Tooltip>
-                                  )}
-                                <Tooltip
-                                  title="Cancel"
-                                  aria-label="view"
-                                  className="danger"
-                                >
-                                  <Button variant="outlined" size="small" color="secondary" onClick={() => this.handleConfirmation(0, rowData.SessionId)}>
-                                    <i class="material-icons">close</i>
-                                  </Button>
-                                </Tooltip>
-                              </Fragment>
-                            ) : null}
+                                  <i class="fa fa-eye"></i>
+                                </Button>
+                              </Tooltip>
+                              {moment().isBefore(commonFunctions.getUtcDatetime(rowData.StartTime).subtract(24, "hours"),
+                                "second"
+                              ) && (<Tooltip
+                                title="Some fields are editable when students aren't enrolled and there are more than 24 hours before the session begins"
+                                aria-label="view"
+                                className="success"
+                              >
+                                <Button variant="outlined" size="small" onClick={() => this.handleEditDetails(0, rowData.SessionId)} color="primary">
+                                  <i class="material-icons">edit</i>
+                                </Button>
+                              </Tooltip>
+                                )}
+                              <Tooltip
+                                title="Cancel"
+                                aria-label="view"
+                                className="danger"
+                              >
+                                <Button variant="outlined" size="small" color="secondary" onClick={() => this.handleConfirmation(0, rowData.SessionId)}>
+                                  <i class="material-icons">close</i>
+                                </Button>
+                              </Tooltip>
+                            </Fragment>
+                          ) : null}
                           {rowData.SessionStatus === "Y" && (
                             <div>
                               <Tooltip title="This class has been blocked due to a potential violation of our Terms and Conditions" className="danger">
@@ -704,8 +704,8 @@ class TeacherDashboard extends Component {
                       {props.renderData && props.renderData.length === 0 ? (
                         <div className="alignCenterExt">No Records found</div>
                       ) : (
-                          <MTableBody {...props} />
-                        )}
+                        <MTableBody {...props} />
+                      )}
                     </Fragment>
                   ),
                 }}
@@ -768,17 +768,17 @@ class TeacherDashboard extends Component {
                           ({userTimezone}){/* ({rowData.TimeZone}) */}
                         </Fragment>
                       ) : (
-                          <Fragment>
-                            <div data-testid="td-before" className="tdBefore">
-                              Start Time
+                        <Fragment>
+                          <div data-testid="td-before" className="tdBefore">
+                            Start Time
                           </div>
-                            <FormatDateTime
-                              date={rowData.StartTime}
-                              format="MMM DD, YYYY hh:mm A"
-                            ></FormatDateTime>{" "}
+                          <FormatDateTime
+                            date={rowData.StartTime}
+                            format="MMM DD, YYYY hh:mm A"
+                          ></FormatDateTime>{" "}
                           ({userTimezone}){/* ({rowData.TimeZone}) */}
-                          </Fragment>
-                        ),
+                        </Fragment>
+                      ),
                   },
 
                   {
@@ -797,17 +797,17 @@ class TeacherDashboard extends Component {
                           ({userTimezone}){/* ({rowData.TimeZone}) */}
                         </Fragment>
                       ) : (
-                          <Fragment>
-                            <div data-testid="td-before" className="tdBefore">
-                              Cancelled Date
+                        <Fragment>
+                          <div data-testid="td-before" className="tdBefore">
+                            Cancelled Date
                           </div>
-                            <FormatDateTime
-                              date={rowData.DeletedDate}
-                              format="MMM DD, YYYY hh:mm A"
-                            ></FormatDateTime>{" "}
+                          <FormatDateTime
+                            date={rowData.DeletedDate}
+                            format="MMM DD, YYYY hh:mm A"
+                          ></FormatDateTime>{" "}
                           ({userTimezone}){/* ({rowData.TimeZone}) */}
-                          </Fragment>
-                        ),
+                        </Fragment>
+                      ),
                   },
 
                   {
@@ -908,8 +908,8 @@ class TeacherDashboard extends Component {
                       {props.renderData && props.renderData.length === 0 ? (
                         <div className="alignCenterExt">No Records found</div>
                       ) : (
-                          <MTableBody {...props} />
-                        )}
+                        <MTableBody {...props} />
+                      )}
                     </Fragment>
                   ),
                 }}
@@ -1045,10 +1045,10 @@ class TeacherDashboard extends Component {
                             </Button>
                           </Tooltip>
                         ) : (
-                            <label variant="outlined" size="small" color="info">
-                              Agreed
-                            </label>
-                          )}{" "}
+                          <label variant="outlined" size="small" color="info">
+                            Agreed
+                          </label>
+                        )}{" "}
                       </Fragment>
                     ),
                   },
@@ -1124,8 +1124,8 @@ class TeacherDashboard extends Component {
                       {props.renderData && props.renderData.length === 0 ? (
                         <div className="alignCenterExt">No Records found</div>
                       ) : (
-                          <MTableBody {...props} />
-                        )}
+                        <MTableBody {...props} />
+                      )}
                     </Fragment>
                   ),
                 }}
@@ -1167,9 +1167,9 @@ class TeacherDashboard extends Component {
               message: "Response submitted successfully.",
               variant: "success",
             });
-          }else{
+          } else {
             this.props.actions.showAlert({ message: response.Message, variant: "error" });
-        }
+          }
           this.setState({ loading: false });
         },
         (error) =>
@@ -1252,9 +1252,9 @@ class TeacherDashboard extends Component {
             message: response.Message,
             variant: "success",
           });
-        }else{
+        } else {
           this.props.actions.showAlert({ message: response.Message, variant: "error" });
-      }
+        }
         this.setState({
           showDisputeModal: false,
           activeIndex: 1,
@@ -1531,7 +1531,7 @@ class TeacherDashboard extends Component {
                                             {/* ({data.TimeZone}) */}
                                           </span>
                                           <span className="users fa fa-users">
-                                            <i  title="Spots Left"></i>
+                                            <i title="Spots Left"></i>
                                             {data.TotalSeats - data.OccupiedSeats}
                                           </span>
                                         </div>
@@ -1540,7 +1540,7 @@ class TeacherDashboard extends Component {
                                     <div className="col-md-4">
                                       <div className="sessionImage">
                                         <div className="thumbImage">
-                                          <img width="" height="" 
+                                          <img width="" height=""
                                             src={`${APP_URLS.API_URL}${data.SessionImageFile}`}
                                             alt="image"
                                           />
@@ -1580,7 +1580,7 @@ class TeacherDashboard extends Component {
                                           {data.SessionStatus === "Y" && (
                                             <span class="sessionStatus">
                                               {/* <Tooltip title="This class has been blocked due to a potential violation of our Terms and Conditions" className="danger"> */}
-                                                Session Blocked
+                                              Session Blocked
                                               {/* </Tooltip> */}
                                             </span>
                                           )}

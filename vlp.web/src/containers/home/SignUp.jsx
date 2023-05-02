@@ -8,9 +8,12 @@ import SimpleReactValidator from 'simple-react-validator';
 import FacebookButton from "../../shared/components/ui/form/FacebookButton"
 import GoogleButton from "../../shared/components/ui/form/GoogleButton";
 import { history } from "../../helpers/history";
-import { PUBLIC_URL } from "../../config/api.config";
+import { PUBLIC_URL, CAPTCHA_SITE_KEY } from "../../config/api.config";
 import Loader from 'react-loaders';
+import ReCAPTCHA from "react-google-recaptcha"
+
 class SignUp extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -26,7 +29,9 @@ class SignUp extends Component {
                 policyConfirmation: null
             },
             dummyString: '',
-            loading: false
+            loading: false,
+            site_key: CAPTCHA_SITE_KEY,
+            captchaRef: React.createRef()
         };
         this.validator = new SimpleReactValidator({
             messages: {
@@ -41,6 +46,7 @@ class SignUp extends Component {
         this.getFacebookResponse = this.getFacebookResponse.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.openSignInModal = this.openSignInModal.bind(this);
+
     }
 
     handleChange = (e) => {
@@ -115,8 +121,8 @@ class SignUp extends Component {
                     else {
                         this.handleSignUp();
                     }
-                }else{
-                    this.props.actions.showAlert({message: response.Message , variant :"error"});
+                } else {
+                    this.props.actions.showAlert({ message: response.Message, variant: "error" });
                 }
                 this.setState({ loading: false });
             },
@@ -132,12 +138,14 @@ class SignUp extends Component {
                 });
     }
 
-    handleSignUp = () => {
+    handleSignUp = async () => {
+
         if (this.validator.allValid() === false) {
             this.validator.showMessages();
             this.forceUpdate();
             return false;
         }
+        const token = await this.state.captchaRef.current.getValue();
         const { signUpForm } = this.state;
         this.setState({ loading: true });
         apiService.post('SIGNUP', {
@@ -152,10 +160,10 @@ class SignUp extends Component {
             .then(response => {
                 if (response.Success) {
                     this.props.actions.showAlert({ message: 'Student account created successfully. A verification link has been sent to your registered email account. Please verify your account, In order to use Osmos-ish Services.', variant: "success" });
+                    this.state.captchaRef.current.reset();
                     this.handleClose();
                 }
-                else
-                {
+                else {
                     this.props.actions.showAlert({ message: response.Message, variant: "info" });
                 }
                 this.setState({ loading: false });
@@ -169,7 +177,7 @@ class SignUp extends Component {
     }
 
     render() {
-        const { signUpForm, loading, dummyString } = this.state;
+        const { signUpForm, loading, dummyString, site_key, captchaRef } = this.state;
         return (
             <Fragment>
                 <Modal show={this.props.showSignUp} onHide={this.handleClose}
@@ -180,7 +188,7 @@ class SignUp extends Component {
                     <Modal.Header closeButton>
                         <Modal.Title id="sign-up-title">
                             Sign up for your Osmos-ish account!
-                         </Modal.Title>
+                        </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <div className="loginBox">
@@ -231,15 +239,17 @@ class SignUp extends Component {
                                     onClick={this.handleTermConditionNavigate}
                                     className="link-button">
                                     Terms & Conditions
-                                                        </button> and <button
+                                </button> and <button
                                     type="button"
                                     onClick={this.handlePrivatePolicyNavigate}
                                     className="link-button">
                                     Privacy Policy
-                                                </button>
+                                </button>
                                 {this.validator.message('policyConfirmation', signUpForm.policyConfirmation, 'required')}
                             </div>
-
+                            <div className='captchaDiv'>
+                                <ReCAPTCHA sitekey={site_key} ref={captchaRef} />
+                            </div>
                             <div className="form-button">
                                 <button className="btn btn-blue logCss" onClick={this.handleSignUp}> Sign Up</button>
                             </div>
@@ -261,11 +271,12 @@ class SignUp extends Component {
                         <hr />
                         <div className="signUp">
                             <p>Already have an account?
-                            <button
+
+                                <button
                                     type="button"
                                     className="link-button" onClick={this.openSignInModal}>
                                     Sign In
-                                    </button></p>
+                                </button></p>
                         </div>
                     </Modal.Body>
                 </Modal >

@@ -44,10 +44,10 @@ class ContactUs extends Component {
                this.validator = new SimpleReactValidator();
                this.setState({ contactUsForm: { ...contactUsForm, name: "", email: "", subject: "", issuesFacing: "", message: "" } });
                this.props.actions.showAlert({ message: response.Message, variant: "success", open: false });
-            }else{
+            } else {
                this.props.actions.showAlert({ message: response.Message, variant: "error", open: false });
-           }
-           this.setState({ loading: false });
+            }
+            this.setState({ loading: false });
          },
             (error) =>
                this.setState((prevState) => {
@@ -94,9 +94,9 @@ class ContactUs extends Component {
                                  <div className="col-sm-6">
                                     <div className="form-group">
                                        <label>Your Name</label>
-                                       <input type="text" className="form-control" placeholder="Name" onChange={this.handleChange} value={contactUsForm.name} name="name"
+                                       <input type="text" className="form-control" placeholder="Name" maxLength={50} onChange={this.handleChange} value={contactUsForm.name} name="name"
                                           onBlur={() => this.validator.showMessageFor('name')} />
-                                       {this.validator.message('name', contactUsForm.name, 'required')}
+                                       {this.validator.message('name', contactUsForm.name, 'required|max:50')}
                                     </div>
                                  </div>
                                  <div className="col-sm-6">
@@ -110,7 +110,7 @@ class ContactUs extends Component {
                                  <div className="col-sm-6">
                                     <div className="form-group">
                                        <label>Subject</label>
-                                       <input className="form-control account-input" onChange={this.handleChange} value={contactUsForm.subject} name="subject"
+                                       <input className="form-control account-input" onChange={this.handleChange} maxLength={100} value={contactUsForm.subject} name="subject"
                                           onBlur={() => this.validator.showMessageFor('subject')} type="text" />
                                        {this.validator.message('subject', contactUsForm.subject, 'required')}
                                     </div>

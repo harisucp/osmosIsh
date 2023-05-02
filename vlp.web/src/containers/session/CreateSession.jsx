@@ -36,7 +36,7 @@ import SessionSeriesPreview from "../common/SessionSeriesPreview";
 
 registerPlugin(FilePondPluginFileValidateType, FilePondPluginFileValidateSize);
 
-const DatePicker = ({ value, onChange}) => {
+const DatePicker = ({ value, onChange }) => {
     return (
         <MuiPickersUtilsProvider className="fullWidthField" utils={DateFnsUtils}>
             <DateTimePicker
@@ -45,11 +45,11 @@ const DatePicker = ({ value, onChange}) => {
                 inputVariant="outlined"
                 value={value}
                 minDate={new Date()}
-                minutesStep={15}
+                minutesStep={5}
                 onChange={onChange}
                 format="MM/dd/yyyy hh:mm a"
             />
-        </MuiPickersUtilsProvider> 
+        </MuiPickersUtilsProvider>
     )
 }
 class CreateSession extends Component {
@@ -192,7 +192,7 @@ class CreateSession extends Component {
 
         const otherStartDateTimeStamps = [];
         otherStartDateTimeStamps.push(startTime.valueOf());
-        
+
         otherStartTime.forEach(date => {
             otherStartDateTimeStamps.push(date.valueOf());
         });
@@ -204,8 +204,8 @@ class CreateSession extends Component {
 
         let valid = true;
 
-        for(let i = 1; i < otherStartDateTimeStamps.length; i++) {
-            const startDate = otherStartDateTimeStamps[i-1];
+        for (let i = 1; i < otherStartDateTimeStamps.length; i++) {
+            const startDate = otherStartDateTimeStamps[i - 1];
             const endDate = otherStartDateTimeStamps[i];
 
             const diffInMinutes = moment(endDate).diff(moment(startDate), 'minutes');
@@ -219,11 +219,11 @@ class CreateSession extends Component {
         return valid;
     }
 
-    cancelPreview = () =>{
-        this.setState({showPreviewData: false, previewData: {}})
-      }
-    
-      showPreview = () => {
+    cancelPreview = () => {
+        this.setState({ showPreviewData: false, previewData: {} })
+    }
+
+    showPreview = () => {
         if (!this.validateStartDateTimes()) {
             this.props.actions.showAlert({ message: 'Please enter valid start time.', variant: "error" });
             return;
@@ -247,7 +247,7 @@ class CreateSession extends Component {
                 formData[key] = val !== null ? val : "";
             }
             else if (key === "otherStartTime") {
-                val.forEach(d =>  {
+                val.forEach(d => {
                     formData[`${key}[]`] = moment.tz(moment(d).format('MM/DD/YYYY h:mm:ss A'), 'MM/DD/YYYY h:mm:ss A', this.state.sessionData.timeZone).utc().format("YYYY-MM-DD hh:mm A");
                 })
             }
@@ -255,30 +255,30 @@ class CreateSession extends Component {
                 formData[key] = val;
             }
         });
-        
+
         const userInfo = localStorageService.getUserDetail();
         const newFormData = {
-          SessionId: formData.SessionId,
-          SeriesId: null,
-          Title: formData.sessionTitle,
-          Description: formData.description,
-          Name: userInfo["FirstName"] +" "+ userInfo["LastName"],
-          TeacherId: formData.teacherId,
-          ImageFile: sessionData.base64file || sessionData.image,
-          TeacherImageFile: userInfo.UserImage,
-          StartTime: formData.startTime,
-          Duration: formData.duration,
-          Fee: formData.sessionFee,
-          TotalSeats: formData.numberOfJoineesAllowed,
-          OccupiedSeats: 0,
-          TimeZone: formData.timeZone,
-          Rating: 0,
-          RatingCount: 0,
+            SessionId: formData.SessionId,
+            SeriesId: null,
+            Title: formData.sessionTitle,
+            Description: formData.description,
+            Name: userInfo["FirstName"] + " " + userInfo["LastName"],
+            TeacherId: formData.teacherId,
+            ImageFile: sessionData.base64file || sessionData.image,
+            TeacherImageFile: userInfo.UserImage,
+            StartTime: formData.startTime,
+            Duration: formData.duration,
+            Fee: formData.sessionFee,
+            TotalSeats: formData.numberOfJoineesAllowed,
+            OccupiedSeats: 0,
+            TimeZone: formData.timeZone,
+            Rating: 0,
+            RatingCount: 0,
         }
-        this.setState({previewData: newFormData, showPreviewData: true})
-      }
+        this.setState({ previewData: newFormData, showPreviewData: true })
+    }
 
-    createSession = () => {        
+    createSession = () => {
         if (!this.validateStartDateTimes()) {
             this.props.actions.showAlert({ message: 'Please enter valid start time.', variant: "error" });
             return;
@@ -302,7 +302,7 @@ class CreateSession extends Component {
                 formData.append(key, val !== null ? val : "");
             }
             else if (key === "otherStartTime") {
-                val.forEach(d =>  {
+                val.forEach(d => {
                     formData.append(`${key}[]`, moment.tz(moment(d).format('MM/DD/YYYY h:mm:ss A'), 'MM/DD/YYYY h:mm:ss A', this.state.sessionData.timeZone).utc().format("YYYY-MM-DD hh:mm A"));
                 })
             }
@@ -317,7 +317,7 @@ class CreateSession extends Component {
                 if (response.Success) {
                     this.props.actions.showAlert({ message: sessionData.sessionId > 0 ? 'Session updated successfully.' : 'Session created successfully.', variant: "success" });
                     history.push(`${PUBLIC_URL}/TutorDashBoard`);
-                }else{
+                } else {
                     this.props.actions.showAlert({ message: response.Message, variant: "error" });
                 }
                 this.setState({ loading: false });
@@ -376,7 +376,7 @@ class CreateSession extends Component {
                             showImage: sessionDetail.Image ? true : false
                         })
                     }
-                }else{
+                } else {
                     this.props.actions.showAlert({ message: response.Message, variant: "error" });
                 }
                 this.setState({ loading: false });
@@ -398,8 +398,10 @@ class CreateSession extends Component {
     }
     handleTextChange = (e) => {
         const { sessionData } = this.state;
-        if (e.target.name === "sessionTitle") {
-            sessionData[e.target.name] = e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1);
+        if (e.target.name === "sessionTitle" && e.target.value != '') {
+            if (/^[a-zA-Z0-9 ]*[a-zA-Z ]+[a-zA-Z0-9 ]*$/.test(e.target.value)) {
+                sessionData[e.target.name] = e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1);
+            }
         }
         else if (e.target.name === "sessionFee") {
             sessionData[e.target.name] = e.target.value !== "" ? Number(e.target.value) : e.target.value;
@@ -434,16 +436,16 @@ class CreateSession extends Component {
         this.setState({ sessionData });
     }
 
-    converFileToBase64 = (file)=> {
+    converFileToBase64 = (file) => {
         let that = this;
-        const {sessionData} = this.state;
-            var reader = new FileReader();
-            reader.onloadend = function() {
-                sessionData.base64file = reader.result
-              that.setState({sessionData});
-            }
-            reader.readAsDataURL(file[0]);
-      }
+        const { sessionData } = this.state;
+        var reader = new FileReader();
+        reader.onloadend = function () {
+            sessionData.base64file = reader.result
+            that.setState({ sessionData });
+        }
+        reader.readAsDataURL(file[0]);
+    }
 
     handleDateControls = (datetime, name) => {
         const { sessionData } = this.state;
@@ -456,9 +458,12 @@ class CreateSession extends Component {
         this.setState({ sessionData });
     }
     addChip = (value, name) => {
-        const { sessionData } = this.state;
-        sessionData[name].push(value.charAt(0).toUpperCase() + value.slice(1));
-        this.setState({ sessionData });
+        if (/^[a-zA-Z0-9 ]*[a-zA-Z ]+[a-zA-Z0-9 ]*$/.test(value)) {
+            const { sessionData } = this.state;
+            sessionData[name].push(value.charAt(0).toUpperCase() + value.slice(1));
+            this.setState({ sessionData });
+        }
+
     };
     removeChip = (chip, index, name) => {
         const { sessionData } = this.state;
@@ -496,7 +501,7 @@ class CreateSession extends Component {
         const { startTime, otherStartTime, duration } = sessionData;
 
         const otherStartDateCount = otherStartTime.length;
-        const lastStartTime =  otherStartDateCount > 0 ? otherStartTime[otherStartDateCount - 1] : startTime;
+        const lastStartTime = otherStartDateCount > 0 ? otherStartTime[otherStartDateCount - 1] : startTime;
 
         sessionData.otherStartTime.push(moment(lastStartTime).add(duration.hours(), 'hours').add(duration.minutes(), 'minutes'));
         this.setState({ sessionData });
@@ -504,7 +509,7 @@ class CreateSession extends Component {
 
     removeStartTimeHandler = (index) => {
         const { sessionData } = this.state;
-        sessionData.otherStartTime.splice(index,1);
+        sessionData.otherStartTime.splice(index, 1);
         this.setState({ sessionData });
     }
 
@@ -570,7 +575,7 @@ class CreateSession extends Component {
                                                 <div className="form-group padleft">
                                                     <label htmlFor="uname1">Add a Cover Photo (1200x800 or 3:2 ratio up to 5mb)</label>
 
-                                                    {this.state.showImage && <div className="closeImage" onClick={this.ChangeImage}><span className="closeButton"><i class="fa fa-times" aria-hidden="true"></i></span><img width="" height=""  src={sessionData.image} alt="image" /></div>}
+                                                    {this.state.showImage && <div className="closeImage" onClick={this.ChangeImage}><span className="closeButton"><i class="fa fa-times" aria-hidden="true"></i></span><img width="" height="" src={sessionData.image} alt="image" /></div>}
                                                     {!this.state.showImage &&
                                                         <FilePond
                                                             allowFileTypeValidation={true}
@@ -648,19 +653,19 @@ class CreateSession extends Component {
                                                 </div>
 
                                                 {sessionData.otherStartTime.map((value, index) => {
-                                                        return (
-                                                                <div className="form-group">
-                                                                    <div className="input-group"> 
-                                                                        <div className="form-control commonInputField">
-                                                                            <DatePicker value={value} onChange={value => this.handleOtherStartDateTimeControls(value, index)} />
-                                                                        </div>
-                                                                        <div className="input-group-append">
-                                                                            <button type="minus" className="btn btn-danger" title="Remove" onClick={()=>this.removeStartTimeHandler(index)}><i className="fa fa-trash"></i></button>
-                                                                        </div>
-                                                                    </div>
+                                                    return (
+                                                        <div className="form-group">
+                                                            <div className="input-group">
+                                                                <div className="form-control commonInputField">
+                                                                    <DatePicker value={value} onChange={value => this.handleOtherStartDateTimeControls(value, index)} />
                                                                 </div>
-                                                            );
-                                                    })}
+                                                                <div className="input-group-append">
+                                                                    <button type="minus" className="btn btn-danger" title="Remove" onClick={() => this.removeStartTimeHandler(index)}><i className="fa fa-trash"></i></button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    );
+                                                })}
                                             </div>
                                             <div className="col-lg-6  col-md-6 col-sm-12">
                                                 <div className="form-group padleft">
@@ -711,6 +716,7 @@ class CreateSession extends Component {
                                                             onAdd={value => this.addChip(value, "language")}
                                                             onDelete={(chip, index) => this.removeChip(chip, index, "language")}
                                                             variant="outlined"
+                                                            disableUnderline={true}
                                                             allowDuplicates={false}
                                                             newChipKeyCodes={[9, 13, 187, 188]}
                                                             disabled={numberOfJoineesEnrolled > 0 ? true : false}
@@ -756,7 +762,7 @@ class CreateSession extends Component {
                     <div className="loaderDiv"><div className="loader">
                         <Loader type="ball-clip-rotate-multiple" style={{ transform: 'scale(1.4)' }} />
                     </div></div>}
-            {this.state.showPreviewData && <SessionSeriesPreview data={this.state.previewData} submit={() => this.createSession()} close={() => this.cancelPreview()}></SessionSeriesPreview>}
+                {this.state.showPreviewData && <SessionSeriesPreview data={this.state.previewData} submit={() => this.createSession()} close={() => this.cancelPreview()}></SessionSeriesPreview>}
             </Fragment >
         );
     }
