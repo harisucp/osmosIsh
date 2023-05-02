@@ -272,7 +272,18 @@ namespace OsmosIsh.Web.API.Controllers
             _JsonString = Mapper.Convert<BaseResponse>(_MainResponse);
             return new OkObjectResult(_JsonString);
         }
-
+        /// <summary>
+        /// This API is used to save and auto-verify phone-number.
+        /// </summary>
+        /// <param name="VerifyPhoneNumber"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> VerifyPhoneNumber(SendPhoneVerificationRequest VerifyPhoneNumber)
+        {
+            _MainResponse = await _UserService.VerifyPhoneNumber(VerifyPhoneNumber);
+            _JsonString = Mapper.ConvertWithoutNull<UserResponse>(_MainResponse);
+            return new OkObjectResult(_JsonString);
+        }
         /// <summary>
         /// This API is used to delete user.
         /// </summary>

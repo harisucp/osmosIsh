@@ -20,7 +20,7 @@ namespace OsmosIsh.Core.Shared.Static
         public const string ACCOUNT_VERIFICATION_EMAIL = "Account verification mail sent successfully.";
         public const string PHONE_VERIFICATION_SUCCESS = "Phone number verification code sent successfully.";
         public const string PHONE_NUMBER_VERIFIED_SUCCESS = "Phone number verified successfully.";
-
+        public const string PHONE_NUMBER_SAVED_SUCCESS = "Phone number saved successfully.";
         //Subscription API Controller
         public const string EMAIL_SUBSCRIBED = "Email subscribed successfully.";
         public const string EMAIL_UNSUBSCRIBED = "Email unsubscribed successfully.";
