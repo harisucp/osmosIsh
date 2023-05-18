@@ -101,7 +101,6 @@ class PrivateSession extends Component {
                             // responseData.map((item) => {
                             //     item.IsFavourite = item.FavoriteId > 0 ? true : false;
                             // });
-                            console.log(responseData);
                             this.setState({
                                 allTutorData: responseData,
                                 totalcount: response.Data.ResultDataList[0].totalCount,
@@ -146,7 +145,6 @@ class PrivateSession extends Component {
                 },
                 (error) =>
                     this.setState((prevState) => {
-                        console.log(`SessionCategories:${error}`);
                         this.props.actions.showAlert({
                             message: "Something went wrong...",
                             variant: "error",

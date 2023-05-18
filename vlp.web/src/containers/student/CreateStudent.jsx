@@ -64,9 +64,9 @@ class CreateStudent extends Component {
       verifiedPhoneNumber: "",
       showDeleteModal: false,
       IsLockOut: false,
-      verifyPhoneMsg: '',
+      verifyPhoneMsg: "",
       showVerifyMsg: false,
-      isValidNumber: true
+      isValidNumber: true,
     };
     this.validator = new SimpleReactValidator();
   }
@@ -76,11 +76,10 @@ class CreateStudent extends Component {
 
   //API calls------------------------------------------------------
   setLockStatus = (data) => {
-    console.log(data);
     if (data != null) {
       this.setState({ IsLockOut: data?.IsLockOut });
     }
-  }
+  };
   getStudentDetail = () => {
     this.setState({ loading: true });
     apiService
@@ -124,27 +123,35 @@ class CreateStudent extends Component {
                   education: studentDetail.Education
                     ? studentDetail.Education.split(",")
                     : [],
-                  description: studentDetail.Description === null ? "" : studentDetail.Description,
+                  description:
+                    studentDetail.Description === null
+                      ? ""
+                      : studentDetail.Description,
                   languages: studentDetail.Languages
                     ? studentDetail.Languages.split(",")
                     : [],
                   interest: studentDetail.Interest
                     ? studentDetail.Interest.split(",")
                     : [],
-                  phoneNumberVerified: studentDetail.PhoneNumberVerified
+                  phoneNumberVerified: studentDetail.PhoneNumberVerified,
                 },
                 showImage: studentDetail.ImageFile ? true : false,
-                verifiedPhoneNumber: studentDetail.PhoneNumberVerified === "Y" ? studentDetail.PhoneNumber : "",
+                verifiedPhoneNumber:
+                  studentDetail.PhoneNumberVerified === "Y"
+                    ? studentDetail.PhoneNumber
+                    : "",
               });
             }
           } else {
-            this.props.actions.showAlert({ message: response.Message, variant: "error" });
+            this.props.actions.showAlert({
+              message: response.Message,
+              variant: "error",
+            });
           }
           this.setState({ loading: false });
         },
         (error) =>
           this.setState((prevState) => {
-            console.log(`Tag:${error}`);
             this.props.actions.showAlert({
               message: "Something went wrong...",
               variant: "error",
@@ -187,7 +194,6 @@ class CreateStudent extends Component {
         },
         (error) =>
           this.setState((prevState) => {
-            console.log(`Tag:${error}`);
             this.props.actions.showAlert({
               message: "Something went wrong...",
               variant: "error",
@@ -210,15 +216,14 @@ class CreateStudent extends Component {
     let valueLength = formattedValue.length;
 
     if (valueLength != selCountryFormatLength) {
-      this.setState({ isValidNumber: false })
+      this.setState({ isValidNumber: false });
     } else {
-      this.setState({ isValidNumber: true })
+      this.setState({ isValidNumber: true });
     }
     const { studentProfileData, verifiedPhoneNumber } = this.state;
     if (verifiedPhoneNumber != formattedValue) {
       studentProfileData["phoneNumberVerified"] = "N";
-    }
-    else {
+    } else {
       studentProfileData["phoneNumberVerified"] = "Y";
     }
     studentProfileData["phoneNumber"] = formattedValue;
@@ -228,42 +233,57 @@ class CreateStudent extends Component {
 
   phoneVerification = () => {
     if (!this.state.isValidNumber) {
-      this.setState({ showVerifyMsg: true, verifyPhoneMsg: 'Please Enter valid Number' });
+      this.setState({
+        showVerifyMsg: true,
+        verifyPhoneMsg: "Please Enter valid Number",
+      });
       this.startCountDown();
       return false;
     }
     this.setState({ loading: true });
     const { studentProfileData } = this.state;
-    apiService.post('VERIFYPHONE', {
-      "userId": this.props.auth.user.UserId,
-      "phoneNumber": studentProfileData.phoneNumber
-    })
-      .then(response => {
-        if (response.Success) {
-          this.setState({ showVerifyMsg: true, verifyPhoneMsg: response.Message });
-        } else {
-          this.setState({ showVerifyMsg: true, verifyPhoneMsg: response.Message });
-        }
-        this.setState({ loading: false });
-        this.startCountDown();
-      },
+    apiService
+      .post("VERIFYPHONE", {
+        userId: this.props.auth.user.UserId,
+        phoneNumber: studentProfileData.phoneNumber,
+      })
+      .then(
+        (response) => {
+          if (response.Success) {
+            this.setState({
+              showVerifyMsg: true,
+              verifyPhoneMsg: response.Message,
+            });
+          } else {
+            this.setState({
+              showVerifyMsg: true,
+              verifyPhoneMsg: response.Message,
+            });
+          }
+          this.setState({ loading: false });
+          this.startCountDown();
+        },
         (error) =>
           this.setState((prevState) => {
-            this.props.actions.showAlert({ message: error !== undefined ? error : 'Something went wrong please try again !!', variant: "error" });
+            this.props.actions.showAlert({
+              message:
+                error !== undefined
+                  ? error
+                  : "Something went wrong please try again !!",
+              variant: "error",
+            });
             this.setState({ loading: false });
           })
       );
-  }
+  };
 
   startCountDown() {
     let countDown = 5; // 2 minutes in seconds
 
     const interval = setInterval(() => {
-
       if (--countDown < 0) {
         clearInterval(interval);
-        this.setState({ showVerifyMsg: false, verifyPhoneMsg: '' })
-        // console.log('Time is up!');
+        this.setState({ showVerifyMsg: false, verifyPhoneMsg: "" });
       }
     }, 1000); // update the timer every second
   }
@@ -274,18 +294,20 @@ class CreateStudent extends Component {
   };
 
   handleOnBlur = (name, value) => {
-    console.log(name, { value });
     var formData = new FormData();
     const { studentProfileData } = this.state;
     studentProfileData[name] = value;
     this.setState({ studentProfileData });
-    formData.append('Type', 'STUDENT');
-    formData.append('Id', this.props.auth.user.UserId);
-    formData.append('IsInterestOrDescription', ['description', 'interest'].includes(name));
-    formData.append('FieldName', name);
-    formData.append('Value', value);
+    formData.append("Type", "STUDENT");
+    formData.append("Id", this.props.auth.user.UserId);
+    formData.append(
+      "IsInterestOrDescription",
+      ["description", "interest"].includes(name)
+    );
+    formData.append("FieldName", name);
+    formData.append("Value", value);
     this.updateData(formData, false, "UPDATESTUDENTORTEACHERPROFILE");
-  }
+  };
   addTags = (value, name) => {
     if (/^[a-zA-Z0-9 ]*[a-zA-Z ]+[a-zA-Z0-9 ]*$/.test(value)) {
       const { studentProfileData } = this.state;
@@ -302,22 +324,78 @@ class CreateStudent extends Component {
     studentProfileData[name].splice(index, 1);
     this.setState({ studentProfileData });
     this.handleOnBlur(name, studentProfileData[name]);
-
   };
 
-  handleFileUpload = (fileItems) => {
+  //Old Code
+  // handleFileUpload = (fileItems) => {
+  //   const { studentProfileData } = this.state;
+  //   if (fileItems[0] && fileItems[0].fileType.search("image") > -1) {
+  //     studentProfileData.image = fileItems.map((fileItem) => fileItem.file);
+  //     studentProfileData.isImageUpdated = true;
+  //     this.converFileToBase64(studentProfileData.image);
+  //   } else {
+  //     studentProfileData.image = [];
+  //     studentProfileData.isImageUpdated = true;
+  //   }
+  //   this.setState({ studentProfileData });
+  // };
+
+  //New Code
+  handleFileUpload = async (fileItems) => {
     const { studentProfileData } = this.state;
     if (fileItems[0] && fileItems[0].fileType.search("image") > -1) {
-      studentProfileData.image = fileItems.map((fileItem) => fileItem.file);
+      const resizedImageBlob = await this.resizeImage(
+        fileItems[0].file,
+        250,
+        250
+      );
+      studentProfileData.image = [
+        new File([resizedImageBlob], "resized.jpg", { type: "image/jpeg" }),
+      ];
       studentProfileData.isImageUpdated = true;
-      this.converFileToBase64(studentProfileData.image);
     } else {
       studentProfileData.image = [];
       studentProfileData.isImageUpdated = true;
     }
     this.setState({ studentProfileData });
+  };
 
+  resizeImage = (file, maxWidth, maxHeight) => {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        let width = img.width;
+        let height = img.height;
 
+        if (width > height) {
+          if (width > maxWidth) {
+            height *= maxWidth / width;
+            width = maxWidth;
+          }
+        } else {
+          if (height > maxHeight) {
+            width *= maxHeight / height;
+            height = maxHeight;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, width, height);
+
+        canvas.toBlob(
+          (blob) => {
+            resolve(blob);
+          },
+          "image/jpeg",
+          0.9
+        );
+      };
+      img.src = URL.createObjectURL(file);
+    });
   };
 
   converFileToBase64 = (file) => {
@@ -325,13 +403,12 @@ class CreateStudent extends Component {
     const { studentProfileData } = this.state;
     var reader = new FileReader();
     reader.onloadend = function () {
-      studentProfileData.base64file = reader.result
+      studentProfileData.base64file = reader.result;
       that.setState({ studentProfileData });
-      that.handleOnBlur('imagefile', reader.result);
-    }
+      that.handleOnBlur("imagefile", reader.result);
+    };
     reader.readAsDataURL(file[0]);
-
-  }
+  };
 
   hadleDateChange = (date) => {
     const { studentProfileData } = this.state;
@@ -354,19 +431,23 @@ class CreateStudent extends Component {
     if (this.validator.allValid() === false) {
       this.validator.showMessages();
       this.forceUpdate();
-      this.props.actions.showAlert({ message: "Please go back and review your profile.", variant: "error" });
+      this.props.actions.showAlert({
+        message: "Please go back and review your profile.",
+        variant: "error",
+      });
       return false;
     }
-    const { studentProfileData } = this.state;
-    if (studentProfileData.phoneNumberVerified === "N") {
-      this.props.actions.showAlert({ message: "Please verify your phone number.", variant: "error" });
-      return false;
-    }
-    console.log(this.state.studentProfileData);
+    // const { studentProfileData } = this.state;
+    // if (studentProfileData.phoneNumberVerified === "N") {
+    //   this.props.actions.showAlert({
+    //     message: "Please verify your phone number.",
+    //     variant: "error",
+    //   });
+    //   return false;
+    // }
 
     var formData = new FormData();
     Object.entries(this.state.studentProfileData).map(function ([key, val]) {
-      console.log(key, val);
       if (key === "image" && val !== null) {
         formData.append(key, val[0]);
       } else if (
@@ -384,7 +465,11 @@ class CreateStudent extends Component {
     this.updateData(formData, true);
   };
 
-  updateData = (dataToUpdate, isRedirect, endPoint = "UPDATESTUDENTPROFILE") => {
+  updateData = (
+    dataToUpdate,
+    isRedirect,
+    endPoint = "UPDATESTUDENTPROFILE"
+  ) => {
     this.setState({ loading: true });
 
     apiService.postFile(endPoint, dataToUpdate).then(
@@ -398,7 +483,9 @@ class CreateStudent extends Component {
               data.LastName,
               data.UserImage
             );
-            this.props.actions.loginSuccess(localStorageService.getUserDetail());
+            this.props.actions.loginSuccess(
+              localStorageService.getUserDetail()
+            );
             this.props.actions.changeUserMode("student");
           }
           this.props.actions.showAlert({
@@ -412,19 +499,27 @@ class CreateStudent extends Component {
             this.setState({ loading: false });
           }
         } else {
-          this.props.actions.showAlert({ message: response.Message, variant: "error" });
-          console.log(this.state.studentProfileData);
+          this.props.actions.showAlert({
+            message: response.Message,
+            variant: "error",
+          });
         }
         this.setState({ loading: false });
       },
       (error) =>
         this.setState((prevState) => {
-          this.props.actions.showAlert({ message: error !== undefined ? error : 'Something went wrong please try again !!', variant: "error" });
+          this.props.actions.showAlert({
+            message:
+              error !== undefined
+                ? error
+                : "Something went wrong please try again !!",
+            variant: "error",
+          });
 
           this.setState({ loading: false });
         })
     );
-  }
+  };
 
   ChangeImage = () => {
     const { studentProfileData } = this.state;
@@ -433,25 +528,39 @@ class CreateStudent extends Component {
     this.setState({ showImage: false, studentProfileData });
   };
   setVerificationStatus = (status) => {
-
     const { studentProfileData } = this.state;
     if (status) {
-      this.setState({ studentProfileData: { ...studentProfileData, phoneNumberVerified: 'Y' }, verifiedPhoneNumber: studentProfileData.phoneNumber });
+      this.setState({
+        studentProfileData: { ...studentProfileData, phoneNumberVerified: "Y" },
+        verifiedPhoneNumber: studentProfileData.phoneNumber,
+      });
+    } else {
+      this.setState({
+        studentProfileData: { ...studentProfileData, phoneNumberVerified: "N" },
+        verifiedPhoneNumber: "",
+      });
     }
-    else {
-      this.setState({ studentProfileData: { ...studentProfileData, phoneNumberVerified: 'N' }, verifiedPhoneNumber: "" });
-    }
-  }
+  };
   showTwilioPopup = (status) => {
     this.setState({ showTwilio: status });
-  }
+  };
 
   showDeletePopup = () => {
     const { showDeleteModal } = this.state;
     this.setState({ showDeleteModal: !showDeleteModal });
-  }
+  };
   render() {
-    const { studentProfileData, coutriesOption, loading, showTwilio, showDeleteModal, IsLockOut, isValidNumber, verifyPhoneMsg, showVerifyMsg } = this.state;
+    const {
+      studentProfileData,
+      coutriesOption,
+      loading,
+      showTwilio,
+      showDeleteModal,
+      IsLockOut,
+      isValidNumber,
+      verifyPhoneMsg,
+      showVerifyMsg,
+    } = this.state;
     return (
       <Fragment>
         <section className="series-Session">
@@ -471,7 +580,9 @@ class CreateStudent extends Component {
                                 onClick={this.ChangeImage}
                               >
                                 {" "}
-                                <img width="" height=""
+                                <img
+                                  width=""
+                                  height=""
                                   src={studentProfileData.image}
                                   alt="image"
                                 />
@@ -481,7 +592,7 @@ class CreateStudent extends Component {
                               <FilePond
                                 labelIdle='Drag & Drop Your
                                 <span className="filepond--label-action">Picture or Browse.
-                                1:1 ratio, 5MB max size</span>'
+                                1:1 ratio, 3MB max size</span>'
                                 allowMultiple={false}
                                 onupdatefiles={this.handleFileUpload}
                                 acceptedFileTypes={["image/jpeg", "image/png"]}
@@ -494,8 +605,8 @@ class CreateStudent extends Component {
                                 styleButtonRemoveItemPosition="center bottom"
                                 allowFileSizeValidation={true}
                                 labelMaxFileSize="File types allowed: JPG,PNG"
-                                labelMaxFileSizeExceeded="Maximum file size is 5MB."
-                                maxFileSize="5MB"
+                                labelMaxFileSizeExceeded="Maximum file size is 3MB."
+                                maxFileSize="3MB"
                               />
                             )}
                           </div>
@@ -513,10 +624,12 @@ class CreateStudent extends Component {
                               onChange={this.handleChange}
                               value={studentProfileData.firstName}
                               onBlur={(e) => {
-                                this.validator.showMessageFor("firstName")
-                                this.handleOnBlur(e.target.name, e.target.value)
-                              }
-                              }
+                                this.validator.showMessageFor("firstName");
+                                this.handleOnBlur(
+                                  e.target.name,
+                                  e.target.value
+                                );
+                              }}
                             />
                             {this.validator.message(
                               "First Name",
@@ -537,10 +650,11 @@ class CreateStudent extends Component {
                               value={studentProfileData.lastName}
                               onBlur={(e) => {
                                 this.validator.showMessageFor("lastName");
-                                this.handleOnBlur(e.target.name, e.target.value)
-                              }
-
-                              }
+                                this.handleOnBlur(
+                                  e.target.name,
+                                  e.target.value
+                                );
+                              }}
                             />
                             {this.validator.message(
                               "Last Name",
@@ -564,8 +678,7 @@ class CreateStudent extends Component {
                               options={coutriesOption}
                               onBlur={(e) => {
                                 this.validator.showMessageFor("country");
-                              }
-                              }
+                              }}
                             />
                             {this.validator.message(
                               "country",
@@ -600,9 +713,8 @@ class CreateStudent extends Component {
                                 isValid={() => isValidNumber}
                                 onBlur={(e) => {
                                   this.validator.showMessageFor("phoneNumber");
-                                  this.phoneVerification()
-                                }
-                                }
+                                  this.phoneVerification();
+                                }}
                               />
                             </div>
                             {this.validator.message(
@@ -629,7 +741,6 @@ class CreateStudent extends Component {
                                 return <label>Phone number verified</label>
                               }
                             })()} */}
-
                           </div>
                         </div>
                       </div>
@@ -735,7 +846,10 @@ class CreateStudent extends Component {
                               name="description"
                               onChange={this.handleChange}
                               onBlur={(e) => {
-                                this.handleOnBlur(e.target.name, e.target.value)
+                                this.handleOnBlur(
+                                  e.target.name,
+                                  e.target.value
+                                );
                               }}
                               placeholder="Description"
                             ></textarea>
@@ -784,8 +898,20 @@ class CreateStudent extends Component {
             )}
           </div>
         </section>
-        <TwilioVerification showTwilioPoup={showTwilio} VerificationNumber={studentProfileData.phoneNumber} onVerified={this.setVerificationStatus} onLockStatus={this.setLockStatus} onTwilioClose={this.showTwilioPopup}> </TwilioVerification>
-        <DeleteProfileModal showModal={showDeleteModal} onDeleteProfileModalClose={this.showDeletePopup} studentId={studentProfileData.studentId}></DeleteProfileModal>
+        <TwilioVerification
+          showTwilioPoup={showTwilio}
+          VerificationNumber={studentProfileData.phoneNumber}
+          onVerified={this.setVerificationStatus}
+          onLockStatus={this.setLockStatus}
+          onTwilioClose={this.showTwilioPopup}
+        >
+          {" "}
+        </TwilioVerification>
+        <DeleteProfileModal
+          showModal={showDeleteModal}
+          onDeleteProfileModalClose={this.showDeletePopup}
+          studentId={studentProfileData.studentId}
+        ></DeleteProfileModal>
       </Fragment>
     );
   }

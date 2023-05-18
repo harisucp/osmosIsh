@@ -130,7 +130,6 @@ class CreateSession extends Component {
             },
                 (error) =>
                     this.setState((prevState) => {
-                        console.log(`SessionCategories:${error}`);
                         this.props.actions.showAlert({ message: 'Something went wrong...', variant: "error" });
                         this.setState({ loading: false });
                     })
@@ -149,7 +148,6 @@ class CreateSession extends Component {
             },
                 (error) =>
                     this.setState((prevState) => {
-                        console.log(`SessionCategories:${error}`);
                         this.props.actions.showAlert({ message: 'Something went wrong...', variant: "error" });
                         this.setState({ loading: false });
                     })
@@ -324,7 +322,6 @@ class CreateSession extends Component {
             },
                 (error) =>
                     this.setState((prevState) => {
-                        console.log(`Create Session:${error}`);
                         this.props.actions.showAlert({ message: error !== undefined ? error : 'Something went wrong please try again !!', variant: "error" });
                         this.setState({ loading: false });
                     })
@@ -383,7 +380,6 @@ class CreateSession extends Component {
             },
                 (error) =>
                     this.setState((prevState) => {
-                        console.log(`SeriesCategories:${error}`);
                         this.props.actions.showAlert({ message: 'Something went wrong...', variant: "error" });
                         this.setState({ loading: false });
                     })

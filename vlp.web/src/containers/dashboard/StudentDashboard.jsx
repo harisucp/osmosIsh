@@ -224,7 +224,6 @@ class StudentDashboard extends Component {
     };
 
     handleTabChange = (e, { activeIndex }) => {
-        console.log(activeIndex);
         this.setState({ activeIndex });
         // tableRef.current && tableRef.current.onQueryChange();
         if (activeIndex === 0) {
@@ -1100,7 +1099,6 @@ class StudentDashboard extends Component {
                                                 keyName: "GetMyHostsList",
                                             })
                                             .then((response) => {
-                                                console.log(response);
                                                 resolve({
                                                     
                                                     data:
@@ -1629,7 +1627,6 @@ class StudentDashboard extends Component {
         ];
         // this.setState({ panes });
         this.setState({ panes, loading: false });
-        console.log(this.state.panes);
     };
 
     handleViewDetails = (SeriesId, SessionId) => {

@@ -140,7 +140,6 @@ class SearchPanel extends Component {
                      // console.log(moment(moment.utc(item.StartTime).local().format('MM-DD-YYYY')).unix(), moment(formatedStartTime).unix(), moment(moment.utc(item.EndTime).local().format('MM-DD-YYYY')).unix() , moment(formatedEndTime).unix(), (moment(moment.utc(item.StartTime).local().format('MM-DD-YYYY')).unix() >= moment(formatedStartTime).unix()) && (moment(moment.utc(item.EndTime).local().format('MM-DD-YYYY')).unix() <= moment(formatedEndTime).unix())); 
                      return (moment(moment.utc(item.StartTime).local().format('MM-DD-YYYY')).unix() >= moment(formatedStartTime).unix()) && (moment(moment.utc(item.EndTime).local().format('MM-DD-YYYY')).unix() <= moment(formatedEndTime).unix())
                   });
-                  console.log(courseData);
                   if (sortBy) {
                      this.setState({ courseSearchData: courseData, fetchedRowsCount: data.length });
                      this.handleSelectChange(this.state.sortedSelectedOption, this.state.sortedMeta);
@@ -159,7 +158,6 @@ class SearchPanel extends Component {
             this.setState({ loading: false, isRequestDone: true });
          },
             (error) => {
-               console.log(error);
                this.setState((prevState) => {
                   this.props.actions.showAlert({ message: error !== undefined ? error : 'Something went wrong please try again !!', variant: "error" });
                   this.setState({ loading: false, isRequestDone: true });
@@ -181,7 +179,6 @@ class SearchPanel extends Component {
          },
             (error) =>
                this.setState((prevState) => {
-                  console.log(`Tag:${error}`);
                   this.props.actions.showAlert({ message: 'Something went wrong...', variant: "error" });
                   this.setState({ loading: false });
                })
@@ -200,7 +197,6 @@ class SearchPanel extends Component {
          },
             (error) =>
                this.setState((prevState) => {
-                  console.log(`SessionCategories:${error}`);
                   this.props.actions.showAlert({ message: 'Something went wrong...', variant: "error" });
                   this.setState({ loading: false });
                })
@@ -255,7 +251,6 @@ class SearchPanel extends Component {
    }
 
    handleSelectChange = (opt, meta) => {
-      console.log(opt, meta);
       const { filterOptions } = this.state;
       if (meta.name === 'sortBy') {
          const sortArr = this.state.courseSearchData.sort((a, b) => {
@@ -374,7 +369,6 @@ class SearchPanel extends Component {
    }
 
    handleStartDateChange = date => {
-      console.log(moment().toString());
 
       const { filterOptions } = this.state;
       if (!date || date.toString() == "Invalid Date" || moment(date) < moment()) {

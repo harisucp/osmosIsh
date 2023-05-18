@@ -95,7 +95,6 @@ class CreateSeries extends Component {
             },
                 (error) =>
                     this.setState((prevState) => {
-                        console.log(`SessionCategories:${error}`);
                         this.props.actions.showAlert({ message: error.Message, variant: "error" });
                         this.setState({ loading: false });
                     })
@@ -114,7 +113,6 @@ class CreateSeries extends Component {
             },
                 (error) =>
                     this.setState((prevState) => {
-                        console.log(`SessionCategories:${error}`);
                         this.props.actions.showAlert({ message: error.Message, variant: "error" });
                         this.setState({ loading: false });
                     })
@@ -150,7 +148,6 @@ class CreateSeries extends Component {
             },
                 (error) =>
                     this.setState((prevState) => {
-                        console.log(`Series Detail:${error}`);
                         this.props.actions.showAlert({ message: error.Message, variant: "error" });
                         this.setState({ loading: false });
                     })
@@ -342,7 +339,6 @@ class CreateSeries extends Component {
             },
                 (error) =>
                     this.setState((prevState) => {
-                        console.log(`Private Session :${error}`);
                         this.props.actions.showAlert({ message: error !== undefined ? error : 'Something went wrong please try again !!', variant: "error" });
                         this.setState({ loading: false });
                     })

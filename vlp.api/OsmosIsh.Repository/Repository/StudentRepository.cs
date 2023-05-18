@@ -234,7 +234,9 @@ namespace OsmosIsh.Repository.Repository
                         var objTeacher = _ObjContext.Teachers.FirstOrDefault(x => x.UserId == updateStudentORTeacherRequest.Id);
                         if (objTeacher != null)
                         {
-                            if (updateStudentORTeacherRequest.IsPaypal) ParameterTableName = "Teachers";
+                            if (updateStudentORTeacherRequest.IsPaypal ||updateStudentORTeacherRequest.FieldName.ToUpper() == "AWARDS" || updateStudentORTeacherRequest.FieldName.ToUpper() == "SPECIALIZATION" ||
+                           updateStudentORTeacherRequest.FieldName.ToUpper() == "AFFILIATECODE"    
+                                ) ParameterTableName = "Teachers";
                             else ParameterTableName = (updateStudentORTeacherRequest.IsInterestOrDescription == true ? "Teachers" : "Users");
                             isUpdated = await UpdateStudentTeacherInObject(updateStudentORTeacherRequest, ParameterTableName);
                         }

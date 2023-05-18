@@ -122,7 +122,6 @@ class SignIn extends Component {
                 
                     this.setState((prevState) => {
                         // localStorageService.removeCartItemsFromLocal();
-                        console.log(`Session Detail:${error}`);
                         this.props.actions.showAlert({ message: error !== undefined ? error : 'Something went wrong please try again !!', variant: "error" });
                         this.setState({ loading: false });
                     })

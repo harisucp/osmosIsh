@@ -12,7 +12,6 @@ class ResetPassword extends Component {
         super(props);
         const params = new URLSearchParams(props.location.search);
         const token = params.get('Token')
-        console.log(token)
         this.state = {
             resetPasswordForm: {
                 newPassword: '',

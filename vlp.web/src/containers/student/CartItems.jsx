@@ -56,7 +56,6 @@ class CartItems extends Component {
     }
     componentDidUpdate = (prevProps, prevState) => {
         if (prevProps.auth.loggedIn !== this.props.auth.loggedIn) {
-            console.log('pokemons state has changed.', this.props.auth);
             this.setState({
                 studentId: this.props.auth.user.StudentId,
                 userId: this.props.auth.user.UserId
@@ -91,7 +90,6 @@ class CartItems extends Component {
             },
                 (error) =>
                     this.setState((prevState) => {
-                        console.log(`Session Detail:${error}`);
                         this.props.actions.showAlert({ message: 'Something went wrong...', variant: "error" });
                         this.setState({ loading: false });
                     })
@@ -159,7 +157,6 @@ class CartItems extends Component {
                 },
                     (error) => 
                         this.setState((prevState) => {
-                            console.log(`Delete Cart Item:${error}`);
                             this.props.actions.showAlert({ message: 'Something went wrong...', variant: "error" });
                             this.setState({ loading: false });
                         })
@@ -280,7 +277,6 @@ class CartItems extends Component {
                 },
                     (error) =>
                         this.setState((prevState) => {
-                            console.log(`Delete Cart Item:${error}`);
                             this.props.actions.showAlert({ message: 'Something went wrong...', variant: "error" });
                             this.setState({ loading: false });
                         })

@@ -49,7 +49,6 @@ class AppLayout extends Component {
     }
 
     _onIdle(e) {
-        console.log('user is idle');
         if (!localStorageService.IsPasswordActive()) {
             this.handleLogout();
             this.setState({ showAutoLogoutModal: true });

@@ -104,7 +104,6 @@ class TeacherDashboard extends Component {
         },
         (error) =>
           this.setState((prevState) => {
-            console.log(`Series Detail:${error}`);
             this.props.actions.showAlert({
               message: "Something went wrong...",
               variant: "error",

@@ -104,7 +104,6 @@ class Twilio extends Component {
     }
 
     clearCountDown(interval) {
-        console.log('clear ');
         this.setState({ showTimer: false })
         clearInterval(interval);
     }

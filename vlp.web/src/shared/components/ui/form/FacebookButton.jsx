@@ -13,7 +13,6 @@ class FacebookButton extends Component {
         }
     }
     responseFacebook = (response) => {
-        console.log(response, 'in FB');
         if(response.status == 'unknown'){
             return;
         }

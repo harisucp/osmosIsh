@@ -158,7 +158,6 @@ class CreateSeries extends Component {
         },
         (error) =>
           this.setState((prevState) => {
-            console.log(`TimeZone categories:${error}`);
             this.props.actions.showAlert({
               message: "Something went wrong...",
               variant: "error",
@@ -212,7 +211,6 @@ class CreateSeries extends Component {
       },
         (error) =>
           this.setState((prevState) => {
-            console.log(`SeriesCategories:${error}`);
             this.props.actions.showAlert({
               message: "Something went wrong...",
               variant: "error",
@@ -373,7 +371,6 @@ class CreateSeries extends Component {
       }
     });
     this.setState({ loading: true });
-    console.log(formData);
     apiService.postFile("CREATESERIES", formData).then(
       (response) => {
         if (response.Success) {
@@ -404,7 +401,6 @@ class CreateSeries extends Component {
 
   //Handler Fucntions
   handleTextChange = (e) => {
-    console.log(e.target.value);
     const { seriesData } = this.state;
     if (e.target.name === "seriesTitle" && e.target.value != '') {
       if (/^[a-zA-Z0-9 ]*[a-zA-Z ]+[a-zA-Z0-9 ]*$/.test(e.target.value)) {
@@ -520,7 +516,6 @@ class CreateSeries extends Component {
         var height = this.height;
         var width = this.width;
         var ratio = height / width;
-        console.log(ratio);
         if (ratio > 0.6 && ratio < 0.7) {
           return true;
         } else {
@@ -535,7 +530,6 @@ class CreateSeries extends Component {
 
   }
   converFileToBase64 = (file) => {
-    console.log(file);
     let that = this;
     let imageFile = file[0];
     const { seriesData } = this.state;

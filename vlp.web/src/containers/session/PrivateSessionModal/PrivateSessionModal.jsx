@@ -58,7 +58,6 @@ class PrivateSessionModal extends Component {
 
   // handle click event of the Remove button
   handleRemoveClick = (index, name) => {
-    console.log(index, name);
     const list = this.state.privateSessionAvailableDays;
     let arr = list[name]["PrivateSessionAvailableDaySlots"];
     arr.splice(index, 1);
@@ -67,7 +66,6 @@ class PrivateSessionModal extends Component {
 
 
   checkTimeAvailability(selectedTime, existingTimeSlots, selectedIndex, name) {
-    console.log(selectedTime, existingTimeSlots);
     for (const [index, timeSlot] of existingTimeSlots.entries()) {
       // const start = moment(timeSlot.Start, "h:mma").unix();
       const prevStart = existingTimeSlots[selectedIndex-1] && moment(existingTimeSlots[selectedIndex-1]?.Start, "h:mma").unix();
@@ -91,7 +89,6 @@ class PrivateSessionModal extends Component {
 
   // handle input change
   handleChange = (e, index, day_name, name) => {
-    console.log(e, index, day_name, name);
     const list = JSON.parse(
       JSON.stringify(this.state.privateSessionAvailableDays)
     );
@@ -139,7 +136,6 @@ class PrivateSessionModal extends Component {
       // console.log(list);
       if (moment(startTime, "h:mma").isBefore(moment(endTime, "h:mma"))) {
         this.setState({ privateSessionAvailableDays: list });
-        console.log("Correct. Start Time is below End Time");
       } else {
         this.props.actions.showAlert({
           message: "Start time can't be greater than or equal to end time",
@@ -229,10 +225,8 @@ class PrivateSessionModal extends Component {
                 PrivateSessionAvailable.map((item, i) => {
                   if (item.PrivateSessionAvailableDaySlots)
                     item.PrivateSessionAvailableDaySlots.map((slot, j) => {
-                      console.log(slot.Start);
                       slot.Start = "09:00 am";
                       slot.End = "10:00 am";
-                      console.log(slot);
                     })
                 })
 
@@ -331,7 +325,6 @@ class PrivateSessionModal extends Component {
         },
         (error) =>
           this.setState((prevState) => {
-            console.log(`SessionCategories:${error}`);
             this.props.actions.showAlert({
               message: error.Message,
               variant: "error",

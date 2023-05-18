@@ -281,7 +281,6 @@ class AppHeader extends Component {
 
   handleFilterRecord = () => {
     this.props.actions.performSearch(true);
-    console.log(history.location.pathname);
     if (history.location.pathname != "/CourseSearch") {
       history.push(
         `${PUBLIC_URL}/CourseSearch`

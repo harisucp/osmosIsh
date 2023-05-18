@@ -80,7 +80,6 @@ class CancelledSessionDetail extends Component {
             },
                 (error) =>
                     this.setState((prevState) => {
-                        console.log(`Cancelled Session Detail:${error}`);
                         this.props.actions.showAlert({ message: 'Something went wrong...', variant: "error" });
                         this.setState({ loading: false });
                     })
@@ -153,7 +152,6 @@ class CancelledSessionDetail extends Component {
                 },
                     (error) =>
                         this.setState((prevState) => {
-                            console.log(`Add to localstorage cart:${error}`);
                             this.props.actions.showAlert({ message: 'Something went wrong...', variant: "error" });
                             this.setState({ loading: false });
                         })

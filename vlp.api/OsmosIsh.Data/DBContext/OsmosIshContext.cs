@@ -1826,6 +1826,10 @@ namespace OsmosIsh.Data.DBContext
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
+                entity.Property(e => e.AffiliateCode)
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.PrivateSession)
                     .IsRequired()
                     .HasMaxLength(1)

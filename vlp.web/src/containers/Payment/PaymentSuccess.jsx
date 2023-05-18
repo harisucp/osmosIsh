@@ -23,7 +23,6 @@ class PagePaymentSuccess extends Component {
     componentDidMount = () => {
         this.getCartItems();
         const CalendarCartItem = localStorageService.getCalendarCartItem();
-        console.log(CalendarCartItem);
         this.setState({ CalendarCartItem });
     }
 

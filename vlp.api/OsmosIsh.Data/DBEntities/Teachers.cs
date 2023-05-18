@@ -43,6 +43,7 @@ namespace OsmosIsh.Data.DBEntities
         public string RecordDeleted { get; set; }
         public string DeletedBy { get; set; }
         public DateTime? DeletedDate { get; set; }
+        public string AffiliateCode { get; set; }
 
         public virtual Users User { get; set; }
         public virtual ICollection<CancelledSeriesRequest> CancelledSeriesRequest { get; set; }

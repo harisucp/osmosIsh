@@ -50,7 +50,6 @@ axios.interceptors.response.use(
             if (res.Success) {
               localStorageService.storeAuthToken(res.Data.Token);
               localStorageService.storeRefreshToken(res.Data.RefreshToken);
-              console.log("Access token refreshed!");
               return axios(originalRequest);
             }
           });

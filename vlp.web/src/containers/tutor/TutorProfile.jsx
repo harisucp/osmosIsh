@@ -94,7 +94,6 @@ class TeacherProfile extends Component {
             response.Data.ResultDataList &&
             response.Data.ResultDataList.length > 0
           ) {
-            // console.log(moment.locale(response.Data.ResultDataList[0].ResultDataList.PrivateSessionTimeZone))
             this.setState({
               PrivateSessionAvailableDaySlots: JSON.parse(
                 response.Data.ResultDataList[0].PrivateSessionAvailableDays
@@ -107,7 +106,13 @@ class TeacherProfile extends Component {
         },
         (error) =>
           this.setState((prevState) => {
-            this.props.actions.showAlert({ message: error !== undefined ? error : 'Something went wrong please try again !!', variant: "error" });
+            this.props.actions.showAlert({
+              message:
+                error !== undefined
+                  ? error
+                  : "Something went wrong please try again !!",
+              variant: "error",
+            });
           })
       );
   };
@@ -137,7 +142,13 @@ class TeacherProfile extends Component {
         },
         (error) =>
           this.setState((prevState) => {
-            this.props.actions.showAlert({ message: error !== undefined ? error : 'Something went wrong please try again !!', variant: "error" });
+            this.props.actions.showAlert({
+              message:
+                error !== undefined
+                  ? error
+                  : "Something went wrong please try again !!",
+              variant: "error",
+            });
             this.setState({ loading: false });
           })
       );
@@ -167,16 +178,25 @@ class TeacherProfile extends Component {
                 const temp = this.state.tutorReviews.concat(
                   JSON.parse(response.Data.ResultDataList[0].data)
                 );
-                this.setState({ tutorReviews: this.state.tutorReviews.concat(JSON.parse(response.Data.ResultDataList[0].data)) });
-              }else{
-
+                this.setState({
+                  tutorReviews: this.state.tutorReviews.concat(
+                    JSON.parse(response.Data.ResultDataList[0].data)
+                  ),
+                });
+              } else {
               }
             }
           }
         },
         (error) =>
           this.setState((prevState) => {
-            this.props.actions.showAlert({ message: error !== undefined ? error : 'Something went wrong please try again !!', variant: "error" });
+            this.props.actions.showAlert({
+              message:
+                error !== undefined
+                  ? error
+                  : "Something went wrong please try again !!",
+              variant: "error",
+            });
           })
       );
   };
@@ -232,23 +252,24 @@ class TeacherProfile extends Component {
                 SessionCategories:
                   response.Data.ResultDataList[0].SessionCategories !== null
                     ? JSON.parse(
-                      response.Data.ResultDataList[0].SessionCategories
-                    )
+                        response.Data.ResultDataList[0].SessionCategories
+                      )
                     : [],
                 //privateSessionSlot: this.convertDate(response.Data.ResultDataList[0].PrivateSessionSlotDetail    ? JSON.parse(response.Data.ResultDataList[0].PrivateSessionSlotDetail) : [])
               });
             } else {
               this.setState({ teacherProfileData: [] });
             }
-            
-          }else{
-            this.props.actions.showAlert({ message: response.Message, variant: "error" });
+          } else {
+            this.props.actions.showAlert({
+              message: response.Message,
+              variant: "error",
+            });
           }
           this.setState({ loading: false, isRequestDone: true });
         },
         (error) =>
           this.setState((prevState) => {
-            console.log(`Teacher Profile Data:${error}`);
             this.props.actions.showAlert({
               message: "Something went wrong...",
               variant: "error",
@@ -314,14 +335,23 @@ class TeacherProfile extends Component {
               message: "Private session request sent successfully",
               variant: "success",
             });
-          }else{
-            this.props.actions.showAlert({ message: response.Message, variant: "error" });
+          } else {
+            this.props.actions.showAlert({
+              message: response.Message,
+              variant: "error",
+            });
           }
           this.setState({ loading: false });
         },
         (error) =>
           this.setState((prevState) => {
-            this.props.actions.showAlert({ message: error !== undefined ? error : 'Something went wrong please try again !!', variant: "error" });
+            this.props.actions.showAlert({
+              message:
+                error !== undefined
+                  ? error
+                  : "Something went wrong please try again !!",
+              variant: "error",
+            });
             this.setState({ loading: false });
           })
       );
@@ -332,7 +362,6 @@ class TeacherProfile extends Component {
     if (auth.loggedIn) {
       // if (auth.userMode === "student") {}
       this.setState({ showSessionRequest: true });
-
     } else {
       this.isShowSignIn(true);
     }
@@ -411,8 +440,8 @@ class TeacherProfile extends Component {
         clickable: true,
       },
       navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev'
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
       },
       breakpoints: {
         0: {
@@ -488,30 +517,60 @@ class TeacherProfile extends Component {
                             <div className="thumbDesc">
                               <h2 className="editTutorProfile">
                                 {teacherProfileData.Name}
-                                {auth.loggedIn && auth.userMode === "tutor" && Number(teacherId) === auth.user.TeacherId && (
-                                  <div className="enrollNow">
-                                    <Button variant="contained" onClick={() => history.push(`${PUBLIC_URL}/CreateTutor`)} color="primary">
-                                      <i className="fa fa-pencil" aria-hidden="true"></i>
+                                {auth.loggedIn &&
+                                  auth.userMode === "tutor" &&
+                                  Number(teacherId) === auth.user.TeacherId && (
+                                    <div className="enrollNow">
+                                      <Button
+                                        variant="contained"
+                                        onClick={() =>
+                                          history.push(
+                                            `${PUBLIC_URL}/CreateTutor`
+                                          )
+                                        }
+                                        color="primary"
+                                      >
+                                        <i
+                                          className="fa fa-pencil"
+                                          aria-hidden="true"
+                                        ></i>
                                         EDIT PROFILE
                                       </Button>
-                                  </div>
-                                )}
-                                {auth.loggedIn === true && PrivateSession === "Y" && PrivateSessionAvailableDaySlots !== null && Number(teacherId) !== auth.user.TeacherId &&
-                                  // auth.userMode === "student" && (
-                                  <div className="requestPrivateSession">
-                                    <Button variant="contained" onClick={(e) => this.handleEventClick(e)} color="primary"                                      >
-                                      REQUEST PRIVATE SESSION
+                                    </div>
+                                  )}
+                                {auth.loggedIn === true &&
+                                  PrivateSession === "Y" &&
+                                  PrivateSessionAvailableDaySlots !== null &&
+                                  Number(teacherId) !== auth.user.TeacherId && (
+                                    // auth.userMode === "student" && (
+                                    <div className="requestPrivateSession">
+                                      <Button
+                                        variant="contained"
+                                        onClick={(e) =>
+                                          this.handleEventClick(e)
+                                        }
+                                        color="primary"
+                                      >
+                                        REQUEST PRIVATE SESSION
                                       </Button>
-                                  </div>
-                                }
+                                    </div>
+                                  )}
 
-                                {auth.loggedIn === false && PrivateSession === "Y" && PrivateSessionAvailableDaySlots !== null && (
-                                  <div className="requestPrivateSession">
-                                    <Button variant="contained" onClick={(e) => this.handleEventClick(e)} color="primary">
-                                      REQUEST PRIVATE SESSION
+                                {auth.loggedIn === false &&
+                                  PrivateSession === "Y" &&
+                                  PrivateSessionAvailableDaySlots !== null && (
+                                    <div className="requestPrivateSession">
+                                      <Button
+                                        variant="contained"
+                                        onClick={(e) =>
+                                          this.handleEventClick(e)
+                                        }
+                                        color="primary"
+                                      >
+                                        REQUEST PRIVATE SESSION
                                       </Button>
-                                  </div>
-                                )}
+                                    </div>
+                                  )}
                                 {/* /Affiliate code chnages -- uncomment these to use */}
                                 {/* {
                                                                 auth.loggedIn && auth.userMode === 'tutor' && Number(teacherId) === auth.user.TeacherId &&
@@ -523,10 +582,11 @@ class TeacherProfile extends Component {
                                 <Rating
                                   name="read-only"
                                   size="small"
-                                  value={`${teacherProfileData.TeachersRating === null
-                                    ? 0
-                                    : teacherProfileData.TeachersRating
-                                    } `}
+                                  value={`${
+                                    teacherProfileData.TeachersRating === null
+                                      ? 0
+                                      : teacherProfileData.TeachersRating
+                                  } `}
                                   readOnly
                                 />
                                 <a
@@ -638,9 +698,11 @@ class TeacherProfile extends Component {
                                         {teacherProfileData.Description}
                                         <br />
                                         <br />
-                                        <b>Instagram</b>: {teacherProfileData.instaProfile}
+                                        <b>Instagram</b>:{" "}
+                                        {teacherProfileData.instaProfile}
                                         <br />
-                                        <b>LinkedIn</b>: {teacherProfileData.linkedinProfile}
+                                        <b>LinkedIn</b>:{" "}
+                                        {teacherProfileData.linkedinProfile}
                                       </Typography>
                                     </ExpansionPanelDetails>
                                   </ExpansionPanel>
@@ -678,11 +740,13 @@ class TeacherProfile extends Component {
                                     </ExpansionPanelSummary>
                                     <ExpansionPanelDetails>
                                       <Typography>
-                                        {SessionCategories.map((data, item, index) => (
-                                          <span key={index}>
-                                            {data.SessionCategoryName} <br />
-                                          </span>
-                                        ))}
+                                        {SessionCategories.map(
+                                          (data, item, index) => (
+                                            <span key={index}>
+                                              {data.SessionCategoryName} <br />
+                                            </span>
+                                          )
+                                        )}
                                       </Typography>
                                     </ExpansionPanelDetails>
                                   </ExpansionPanel>
@@ -762,13 +826,15 @@ class TeacherProfile extends Component {
                                   <h3>Upcoming Sessions</h3>
                                   <Swiper {...params}>
                                     {teacherSessionData.map((data, index) => (
-                                      <div className="thumbTab" 
-                                      onClick={() =>
-                                        this.handleViewDetails(
-                                          data.SeriesId,
-                                          data.SessionId
-                                        )
-                                      }>
+                                      <div
+                                        className="thumbTab"
+                                        onClick={() =>
+                                          this.handleViewDetails(
+                                            data.SeriesId,
+                                            data.SessionId
+                                          )
+                                        }
+                                      >
                                         <div
                                           className="thumbImage"
                                           style={{
@@ -787,13 +853,8 @@ class TeacherProfile extends Component {
                                               {/* ({data.SD[0].SC[0].GC[0].TimeZone}) */}
                                             </span>
                                           </div>
-                                          <h4>
-                                            {" "}
-                                            {data.SD[0].SessionTitle}
-                                          </h4>
-                                          <p>
-                                            {data.SD[0].Description}{" "}
-                                          </p>
+                                          <h4> {data.SD[0].SessionTitle}</h4>
+                                          <p>{data.SD[0].Description} </p>
                                           <div className="enrollNow">
                                             <a className="btn btn-blue">
                                               View Details
@@ -805,53 +866,51 @@ class TeacherProfile extends Component {
                                     {teacherSeriesData.map((data, index) => {
                                       return typeof data.SerD[0].SC[0]
                                         .ClosestSession !== "undefined" ? (
-                                          <div>
-                                            {" "}
-                                            <div 
-                                              className="thumbTab" 
-                                              onClick={() =>
-                                                this.handleViewDetails(
-                                                  data.SeriesId,
-                                                  -1
-                                                )
-                                              }
-                                            >
-                                              <div
-                                                className="thumbImage"
-                                                style={{
-                                                  backgroundImage: `url(${APP_URLS.API_URL}${data.SerD[0].SC[0].ImageFile})`,
-                                                }}
-                                              ></div>
-                                              <div className="thumbDesc">
-                                                <div className="date">
-                                                  <span className="month">
-                                                    <i className="fa fa-calendar"></i>
-                                                    {commonFunctions.getUtcDate(
-                                                      data.SerD[0].SC[0]
-                                                        .ClosestSession[0]
-                                                        .StartTime,
-                                                      "MMM DD, YYYY hh:mm A"
-                                                    )}
-                                                    ({userTimezone})
-                                                  </span>
-                                                </div>
-                                                <h4>
-                                                  {data.SerD[0].SeriesTitle}
-                                                </h4>
-                                                <p>
-                                                  {data.SerD[0].Description}{" "}
-                                                </p>
-                                                <div className="enrollNow">
-                                                  <a className="btn btn-blue">
-                                                    View Details
+                                        <div>
+                                          {" "}
+                                          <div
+                                            className="thumbTab"
+                                            onClick={() =>
+                                              this.handleViewDetails(
+                                                data.SeriesId,
+                                                -1
+                                              )
+                                            }
+                                          >
+                                            <div
+                                              className="thumbImage"
+                                              style={{
+                                                backgroundImage: `url(${APP_URLS.API_URL}${data.SerD[0].SC[0].ImageFile})`,
+                                              }}
+                                            ></div>
+                                            <div className="thumbDesc">
+                                              <div className="date">
+                                                <span className="month">
+                                                  <i className="fa fa-calendar"></i>
+                                                  {commonFunctions.getUtcDate(
+                                                    data.SerD[0].SC[0]
+                                                      .ClosestSession[0]
+                                                      .StartTime,
+                                                    "MMM DD, YYYY hh:mm A"
+                                                  )}
+                                                  ({userTimezone})
+                                                </span>
+                                              </div>
+                                              <h4>
+                                                {data.SerD[0].SeriesTitle}
+                                              </h4>
+                                              <p>{data.SerD[0].Description} </p>
+                                              <div className="enrollNow">
+                                                <a className="btn btn-blue">
+                                                  View Details
                                                 </a>
-                                                </div>
                                               </div>
                                             </div>
                                           </div>
-                                        ) : (
-                                          <></>
-                                        );
+                                        </div>
+                                      ) : (
+                                        <></>
+                                      );
                                     })}
                                   </Swiper>
                                 </div>
@@ -862,55 +921,60 @@ class TeacherProfile extends Component {
                       })()}
 
                       {tutorReviews !== null && tutorReviews.length > 0 && (
-                          <section className="studentFeedback" id="reviewSection">
-                            <div className="container">
-                              <div className="row">
-                                <div className="col-sm-12">
-                                  <div className="reviewsTitle">
-                                    <h3>Student Feedback</h3>
-                                  </div>
+                        <section className="studentFeedback" id="reviewSection">
+                          <div className="container">
+                            <div className="row">
+                              <div className="col-sm-12">
+                                <div className="reviewsTitle">
+                                  <h3>Student Feedback</h3>
                                 </div>
-                                {tutorReviews.map((item) => (
-                                  <div className="col-sm-12">
-                                    <div className="studentReview">
-                                      <div className="reviewContent nameRatting">
-                                        <h5>
-                                          {" "}
-                                          {item.StudentName}{" "}
-                                          <Rating
-                                            name="read-only"
-                                            size="small"
-                                            value={`${item.Rating}`}
-                                            readOnly
-                                          />
-                                        </h5>
-                                        <p>{item.ReviewComment}</p>
-                                        <p className="postedDate">
-                                          Posted on{" "}
-                                          <FormatDateTime
-                                            date={item.CreatedDate}
-                                            format="MMM DD, YYYY"
-                                          ></FormatDateTime>
-                                        </p>
-                                      </div>
-                                      {/* <div className="reviewContent postReview">
+                              </div>
+                              {tutorReviews.map((item) => (
+                                <div className="col-sm-12">
+                                  <div className="studentReview">
+                                    <div className="reviewContent nameRatting">
+                                      <h5>
+                                        {" "}
+                                        {item.StudentName}{" "}
+                                        <Rating
+                                          name="read-only"
+                                          size="small"
+                                          value={`${item.Rating}`}
+                                          readOnly
+                                        />
+                                      </h5>
+                                      <p>{item.ReviewComment}</p>
+                                      <p className="postedDate">
+                                        Posted on{" "}
+                                        <FormatDateTime
+                                          date={item.CreatedDate}
+                                          format="MMM DD, YYYY"
+                                        ></FormatDateTime>
+                                      </p>
+                                    </div>
+                                    {/* <div className="reviewContent postReview">
                                                                         <p>{item.ReviewComment}</p>
                                                                         
                                                                     </div> */}
-                                    </div>
                                   </div>
-                                ))}
-                              </div>
-                            </div>
-                            {tutorReviews !== null && tutorReviews.length < teacherProfileData.TutorReviewCounts && (
-                                <div className="loadMore" >
-                                  <button className="btn btn-blue" onClick={this.handleLoadMore}>
-                                    Load More
-                                  </button>
                                 </div>
-                              )}
-                          </section>
-                        )}
+                              ))}
+                            </div>
+                          </div>
+                          {tutorReviews !== null &&
+                            tutorReviews.length <
+                              teacherProfileData.TutorReviewCounts && (
+                              <div className="loadMore">
+                                <button
+                                  className="btn btn-blue"
+                                  onClick={this.handleLoadMore}
+                                >
+                                  Load More
+                                </button>
+                              </div>
+                            )}
+                        </section>
+                      )}
                     </div>
                   )}
                   {/* {Object.keys(this.state.privateSessionSlot).length > 0 &&
@@ -1003,18 +1067,18 @@ class TeacherProfile extends Component {
                                       <td>{item.Day} </td>
                                       <td>
                                         {!item.Opened ||
-                                          !item.PrivateSessionAvailableDaySlots ? (
-                                            "Not Available"
-                                          ) : (
-                                            <Fragment>
-                                              {item.PrivateSessionAvailableDaySlots ===
-                                                "" &&
-                                                item.PrivateSessionAvailableDaySlots ===
-                                                null &&
-                                                item.PrivateSessionAvailableDaySlots
-                                                  .length > 0
-                                                ? "Closed"
-                                                : item.PrivateSessionAvailableDaySlots.map(
+                                        !item.PrivateSessionAvailableDaySlots ? (
+                                          "Not Available"
+                                        ) : (
+                                          <Fragment>
+                                            {item.PrivateSessionAvailableDaySlots ===
+                                              "" &&
+                                            item.PrivateSessionAvailableDaySlots ===
+                                              null &&
+                                            item.PrivateSessionAvailableDaySlots
+                                              .length > 0
+                                              ? "Closed"
+                                              : item.PrivateSessionAvailableDaySlots.map(
                                                   (times, index) => {
                                                     return (
                                                       <Fragment>
@@ -1027,7 +1091,10 @@ class TeacherProfile extends Component {
                                                           <FormatDateTime
                                                             date={
                                                               new Date(
-                                                                `1999-09-09 ${times.Start}`.replace(/-/g,"/")
+                                                                `1999-09-09 ${times.Start}`.replace(
+                                                                  /-/g,
+                                                                  "/"
+                                                                )
                                                               )
                                                             }
                                                             format="hh:mm A"
@@ -1036,7 +1103,10 @@ class TeacherProfile extends Component {
                                                           <FormatDateTime
                                                             date={
                                                               new Date(
-                                                                `1999-09-09 ${times.End}`.replace(/-/g,"/")
+                                                                `1999-09-09 ${times.End}`.replace(
+                                                                  /-/g,
+                                                                  "/"
+                                                                )
                                                               )
                                                             }
                                                             format="hh:mm A"
@@ -1046,8 +1116,8 @@ class TeacherProfile extends Component {
                                                     );
                                                   }
                                                 )}
-                                            </Fragment>
-                                          )}
+                                          </Fragment>
+                                        )}
                                       </td>
                                     </tr>
                                   );
@@ -1073,10 +1143,12 @@ class TeacherProfile extends Component {
               <section className="innerSection">
                 <div className="container blankProfile">
                   <div className="blankSpace">
-                    <img width="" height="" 
+                    <img
+                      width=""
+                      height=""
                       src={require("../../assets/images/undraw_profile.png")}
                     ></img>
-                    {(!loading && isRequestDone) && (
+                    {!loading && isRequestDone && (
                       <h3 className="blankSpaceMessage">
                         Profile details are not available.
                       </h3>

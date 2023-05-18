@@ -107,7 +107,6 @@ class EditSeries extends Component {
       },
         (error) =>
           this.setState((prevState) => {
-            console.log(`SeriesCategories:${error}`);
             this.props.actions.showAlert({ message: "Something went wrong...", variant: "error" });
             this.setState({ loading: false });
           })
@@ -138,7 +137,6 @@ class EditSeries extends Component {
         },
         (error) =>
           this.setState((prevState) => {
-            console.log(`TimeZone categories:${error}`);
             this.props.actions.showAlert({
               message: "Something went wrong...",
               variant: "error",
@@ -195,7 +193,6 @@ class EditSeries extends Component {
         },
         (error) =>
           this.setState((prevState) => {
-            console.log(`SeriesCategories:${error}`);
             this.props.actions.showAlert({
               message: "Something went wrong...",
               variant: "error",

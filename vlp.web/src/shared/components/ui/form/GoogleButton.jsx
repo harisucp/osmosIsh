@@ -13,7 +13,6 @@ class GoogleButton extends Component {
         }
     }
     responseGoogle = (response) => {
-        console.log(response, 'in Google');
         this.setState({ username: response.profileObj.name, email: response.profileObj.email, accessToken: response.tokenId, tokenId: response.googleId });
         this.props.onSignIn(this.state);
     }

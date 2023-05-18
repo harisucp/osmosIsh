@@ -10,7 +10,7 @@ import Loader from "react-loaders";
 import ChipInput from "material-ui-chip-input";
 import DropdownDate from "react-dropdown-date";
 import TwilioVerification from "../../containers/common/Twilio";
-import Button from '@material-ui/core/Button';
+import Button from "@material-ui/core/Button";
 import DeleteProfileModal from "../../containers/common/DeleteProfileModal";
 import moment from "moment";
 // File Pond
@@ -73,7 +73,7 @@ class CreateTutor extends Component {
         paypalAccountType: "",
         paypalAccount: "",
         affiliateCode: "",
-        phoneNumberVerified: ""
+        phoneNumberVerified: "",
       },
       IsLockOut: false,
       showTwilio: false,
@@ -88,9 +88,9 @@ class CreateTutor extends Component {
       affiliateStatus: "",
       isAffiliateAvailable: false,
       showDeleteModal: false,
-      verifyPhoneMsg: '',
+      verifyPhoneMsg: "",
       showVerifyMsg: false,
-      isValidNumber: true
+      isValidNumber: true,
     };
     this.validator = new SimpleReactValidator({
       messages: {
@@ -110,39 +110,78 @@ class CreateTutor extends Component {
         (response) => {
           if (response.Success) {
             const { coutriesOption } = this.state;
-            if (response.Data !== null && Object.keys(response.Data).length > 0 && response.Data.ResultDataList.length > 0) {
+            if (
+              response.Data !== null &&
+              Object.keys(response.Data).length > 0 &&
+              response.Data.ResultDataList.length > 0
+            ) {
               let tutorDetail = response.Data.ResultDataList[0];
               const { tutorProfileData } = this.state;
-              let defaultCountry = coutriesOption.filter((obj) => obj.label === "UNITED STATES");
+              let defaultCountry = coutriesOption.filter(
+                (obj) => obj.label === "UNITED STATES"
+              );
               this.setState({
                 tutorProfileData: {
                   ...tutorProfileData,
                   teacherId: tutorDetail.TeacherId,
-                  image: tutorDetail.ImageFile ? APP_URLS.API_URL + tutorDetail.ImageFile : null,
+                  image: tutorDetail.ImageFile
+                    ? APP_URLS.API_URL + tutorDetail.ImageFile
+                    : null,
                   firstName: tutorDetail.FirstName,
                   lastName: tutorDetail.LastName,
-                  countryId: tutorDetail.CountryId > 0 ? tutorDetail.CountryId : defaultCountry[0].value,
+                  countryId:
+                    tutorDetail.CountryId > 0
+                      ? tutorDetail.CountryId
+                      : defaultCountry[0].value,
                   phoneNumber: tutorDetail.PhoneNumber,
                   phoneCode: tutorDetail.PhoneCode,
-                  dateofbirth: tutorDetail.DateOfBirth === null ? "" : tutorDetail.DateOfBirth,
-                  education: tutorDetail.Education ? tutorDetail.Education.split(",") : [],
+                  dateofbirth:
+                    tutorDetail.DateOfBirth === null
+                      ? ""
+                      : tutorDetail.DateOfBirth,
+                  education: tutorDetail.Education
+                    ? tutorDetail.Education.split(",")
+                    : [],
                   instaProfile: tutorDetail.instaProfile || "",
                   linkedinProfile: tutorDetail.linkedinProfile || "",
                   description: tutorDetail.Description,
-                  awards: tutorDetail.Awards ? tutorDetail.Awards.split(",") : [],
-                  specialization: tutorDetail.Specialization ? tutorDetail.Specialization.split(",") : [],
+                  awards: tutorDetail.Awards
+                    ? tutorDetail.Awards.split(",")
+                    : [],
+                  specialization: tutorDetail.Specialization
+                    ? tutorDetail.Specialization.split(",")
+                    : [],
                   privateSession: tutorDetail.PrivateSession,
-                  FeePerHours: tutorDetail.FeePerHours === null && tutorDetail.FeePerHours === 0 ? "" : Number(tutorDetail.FeePerHours),
-                  languages: tutorDetail.Languages ? tutorDetail.Languages.split(",") : [],
-                  interest: tutorDetail.Interest ? tutorDetail.Interest.split(",") : [],
+                  FeePerHours:
+                    tutorDetail.FeePerHours === null &&
+                    tutorDetail.FeePerHours === 0
+                      ? ""
+                      : Number(tutorDetail.FeePerHours),
+                  languages: tutorDetail.Languages
+                    ? tutorDetail.Languages.split(",")
+                    : [],
+                  interest: tutorDetail.Interest
+                    ? tutorDetail.Interest.split(",")
+                    : [],
                   paypalAccountType: tutorDetail.PaypalAccountType,
                   paypalAccount: tutorDetail.PaypalAccount,
-                  affiliateCode: tutorDetail.AffiliateCode === null || tutorDetail.AffiliateCode === "null" ? "" : tutorDetail.AffiliateCode,
-                  phoneNumberVerified: tutorDetail.PhoneNumberVerified
+                  affiliateCode:
+                    tutorDetail.AffiliateCode === null ||
+                    tutorDetail.AffiliateCode === "null"
+                      ? ""
+                      : tutorDetail.AffiliateCode,
+                  phoneNumberVerified: tutorDetail.PhoneNumberVerified,
                 },
-                isAffiliateAvailable: tutorDetail.AffiliateCode === null || tutorDetail.AffiliateCode === "null" ? false : true,
-                verifiedPhoneNumber: tutorDetail.PhoneNumberVerified === "Y" ? tutorDetail.PhoneNumber : "",
-                showImage: tutorDetail.ImageFile ? true : false
+                isAffiliateAvailable:
+                  tutorDetail.AffiliateCode === null ||
+                  tutorDetail.AffiliateCode === "null"
+                    ? false
+                    : true,
+                verifiedPhoneNumber:
+                  tutorDetail.PhoneNumberVerified === "Y"
+                    ? tutorDetail.PhoneNumber
+                    : "",
+                showImage: tutorDetail.ImageFile ? true : false,
               });
               this.validator = new SimpleReactValidator({
                 messages: {
@@ -151,13 +190,22 @@ class CreateTutor extends Component {
               });
             }
           } else {
-            this.props.actions.showAlert({ message: response.Message, variant: "error" });
+            this.props.actions.showAlert({
+              message: response.Message,
+              variant: "error",
+            });
           }
           this.setState({ loading: false, getDataInprogress: false });
         },
         (error) =>
           this.setState((prevState) => {
-            this.props.actions.showAlert({ message: error !== undefined ? error : 'Something went wrong please try again !!', variant: "error" });
+            this.props.actions.showAlert({
+              message:
+                error !== undefined
+                  ? error
+                  : "Something went wrong please try again !!",
+              variant: "error",
+            });
             this.setState({ loading: false, getDataInprogress: false });
           })
       );
@@ -195,7 +243,6 @@ class CreateTutor extends Component {
         },
         (error) =>
           this.setState((prevState) => {
-            console.log(`Tag:${error}`);
             this.props.actions.showAlert({
               message: "Something went wrong...",
               variant: "error",
@@ -231,41 +278,38 @@ class CreateTutor extends Component {
     } else if (e.target.name === "FeePerHours") {
       tutorProfileData[e.target.name] =
         e.target.value !== "" ? Number(e.target.value) : "";
-    }
-    else if (e.target.name === "affiliateCode") {
+    } else if (e.target.name === "affiliateCode") {
       tutorProfileData[e.target.name] = e.target.value;
-      this.setState({ affiliateMessgae: "", affiliateStatus: e.target.value === "" ? "" : false });
-    }
-    else {
+      this.setState({
+        affiliateMessgae: "",
+        affiliateStatus: e.target.value === "" ? "" : false,
+      });
+    } else {
       tutorProfileData[e.target.name] = e.target.value;
     }
     this.setState({ tutorProfileData });
   };
 
   handlePhoneNumber = (value, country, e, formattedValue, invokedBy) => {
-    console.log(value, country, e, formattedValue);
     let selCountryFormatLength = country.format.length;
     let valueLength = formattedValue.length;
 
     if (valueLength != selCountryFormatLength) {
-      this.setState({ isValidNumber: false })
+      this.setState({ isValidNumber: false });
     } else {
-      this.setState({ isValidNumber: true })
+      this.setState({ isValidNumber: true });
     }
-    console.log(formattedValue);
     const { tutorProfileData, verifiedPhoneNumber } = this.state;
     tutorProfileData[invokedBy] = formattedValue;
     if (verifiedPhoneNumber != formattedValue) {
       tutorProfileData["phoneNumberVerified"] = "N";
-    }
-    else {
+    } else {
       tutorProfileData["phoneNumberVerified"] = "Y";
     }
     this.setState({ tutorProfileData });
   };
 
   // vailadtePhoneNumber = (value, country) => {
-  //   console.log(value, country, country.format.length);
   //   if (value.match(/12345/)) {
   //     return 'Invalid value: ' + value + ', ' + country.name;
   //   } else if (value.match(/1234/)) {
@@ -278,7 +322,9 @@ class CreateTutor extends Component {
   addTags = (value, name) => {
     if (/^[a-zA-Z0-9 ]*[a-zA-Z ]+[a-zA-Z0-9 ]*$/.test(value)) {
       const { tutorProfileData } = this.state;
-      tutorProfileData[name].push(value.charAt(0).toUpperCase() + value.slice(1));
+      tutorProfileData[name].push(
+        value.charAt(0).toUpperCase() + value.slice(1)
+      );
       this.setState({ tutorProfileData });
       this.handleOnBlur(name, tutorProfileData[name]);
     }
@@ -290,12 +336,33 @@ class CreateTutor extends Component {
     this.handleOnBlur(name, tutorProfileData[name]);
   };
 
-  handleFileUpload = (fileItems) => {
+  //Old Code
+  // handleFileUpload = (fileItems) => {
+  //   const { tutorProfileData } = this.state;
+  //   if (fileItems[0] && fileItems[0].fileType.search("image") > -1) {
+  //     tutorProfileData.image = fileItems.map((fileItem) => fileItem.file);
+  //     tutorProfileData.isImageUpdated = true;
+  //     this.converFileToBase64(tutorProfileData.image);
+  //   } else {
+  //     tutorProfileData.image = [];
+  //     tutorProfileData.isImageUpdated = true;
+  //   }
+  //   this.setState({ tutorProfileData });
+  // };
+
+  //New Code
+  handleFileUpload = async (fileItems) => {
     const { tutorProfileData } = this.state;
     if (fileItems[0] && fileItems[0].fileType.search("image") > -1) {
-      tutorProfileData.image = fileItems.map((fileItem) => fileItem.file);
+      const resizedImageBlob = await this.resizeImage(
+        fileItems[0].file,
+        250,
+        250
+      );
+      tutorProfileData.image = [
+        new File([resizedImageBlob], "resized.jpg", { type: "image/jpeg" }),
+      ];
       tutorProfileData.isImageUpdated = true;
-      this.converFileToBase64(tutorProfileData.image);
     } else {
       tutorProfileData.image = [];
       tutorProfileData.isImageUpdated = true;
@@ -303,18 +370,55 @@ class CreateTutor extends Component {
     this.setState({ tutorProfileData });
   };
 
+  resizeImage = (file, maxWidth, maxHeight) => {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        let width = img.width;
+        let height = img.height;
+
+        if (width > height) {
+          if (width > maxWidth) {
+            height *= maxWidth / width;
+            width = maxWidth;
+          }
+        } else {
+          if (height > maxHeight) {
+            width *= maxHeight / height;
+            height = maxHeight;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, width, height);
+
+        canvas.toBlob(
+          (blob) => {
+            resolve(blob);
+          },
+          "image/jpeg",
+          0.9
+        );
+      };
+      img.src = URL.createObjectURL(file);
+    });
+  };
+
   converFileToBase64 = (file) => {
     let that = this;
     const { tutorProfileData } = this.state;
     var reader = new FileReader();
     reader.onloadend = function () {
-      tutorProfileData.base64file = reader.result
+      tutorProfileData.base64file = reader.result;
       that.setState({ tutorProfileData });
-      that.handleOnBlur('imagefile', reader.result);
-    }
+      that.handleOnBlur("imagefile", reader.result);
+    };
     reader.readAsDataURL(file[0]);
-
-  }
+  };
 
   hadleDateChange = (date) => {
     const { tutorProfileData } = this.state;
@@ -340,25 +444,39 @@ class CreateTutor extends Component {
   };
 
   handleOnBlur = (name, value, isPayPalPhone = false) => {
-    console.log(name, value);
     var formData = new FormData();
     const { tutorProfileData } = this.state;
     tutorProfileData[name] = value;
     this.setState({ tutorProfileData });
-    formData.append('Type', 'TEACHER');
-    formData.append('Id', this.props.auth.user.UserId);
-    formData.append('IsInterestOrDescription', ['description', 'interest'].includes(name));
-    formData.append('isPayPal', isPayPalPhone === true ? true : ['paypalAccountType', 'paypalAccount'].includes(name) ? true : false);
+    formData.append("Type", "TEACHER");
+    formData.append("Id", this.props.auth.user.UserId);
+    formData.append(
+      "IsInterestOrDescription",
+      ["description", "interest"].includes(name)
+    );
+    formData.append(
+      "isPayPal",
+      isPayPalPhone === true
+        ? true
+        : ["paypalAccountType", "paypalAccount"].includes(name)
+        ? true
+        : false
+    );
     if (isPayPalPhone === true) {
-      formData.append('FieldName', 'paypalAccount');
-      formData.append('Value', tutorProfileData.paypalAccount);
+      formData.append("FieldName", "paypalAccount");
+      formData.append("Value", tutorProfileData.paypalAccount);
     } else {
-      formData.append('FieldName', name);
-      formData.append('Value', value);
+      formData.append("FieldName", name);
+      formData.append("Value", value);
     }
+
     this.updateData(formData, false, "UPDATESTUDENTORTEACHERPROFILE");
-  }
-  updateData = (dataToUpdate, isRedirect, endPoint = "UPDATETEACHERPROFILE") => {
+  };
+  updateData = (
+    dataToUpdate,
+    isRedirect,
+    endPoint = "UPDATETEACHERPROFILE"
+  ) => {
     this.setState({ loading: true });
 
     apiService.postFile(endPoint, dataToUpdate).then(
@@ -373,7 +491,9 @@ class CreateTutor extends Component {
               data.UserImage,
               "tutor"
             );
-            this.props.actions.loginSuccess(localStorageService.getUserDetail());
+            this.props.actions.loginSuccess(
+              localStorageService.getUserDetail()
+            );
             this.props.actions.changeUserMode("tutor");
           }
           this.props.actions.showAlert({
@@ -382,63 +502,88 @@ class CreateTutor extends Component {
             open: false,
           });
           if (isRedirect) {
-            history.push(`${PUBLIC_URL}/TutorProfile/${this.state.tutorProfileData.teacherId}`);
+            history.push(
+              `${PUBLIC_URL}/TutorProfile/${this.state.tutorProfileData.teacherId}`
+            );
           } else {
             this.setState({ loading: false });
           }
         } else {
-          this.props.actions.showAlert({ message: response.Message, variant: "error" });
-          console.log(this.state.tutorProfileData);
+          this.props.actions.showAlert({
+            message: response.Message,
+            variant: "error",
+          });
         }
         this.setState({ loading: false });
       },
       (error) =>
         this.setState((prevState) => {
-          this.props.actions.showAlert({ message: error !== undefined ? error : 'Something went wrong please try again !!', variant: "error" });
+          this.props.actions.showAlert({
+            message:
+              error !== undefined
+                ? error
+                : "Something went wrong please try again !!",
+            variant: "error",
+          });
 
           this.setState({ loading: false });
         })
     );
-  }
+  };
 
   phoneVerification = () => {
     if (!this.state.isValidNumber) {
-      this.setState({ showVerifyMsg: true, verifyPhoneMsg: 'Please Enter valid Number' });
+      this.setState({
+        showVerifyMsg: true,
+        verifyPhoneMsg: "Please Enter valid Number",
+      });
       this.startCountDown();
       return false;
     }
     this.setState({ loading: true });
     const { tutorProfileData } = this.state;
-    apiService.post('VERIFYPHONE', {
-      "userId": this.props.auth.user.UserId,
-      "phoneNumber": tutorProfileData.phoneNumber
-    })
-      .then(response => {
-        if (response.Success) {
-          this.setState({ showVerifyMsg: true, verifyPhoneMsg: response.Message });
-        } else {
-          this.setState({ showVerifyMsg: true, verifyPhoneMsg: response.Message });
-        }
-        this.setState({ loading: false });
-        this.startCountDown();
-      },
+    apiService
+      .post("VERIFYPHONE", {
+        userId: this.props.auth.user.UserId,
+        phoneNumber: tutorProfileData.phoneNumber,
+      })
+      .then(
+        (response) => {
+          if (response.Success) {
+            this.setState({
+              showVerifyMsg: true,
+              verifyPhoneMsg: response.Message,
+            });
+          } else {
+            this.setState({
+              showVerifyMsg: true,
+              verifyPhoneMsg: response.Message,
+            });
+          }
+          this.setState({ loading: false });
+          this.startCountDown();
+        },
         (error) =>
           this.setState((prevState) => {
-            this.props.actions.showAlert({ message: error !== undefined ? error : 'Something went wrong please try again !!', variant: "error" });
+            this.props.actions.showAlert({
+              message:
+                error !== undefined
+                  ? error
+                  : "Something went wrong please try again !!",
+              variant: "error",
+            });
             this.setState({ loading: false });
           })
       );
-  }
+  };
 
   startCountDown() {
     let countDown = 5; // 2 minutes in seconds
 
     const interval = setInterval(() => {
-
       if (--countDown < 0) {
         clearInterval(interval);
-        this.setState({ showVerifyMsg: false, verifyPhoneMsg: '' })
-        // console.log('Time is up!');
+        this.setState({ showVerifyMsg: false, verifyPhoneMsg: "" });
       }
     }, 1000); // update the timer every second
   }
@@ -447,17 +592,28 @@ class CreateTutor extends Component {
     if (this.validator.allValid() === false) {
       this.validator.showMessages();
       this.forceUpdate();
-      this.props.actions.showAlert({ message: "Please go back and review your profile", variant: "error" });
+      this.props.actions.showAlert({
+        message: "Please go back and review your profile",
+        variant: "error",
+      });
       return false;
     }
 
     const { tutorProfileData, affiliateStatus } = this.state;
-    if (tutorProfileData.phoneNumberVerified === "N") {
-      this.props.actions.showAlert({ message: "Please verify your phone number.", variant: "error" });
-      return false;
-    }
+    // if (tutorProfileData.phoneNumberVerified === "N") {
+    //   this.props.actions.showAlert({
+    //     message: "Please verify your phone number.",
+    //     variant: "error",
+    //   });
+    //   return false;
+    // }
+
     if (affiliateStatus === false) {
-      this.props.actions.showAlert({ message: "Please verify your affiliate code or clear the entered affiliated code to continue.", variant: "error" });
+      this.props.actions.showAlert({
+        message:
+          "Please verify your affiliate code or clear the entered affiliated code to continue.",
+        variant: "error",
+      });
       return false;
     }
     var formData = new FormData();
@@ -470,7 +626,11 @@ class CreateTutor extends Component {
         key === "languages"
       ) {
         formData.append(key, val.toString());
-      } else if (key === "description" || key === "instaProfile" || key === "linkedinProfile") {
+      } else if (
+        key === "description" ||
+        key === "instaProfile" ||
+        key === "linkedinProfile"
+      ) {
         formData.append(key, val !== null ? val : "");
       } else {
         formData.append(key, val);
@@ -498,74 +658,105 @@ class CreateTutor extends Component {
             `${PUBLIC_URL}/TutorProfile/${this.state.tutorProfileData.teacherId}`
           );
         } else {
-          this.props.actions.showAlert({ message: response.Message, variant: "error" });
+          this.props.actions.showAlert({
+            message: response.Message,
+            variant: "error",
+          });
         }
         this.setState({ loading: false });
       },
       (error) =>
         this.setState((prevState) => {
-          this.props.actions.showAlert({ message: error !== undefined ? error : 'Something went wrong please try again !!', variant: "error" });
+          this.props.actions.showAlert({
+            message:
+              error !== undefined
+                ? error
+                : "Something went wrong please try again !!",
+            variant: "error",
+          });
           this.setState({ loading: false });
         })
     );
   };
 
   setLockStatus = (data) => {
-    console.log(data);
     if (data != null) {
       this.setState({ IsLockOut: data?.IsLockOut });
     }
-  }
+  };
   // REsponse from twilio api
   setVerificationStatus = (status) => {
-
     const { tutorProfileData } = this.state;
     if (status) {
-      this.setState({ tutorProfileData: { ...tutorProfileData, phoneNumberVerified: 'Y' }, verifiedPhoneNumber: tutorProfileData.phoneNumber });
+      this.setState({
+        tutorProfileData: { ...tutorProfileData, phoneNumberVerified: "Y" },
+        verifiedPhoneNumber: tutorProfileData.phoneNumber,
+      });
+    } else {
+      this.setState({
+        tutorProfileData: { ...tutorProfileData, phoneNumberVerified: "N" },
+        verifiedPhoneNumber: "",
+      });
     }
-    else {
-      this.setState({ tutorProfileData: { ...tutorProfileData, phoneNumberVerified: 'N' }, verifiedPhoneNumber: "" });
-    }
-  }
+  };
 
   componentDidMount = () => {
     this.getAllCountries();
   };
 
   showTwilioPopup = (status) => {
-    console.log(moment(commonFunctions.getUtcDate));
     this.setState({
       isVerificatoinClicked: true,
-      showTwilio: status
+      showTwilio: status,
     });
-  }
+  };
 
   validateAffiliateCode = () => {
     this.setState({ loading: true });
     let { tutorProfileData } = this.state;
-    apiService.post("VALIDATEAFFILIATE", {
-      "affiliateCode": tutorProfileData.affiliateCode
-    })
-      .then(response => {
-        if (response.Success) {
-          this.setState({ affiliateStatus: true, affiliateMessgae: response.Message });
-        }
-        this.setState({ loading: false });
-      },
+    apiService
+      .post("VALIDATEAFFILIATE", {
+        affiliateCode: tutorProfileData.affiliateCode,
+      })
+      .then(
+        (response) => {
+          if (response.Success) {
+            this.setState({
+              affiliateStatus: true,
+              affiliateMessgae: response.Message,
+            });
+          }
+          this.setState({ loading: false });
+        },
         (error) =>
           this.setState((prevState) => {
             this.setState({ affiliateStatus: false, affiliateMessgae: error });
             this.setState({ loading: false });
           })
-      )
-  }
+      );
+  };
 
   showDeletePopup = () => {
     const { showDeleteModal } = this.state;
     this.setState({ showDeleteModal: !showDeleteModal });
-  }
+  };
   render() {
-    const { tutorProfileData, coutriesOption, loading, getDataInprogress, isValidNumber, verifyPhoneMsg, showVerifyMsg, showTwilio, IsLockOut, isVerificatoinClicked, affiliateMessgae, affiliateStatus, isAffiliateAvailable, showDeleteModal } = this.state;
+    const {
+      tutorProfileData,
+      coutriesOption,
+      loading,
+      getDataInprogress,
+      isValidNumber,
+      verifyPhoneMsg,
+      showVerifyMsg,
+      showTwilio,
+      IsLockOut,
+      isVerificatoinClicked,
+      affiliateMessgae,
+      affiliateStatus,
+      isAffiliateAvailable,
+      showDeleteModal,
+    } = this.state;
     const { auth } = this.props;
 
     let accountTypeOptions = [
@@ -602,7 +793,7 @@ class CreateTutor extends Component {
                             <FilePond
                               labelIdle='Drag & Drop Your
                             <span className="filepond--label-action">Picture or Browse.
-                            1:1 ratio, 5MB max size</span>'
+                            1:1 ratio, 3MB max size</span>'
                               allowMultiple={false}
                               onupdatefiles={this.handleFileUpload}
                               acceptedFileTypes={["image/jpeg", "image/png"]}
@@ -616,8 +807,8 @@ class CreateTutor extends Component {
                               allowImageResize={true}
                               allowFileSizeValidation={true}
                               labelMaxFileSize="File types allowed: JPG,PNG"
-                              labelMaxFileSizeExceeded="Maximum file size is 5MB."
-                              maxFileSize="5MB"
+                              labelMaxFileSizeExceeded="Maximum file size is 3MB."
+                              maxFileSize="3MB"
                               allowImageCrop={true}
                               imageResizeMode="contain"
                             />
@@ -637,8 +828,8 @@ class CreateTutor extends Component {
                             onChange={this.handleChange}
                             value={tutorProfileData.firstName}
                             onBlur={(e) => {
-                              this.validator.showMessageFor("firstName")
-                              this.handleOnBlur(e.target.name, e.target.value)
+                              this.validator.showMessageFor("firstName");
+                              this.handleOnBlur(e.target.name, e.target.value);
                             }}
                           />
                           {this.validator.message(
@@ -658,8 +849,8 @@ class CreateTutor extends Component {
                             onChange={this.handleChange}
                             value={tutorProfileData.lastName}
                             onBlur={(e) => {
-                              this.validator.showMessageFor("lastName")
-                              this.handleOnBlur(e.target.name, e.target.value)
+                              this.validator.showMessageFor("lastName");
+                              this.handleOnBlur(e.target.name, e.target.value);
                             }}
                           />
                           {this.validator.message(
@@ -695,13 +886,31 @@ class CreateTutor extends Component {
                       <div className="col-lg-6  col-md-6 col-sm-12">
                         <div className="form-group padleft">
                           <label for="uname1">Phone</label>
-                          <PhoneInput name="phoneNumber" country="us" className="form-control" value={tutorProfileData.phoneNumber} onChange={(value, country, e, formattedValue) => this.handlePhoneNumber(value, country, e, formattedValue, "phoneNumber")}
+                          <PhoneInput
+                            name="phoneNumber"
+                            country="us"
+                            className="form-control"
+                            value={tutorProfileData.phoneNumber}
+                            onChange={(value, country, e, formattedValue) =>
+                              this.handlePhoneNumber(
+                                value,
+                                country,
+                                e,
+                                formattedValue,
+                                "phoneNumber"
+                              )
+                            }
                             isValid={() => isValidNumber}
                             onBlur={() => {
-                              this.validator.showMessageFor("phoneNumber")
-                              this.phoneVerification()
-                            }} />
-                          {this.validator.message("phoneNumber", tutorProfileData.phoneNumber, "required")}
+                              this.validator.showMessageFor("phoneNumber");
+                              this.phoneVerification();
+                            }}
+                          />
+                          {this.validator.message(
+                            "phoneNumber",
+                            tutorProfileData.phoneNumber,
+                            "required"
+                          )}
                           {showVerifyMsg && <p>{verifyPhoneMsg}</p>}
                           {/* {(() => {
                             if (tutorProfileData.phoneNumberVerified === "N") {
@@ -805,7 +1014,10 @@ class CreateTutor extends Component {
                         <div className="form-group">
                           <label for="uname1">Linkedin Profile Address</label>
                           <input
-                            className="form-control" value={tutorProfileData.linkedinProfile} name="linkedinProfile" onChange={this.handleChange}
+                            className="form-control"
+                            value={tutorProfileData.linkedinProfile}
+                            name="linkedinProfile"
+                            onChange={this.handleChange}
                             placeholder="Linkedin Profile Address"
                           />
                           {/* {this.validator.message("Linkedin Profile Address", tutorProfileData.linkedinProfile, "required")} */}
@@ -815,7 +1027,10 @@ class CreateTutor extends Component {
                         <div className="form-group">
                           <label for="uname1">Instagram Profile Address</label>
                           <input
-                            className="form-control" value={tutorProfileData.instaProfile} name="instaProfile" onChange={this.handleChange}
+                            className="form-control"
+                            value={tutorProfileData.instaProfile}
+                            name="instaProfile"
+                            onChange={this.handleChange}
                             placeholder="Instagram Profile Address"
                           />
                           {/* {this.validator.message("Instagram Profile Address", tutorProfileData.instaProfile, "required")} */}
@@ -827,10 +1042,17 @@ class CreateTutor extends Component {
                         <div className="form-group">
                           <label for="uname1">About Yourself</label>
                           <textarea
-                            className="form-control" value={tutorProfileData.description} name="description" onChange={this.handleChange}
+                            className="form-control"
+                            value={tutorProfileData.description}
+                            name="description"
+                            onChange={this.handleChange}
                             placeholder="Description"
                           ></textarea>
-                          {this.validator.message("description", tutorProfileData.description, "required")}
+                          {this.validator.message(
+                            "description",
+                            tutorProfileData.description,
+                            "required"
+                          )}
                         </div>
                       </div>
                     </div>
@@ -916,7 +1138,7 @@ class CreateTutor extends Component {
                             onChange={this.handleSelectChange}
                             options={accountTypeOptions}
                             onBlur={(e) => {
-                              this.validator.showMessageFor("country")
+                              this.validator.showMessageFor("country");
                               // this.handleOnBlur(e.target.name, e.target.value)
                             }}
                           />
@@ -931,37 +1153,42 @@ class CreateTutor extends Component {
                         <div className="form-group padleft">
                           {tutorProfileData.paypalAccountType ===
                             "phoneNumber" && (
-                              <Fragment>
-                                <label for="uname1" className="lightColor">
-                                  Account Detail
-                                </label>
-                                <PhoneInput
-                                  name="paypalAccount"
-                                  country="us"
-                                  className="form-control"
-                                  value={tutorProfileData.paypalAccount}
-                                  onChange={(value, country, e, formattedValue) =>
-                                    this.handlePhoneNumber(
-                                      value,
-                                      country,
-                                      e,
-                                      formattedValue,
-                                      "paypalAccount"
-                                    )
-                                  }
-                                  onBlur={(e) => {
-                                    this.validator.showMessageFor("paypalAccount")
-                                    this.handleOnBlur(e.target.name, e.target.value, true)
-                                  }
-                                  }
-                                />
-                                {this.validator.message(
-                                  "Paypal Account",
-                                  tutorProfileData.paypalAccount,
-                                  "required"
-                                )}
-                              </Fragment>
-                            )}
+                            <Fragment>
+                              <label for="uname1" className="lightColor">
+                                Account Detail
+                              </label>
+                              <PhoneInput
+                                name="paypalAccount"
+                                country="us"
+                                className="form-control"
+                                value={tutorProfileData.paypalAccount}
+                                onChange={(value, country, e, formattedValue) =>
+                                  this.handlePhoneNumber(
+                                    value,
+                                    country,
+                                    e,
+                                    formattedValue,
+                                    "paypalAccount"
+                                  )
+                                }
+                                onBlur={(e) => {
+                                  this.validator.showMessageFor(
+                                    "paypalAccount"
+                                  );
+                                  this.handleOnBlur(
+                                    e.target.name,
+                                    e.target.value,
+                                    true
+                                  );
+                                }}
+                              />
+                              {this.validator.message(
+                                "Paypal Account",
+                                tutorProfileData.paypalAccount,
+                                "required"
+                              )}
+                            </Fragment>
+                          )}
                           {tutorProfileData.paypalAccountType === "email" && (
                             <Fragment>
                               <label for="uname1" className="lightColor">
@@ -974,11 +1201,20 @@ class CreateTutor extends Component {
                                 onChange={this.handleChange}
                                 value={tutorProfileData.paypalAccount}
                                 onBlur={(e) => {
-                                  this.validator.showMessageFor("paypalAccount")
-                                  this.handleOnBlur(e.target.name, e.target.value)
+                                  this.validator.showMessageFor(
+                                    "paypalAccount"
+                                  );
+                                  this.handleOnBlur(
+                                    e.target.name,
+                                    e.target.value
+                                  );
                                 }}
                               />
-                              {this.validator.message("Paypal Account", tutorProfileData.paypalAccount, "required|email")}
+                              {this.validator.message(
+                                "Paypal Account",
+                                tutorProfileData.paypalAccount,
+                                "required|email"
+                              )}
                             </Fragment>
                           )}
                         </div>
@@ -994,7 +1230,8 @@ class CreateTutor extends Component {
                       <div className="col-lg-6  col-md-6 col-sm-12">
                         <div className="form-group padleft">
                           <label for="uname1" className="lightColor">
-                            If referred to Osmos-ish, enter the code you were given here
+                            If referred to Osmos-ish, enter the code you were
+                            given here
                           </label>
                           <div className="d-flex">
                             <div className="acField">
@@ -1005,29 +1242,54 @@ class CreateTutor extends Component {
                                 onChange={this.handleChange}
                                 value={tutorProfileData.affiliateCode}
                                 onBlur={(e) => {
-                                  this.validator.showMessageFor("affiliateCode")
-                                  this.handleOnBlur(e.target.name, e.target.value)
+                                  this.validator.showMessageFor(
+                                    "affiliateCode"
+                                  );
+                                  this.handleOnBlur(
+                                    e.target.name,
+                                    e.target.value
+                                  );
                                 }}
                                 disabled={isAffiliateAvailable}
-
                               />
-                              {this.validator.message("Shared Referral Code", tutorProfileData.affiliateCode, "max:12")}
-
+                              {this.validator.message(
+                                "Shared Referral Code",
+                                tutorProfileData.affiliateCode,
+                                "max:12"
+                              )}
                             </div>
-                            {tutorProfileData.affiliateCode !== "" && isAffiliateAvailable === false &&
-                              <Button variant="contained" color="primary" onClick={this.validateAffiliateCode} className="ml-2">
-                                Verify
-                              </Button>
-                            }
+                            {tutorProfileData.affiliateCode !== "" &&
+                              isAffiliateAvailable === false && (
+                                <Button
+                                  variant="contained"
+                                  color="primary"
+                                  onClick={this.validateAffiliateCode}
+                                  className="ml-2"
+                                >
+                                  Verify
+                                </Button>
+                              )}
                           </div>
-                          <label className={affiliateStatus === true ? "stausValid" : "stausInValid"}>{affiliateMessgae}</label>
+                          <label
+                            className={
+                              affiliateStatus === true
+                                ? "stausValid"
+                                : "stausInValid"
+                            }
+                          >
+                            {affiliateMessgae}
+                          </label>
                         </div>
                       </div>
                     </div>
 
                     <div className="row">
                       <div className="col-lg-12 col-md-12 col-sm-12 text-center mt-3">
-                        <button className="btn btn-blue" type="button" onClick={() => history.goBack()}>
+                        <button
+                          className="btn btn-blue"
+                          type="button"
+                          onClick={() => history.goBack()}
+                        >
                           Back
                         </button>
                         <button
@@ -1062,8 +1324,20 @@ class CreateTutor extends Component {
             )}
           </div>
         </section>
-        <TwilioVerification showTwilioPoup={showTwilio} VerificationNumber={tutorProfileData.phoneNumber} onVerified={this.setVerificationStatus} onLockStatus={this.setLockStatus} onTwilioClose={this.showTwilioPopup}> </TwilioVerification>
-        <DeleteProfileModal showModal={showDeleteModal} onDeleteProfileModalClose={this.showDeletePopup} teacherId={tutorProfileData.teacherId}></DeleteProfileModal>
+        <TwilioVerification
+          showTwilioPoup={showTwilio}
+          VerificationNumber={tutorProfileData.phoneNumber}
+          onVerified={this.setVerificationStatus}
+          onLockStatus={this.setLockStatus}
+          onTwilioClose={this.showTwilioPopup}
+        >
+          {" "}
+        </TwilioVerification>
+        <DeleteProfileModal
+          showModal={showDeleteModal}
+          onDeleteProfileModalClose={this.showDeletePopup}
+          teacherId={tutorProfileData.teacherId}
+        ></DeleteProfileModal>
       </Fragment>
     );
   }

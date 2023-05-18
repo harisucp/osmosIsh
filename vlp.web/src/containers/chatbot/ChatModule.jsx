@@ -138,7 +138,6 @@ class ChatModule extends Component {
             },
                 (error) =>
                     this.setState((prevState) => {
-                        console.log(`UpdateMessageStatus ${error}`);
                     })
             );
     }

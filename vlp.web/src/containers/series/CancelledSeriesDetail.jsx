@@ -83,7 +83,6 @@ class CancelledSeriesDetail extends Component {
             },
                 (error) =>
                     this.setState((prevState) => {
-                        console.log(`Cancelled Series Detail:${error}`);
                         this.props.actions.showAlert({ message: 'Something went wrong...', variant: "error" });
                         this.setState({ loading: false });
                     })

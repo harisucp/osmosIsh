@@ -60,7 +60,6 @@ const getTimezoneData = async (timezone) => {
         }
       },
       (error) => {
-        console.log(error);
         localStorageService.setUserTimeZone(
           moment.tz(moment.tz.guess(true)).format("z")
         );
@@ -78,7 +77,6 @@ const getCurrentTime = async () => {
         localStorageService.setCurrentTime(localDateTime);
       },
       (error) => {
-        console.log(error);
       }
     );
 
