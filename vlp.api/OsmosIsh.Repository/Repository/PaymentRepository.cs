@@ -235,7 +235,7 @@ namespace OsmosIsh.Repository.Repository
                 dynamicParameters.Add("@TeacherId", tutorCancelClassRequest.TeacherId);
                 dynamicParameters.Add("@SessionId", tutorCancelClassRequest.SessionId);
                 dynamicParameters.Add("@SeriesId", tutorCancelClassRequest.SeriesId);
-                dynamicParameters.Add("@CancelDate", tutorCancelClassRequest.CancelDate);
+                //dynamicParameters.Add("@CancelDate", tutorCancelClassRequest.CancelDate);
 
                 var result = db.Query("sp_GetTutorCancelledRefundDetail", dynamicParameters, commandType: CommandType.StoredProcedure).ToList();
                 _MainResponse.TutorCancelledRefundDataResponse = CommonFunction.DeserializedDapperObject<List<TutorCancelledRefundDataResponse>>(result);
