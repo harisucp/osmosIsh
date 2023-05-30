@@ -17,6 +17,8 @@ import Swiper from 'react-id-swiper';
 import ReCAPTCHA from "react-google-recaptcha"
 import 'swiper/css/swiper.css';
 // import { id } from 'date-fns/esm/locale';
+import ResponsiveImage from './../common/ResponsiveImage';
+
 class BecomeTutorSignUp extends Component {
     constructor(props) {
         super(props);
@@ -382,7 +384,13 @@ class BecomeTutorSignUp extends Component {
                                             <div className="etReview text-center" key={index}>
                                                 <div className="btImage">
                                                     <div className="etCircleImage">
-                                                        <button type="button" onClick={() => this.handleTutorDetails(item.TeacherId)} className="link-button"><img src={`${APP_URLS.API_URL}${item.ImageFile}`} alt="tutorImage" width="150" height="150" /></button>
+                                                        <button type="button" onClick={() => this.handleTutorDetails(item.TeacherId)} className="link-button">
+                                                            <ResponsiveImage 
+                                                                src={item.ImageFile}
+                                                                alt="tutorImage"
+                                                                width="150"
+                                                                height="150" />
+                                                            </button>
                                                     </div>
                                                 </div>
                                                 <h4 onClick={() => this.handleTutorDetails(item.TeacherId)}>{item.Name}</h4>

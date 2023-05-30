@@ -16,6 +16,7 @@ import moment from 'moment';
 import { commonFunctions } from "../../shared/components/functional/commonfunctions";
 import { NavLink, Link } from "react-router-dom";
 import { localStorageService } from '../../services/localStorageService';
+import ResponsiveImage from './../common/ResponsiveImage';
 class BrowseSection extends Component {
     constructor(props) {
         super(props);
@@ -173,7 +174,13 @@ class BrowseSection extends Component {
                                                                             <div className="row">
                                                                                 <div className="col-lg-7 col-md-7 col-sm-12">
                                                                                     <div className="thumbTitle">
-                                                                                        <div className="profileIcon"><img onClick={() => this.handleTutorDetails(data.TeacherId)} src={`${APP_URLS.API_URL}${data.TeacherImageFile}`} alt="Teacher Profile Image" width="40" height="40" /></div>
+                                                                                        <div className="profileIcon">
+                                                                                            <ResponsiveImage src={data.TeacherImageFile}
+                                                                                            onClick={() => this.handleTutorDetails(data.TeacherId)}
+                                                                                            alt="Teacher Profile Image"
+                                                                                       width="40"
+                                                                                       height="40" />
+                                                                                            </div>
                                                                                         <h2 className="headerInfo" onClick={() => this.handleTutorDetails(data.TeacherId)}>{data.Name}</h2>
                                                                                     </div>
                                                                                 </div>

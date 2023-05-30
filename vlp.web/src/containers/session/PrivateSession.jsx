@@ -13,6 +13,8 @@ import Loader from "react-loaders";
 import Heart from "react-animated-heart";
 import { localStorageService } from "../../services/localStorageService";
 import Pagination from "@material-ui/lab/Pagination";
+import ResponsiveImage from './../common/ResponsiveImage';
+
 class PrivateSession extends Component {
     constructor(props) {
         super(props);
@@ -346,17 +348,16 @@ class PrivateSession extends Component {
                                                         <div className="thumbWrapper">
                                                             <div className="psUserNamePic">
                                                                 <div className="thumbImage">
-                                                                    <img
-                                                                        src={`${APP_URLS.API_URL}${item.ImageFile}`}
-                                                                        onClick={() =>
+                                                                    <ResponsiveImage
+                                                                     src={item.ImageFile} 
+                                                                     onClick={() =>
                                                                             history.push(
                                                                                 `${PUBLIC_URL}/TutorProfile/${item.TeacherId}`
                                                                             )
                                                                         }
                                                                         alt={item.Name}
                                                                         width="65"
-                                                                        height="65"
-                                                                    ></img>
+                                                                        height="65" />
                                                                 </div>
                                                                 <h2
                                                                     onClick={() =>

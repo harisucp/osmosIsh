@@ -27,6 +27,7 @@ import queryString from 'query-string';
 import { ObjectFlags } from 'typescript';
 import { commonFunctions } from '../../shared/components/functional/commonfunctions';
 import _ from 'lodash';
+import ResponsiveImage from './../common/ResponsiveImage';
 
 class SearchPanel extends Component {
    constructor(props) {
@@ -813,9 +814,17 @@ class SearchPanel extends Component {
                                           <div className="row">
                                              <div className="col-lg-7 col-md-7 col-sm-12">
                                                 <div className="thumbTitle">
-                                                   <div className="profileIcon"><img
+                                                   <div className="profileIcon">
+                                                   <ResponsiveImage 
+                                                             src={data.TeacherImageFile}
+                                                             onClick={() => this.handleTutorDetails(data.TeacherId)}
+                                                             alt={data.Name}
+                                                             width="40"
+                                                             height="40" />
+                                                      {/* <img
                                                       onClick={() => this.handleTutorDetails(data.TeacherId)}
-                                                      src={`${APP_URLS.API_URL}${data.TeacherImageFile}`} alt={data.Name} width="40" height="40" /></div>
+                                                      src={`${APP_URLS.API_URL}${data.TeacherImageFile}`} alt={data.Name} width="40" height="40" /> */}
+                                                      </div>
                                                    <h2 onClick={() => this.handleTutorDetails(data.TeacherId)}>{data.Name}</h2>
                                                 </div>
                                              </div>
@@ -942,9 +951,12 @@ class SearchPanel extends Component {
                                           <div className="thumbDesc">
                                              <div className="thumbTitle">
                                                 <div className="profileIcon">
-                                                   <img
-                                                      onClick={() => this.handleTutorDetails(data.TeacherId)}
-                                                      src={`${APP_URLS.API_URL}${data.TeacherImageFile}`} alt={data.Name} width="40" height="40" />
+                                                         <ResponsiveImage 
+                                                             src={data.TeacherImageFile}
+                                                             onClick={() => this.handleTutorDetails(data.TeacherId)}
+                                                             alt={data.Name}
+                                                             width="40"
+                                                             height="40" />
                                                 </div>
                                                 <h2 onClick={() => this.handleTutorDetails(data.TeacherId)}>{data.Name}</h2>
                                              </div>

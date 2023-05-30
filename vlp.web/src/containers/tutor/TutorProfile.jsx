@@ -27,6 +27,7 @@ import { Modal, Table } from "react-bootstrap";
 import SignIn from "../../containers/home/SignIn";
 import PrivateSessionRequestModal from "../tutor/PrivateSessionRequestModal";
 import { localStorageService } from "../../services/localStorageService";
+import ResponsiveImage from './../common/ResponsiveImage';
 class TeacherProfile extends Component {
   constructor(props) {
     super(props);
@@ -504,13 +505,12 @@ class TeacherProfile extends Component {
                         <div className="row">
                           <div className="col-md-3">
                             <div className="thumbImage">
-                              <img
-                                src={`${APP_URLS.API_URL}${teacherProfileData.TeacherImageFile} `}
-                                alt="image"
-                                className="widthLimit"
-                                width="200"
-                                height="200"
-                              />
+                              <ResponsiveImage 
+                                  src={teacherProfileData.TeacherImageFile}
+                                  className="widthLimit"
+                                  alt="Image"
+                                  width="200"
+                                  height="200" />
                             </div>
                           </div>
                           <div className="col-md-9">

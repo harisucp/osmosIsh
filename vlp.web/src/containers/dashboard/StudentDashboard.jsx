@@ -1925,7 +1925,7 @@ class StudentDashboard extends Component {
                                                                                     {data.SessionStatus === "N" && data.Status && data.Status === "Show Time" && (
                                                                                         <span className="sessionStatus">
                                                                                             You can join the session at{" "}
-                                                                                            {moment(commonFunctions.getUtcDatetime(data.StartTime)).subtract(5, "minutes").format("hh:mm A")}{" "}
+                                                                                            {moment(commonFunctions.getUtcDatetime(data.StartTime)).subtract(10, "minutes").format("hh:mm A")}{" "}
                                                                                                 ({userTimezone})
                                                                                         </span>
                                                                                     )}

@@ -501,34 +501,35 @@ class CreateSeries extends Component {
 
   };
 
-  checkImageRatio = (fileItem) => {
-    let that = this;
-    var reader = new FileReader();
-    reader.readAsDataURL(fileItem.file);
-    reader.onloadend = function () {
-      //Initiate the JavaScript Image object.
-      var image = new Image();
+  // checkImageRatio = (fileItem) => {
+  //   let that = this;
+  //   var reader = new FileReader();
+  //   reader.readAsDataURL(fileItem.file);
+  //   reader.onloadend = function () {
+  //     //Initiate the JavaScript Image object.
+  //     var image = new Image();
 
-      //Set the Base64 string return from FileReader as source.
-      image.src = reader.result;
-      //Validate the File Height and Width.
-      image.onload = function () {
-        var height = this.height;
-        var width = this.width;
-        var ratio = height / width;
-        if (ratio > 0.6 && ratio < 0.7) {
-          return true;
-        } else {
-          that.setState({
-            showRatioError: true
-          })
-          return false;
-        }
+  //     //Set the Base64 string return from FileReader as source.
+  //     image.src = reader.result;
+  //     //Validate the File Height and Width.
+  //     image.onload = function () {
+  //       var height = this.height;
+  //       var width = this.width;
+  //       var ratio = height / width;
+  //       if (ratio > 0.6 && ratio < 0.7) {
+  //         return true;
+  //       } else {
+  //         that.setState({
+  //           showRatioError: true
+  //         })
+  //         return false;
+  //       }
 
-      };
-    }
+  //     };
+  //   }
 
-  }
+  // }
+
   converFileToBase64 = (file) => {
     let that = this;
     let imageFile = file[0];
@@ -698,10 +699,11 @@ class CreateSeries extends Component {
                               onupdatefiles={this.handleFileUpload}
                               imagePreviewHeight="160"
                               allowFileSizeValidation={true}
+                              allowImageCrop={true}
                               maxFileSize="5MB"
                               labelMaxFileSize="File types allowed: JPG,PNG"
                               labelMaxFileSizeExceeded="Maximum file size is 5MB."
-                              imagePreviewFilterItem={this.checkImageRatio}
+                              // imagePreviewFilterItem={this.checkImageRatio}
                             />)
                           }
                           {(!this.state.showImage && this.state.showRatioError) && (

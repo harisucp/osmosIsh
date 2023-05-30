@@ -168,7 +168,6 @@ class TeacherDashboard extends Component {
 
               let orderedList1 = filterData.filter((x) => commonFunctions.getUtcDatetime(x.EndTime).isAfter(moment(), "second"));
               let orderedList2 = filterData.filter((x) => commonFunctions.getUtcDatetime(x.EndTime).isBefore(moment(), "second"));
-              console.log(orderedList1, orderedList2);
               this.setState({ teachertodaysSessionData: [...orderedList1, ...orderedList2] });
               this.timeout = window.setInterval(() => this.getTeacherTodaysSessionData(), 60000);
             }

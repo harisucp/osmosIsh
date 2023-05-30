@@ -13,6 +13,7 @@ import { history } from '../../helpers/history';
 import moment from 'moment-timezone';
 import { commonFunctions } from '../../shared/components/functional/commonfunctions';
 import { localStorageService } from '../../services/localStorageService';
+import ResponsiveImage from './../common/ResponsiveImage';
 class UpcomingSession extends Component {
     constructor(props) {
         super(props);
@@ -202,7 +203,14 @@ class UpcomingSession extends Component {
                                                 <div className="col-md-3">
                                                     <div className="thumbDesc">
                                                         <div className="thumbTitle">
-                                                            <div className="profileIcon"><img onClick={() => this.handleTutorDetails(data.TeacherId)} src={`${APP_URLS.API_URL}${data.TeacherImageFile}`} alt="image" width="40" height="40" /></div>
+                                                            <div className="profileIcon">
+                                                            <ResponsiveImage 
+                                                                src={data.TeacherImageFile}
+                                                                onClick={() => this.handleTutorDetails(data.TeacherId)}
+                                                                alt="Image"
+                                                                width="40"
+                                                                height="40" />
+                                                                </div>
                                                             <h2 className="headerInfo" onClick={() => this.handleTutorDetails(data.TeacherId)}>{data.Name}</h2>
                                                         </div>
                                                         <div>
