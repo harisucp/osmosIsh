@@ -1,0 +1,52 @@
+
+  .autologout_modal.modal.show{
+	.modal-dialog {
+	  max-width: 40%;
+	  @media (max-width: 767px) {
+		max-width: 96%;
+		}
+	  .close {
+		position: absolute;
+		top: 5px;
+		right: 10px;
+		z-index: 1;
+		color: #4c5a67;
+		font-size: 31px;
+		cursor: pointer;
+		}
+	  .modal-body {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 3rem;
+
+		@media (max-width: 767px) {
+			padding: 2rem;
+		}	
+
+		i {
+			color: #203d53;
+			font-size: 32px;
+			width: 65px;
+			height: 65px;
+			border: 3px solid #203d53;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: 50%;
+			margin-bottom: 20px;
+		}
+		h4 {
+			font-size: 18px;
+			text-transform: none;
+		}
+
+		button {
+			margin-top: 20px;
+			min-width: 100px;
+			padding: 10px;
+			background-color: #203d53;
+		}
+	  }
+	}
+  }

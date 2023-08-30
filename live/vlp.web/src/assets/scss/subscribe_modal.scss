@@ -1,0 +1,124 @@
+.subscribe_modal {
+
+	.modal-content {
+		position: static;
+	}
+	.modal-dialog {
+		max-width: 620px;
+		@media (max-width: 767px) {
+			max-width: 96%;
+		}
+		position: static;
+		.close {
+			position: absolute;
+			top: 10px;
+			right: 20px;
+			z-index: 1;
+			color: #FFF;
+			font-size: 40px;
+			cursor: pointer;
+		}
+		.modal-content {
+			min-height: 620px;
+			max-height: 620px;
+			background-image: url("../images/subscription.png") !important;
+			background-repeat: no-repeat;
+			background-size: contain;
+			background-color: #1c3b51;
+
+			@media (max-width: 767px) {
+				background-image: none !important;
+				min-height: 520px;
+				max-height: 520px;
+				
+			}
+			.modal-body {
+				position: static;
+				padding: 0;
+				align-items: center;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				h4 {
+					font-size: 38px;
+					text-align: center;
+					max-width: 400px;
+					color: #fff;
+					margin-top: 85px;
+					margin-bottom: 20px;
+					text-transform: none;
+					@media (max-width: 767px) {
+						margin-top: 0px;
+						font-size: 26px;
+						br { display: none ;}
+
+					}
+				}
+				.formWrapper {
+					max-width: 400px;
+					display: flex;
+					flex-direction: column;
+					width: 100%;
+					
+					.form-group {
+						margin: 0 0 10px 0;
+
+						label {
+							padding-left: 0;
+							text-align: right;
+							color: #fff;
+							font-size: 18px;
+							font-family: "century_gothicregular";
+							@media (max-width: 767px) {
+								text-align: left;
+								padding-left: 15px;
+							}
+						}
+	
+						input {
+							height: 38px;
+							padding-left: 10px;
+							background: #808c8d;
+							border: none;
+							border-radius: 0;
+							color: #FFF;
+							font-size: 18px;
+						}
+						.srv-validation-message {
+							font-size: 12px;
+							color: #dc3545;
+							position: static;
+						}
+						
+					}
+
+					.form-button .logCss {
+						border-radius: 4px;
+						width: 100%;
+						height: 44px;
+						line-height: 44px;
+						font-size: 18px;
+						margin: 20px auto 0;
+						max-width: 260px;
+						border-radius: 0;
+						align-items: center;
+						display: flex;
+						justify-content: center;
+						text-transform: uppercase;
+						letter-spacing: 7px;
+						font-weight: 500;
+						&:hover {
+							background: #808c8d;
+						}
+					}
+					
+				}
+				img {
+					cursor: pointer;
+				}
+			}
+			
+		}
+	}
+}
+

@@ -1,0 +1,209 @@
+.series-Session {
+	height: 100%;
+	display: flex;
+	align-items: center;
+	position: relative;
+	margin: 0;
+	padding: 100px 0 5px 0px;
+
+	@media (max-width:767px) {
+		padding: 100px 0 10px 0px;
+	}
+
+	h1 {
+		font-weight: 600;
+		margin-bottom: 40px;
+
+		@media (max-width:767px) {
+			margin-bottom: 30px;
+			font-size: 30px;
+		}
+	}
+
+	h3 {
+		font-weight: 600;
+		font-size: 45px;
+		margin-bottom: 40px;
+
+		@media (max-width:767px) {
+			margin-bottom: 30px;
+			font-size: 30px;
+		}
+	}
+
+	.grayWrapper {
+		background-color: #f8f8f8;
+		padding: 30px;
+		border-radius: 20px;
+		/* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+		border: 1px solid #ddd;
+
+		@media (max-width:767px) {
+			padding: 15px;
+		}
+
+		label {
+			font-weight: 600;
+		}
+
+		// .padRight {
+		// 	padding-right: 20px;
+
+		// 	@media (max-width:991px) {
+		// 		padding-right: 0px;
+		// 	}
+		// }
+
+		// .padleft {
+		// 	padding-left: 20px;
+
+		// 	@media (max-width:991px) {
+		// 		padding-left: 0px;
+		// 	}
+		// }
+		.form-group {
+			position: relative;
+			margin: 0 0 24px 0;
+
+			.react-tel-input {
+				.form-control {
+					width: 100%;
+				}
+			}
+		}
+
+		.mt-45 {
+			margin-top: 32px;
+		}
+
+		.browseBtn {
+			background-color: #e5ebf0;
+			border: none;
+			padding: 6px 15px;
+			margin-right: 15px;
+			border-radius: 3px;
+
+			&:hover {
+				background-color: #1c3b50;
+				color: #fff;
+			}
+		}
+
+		.selectCategoery {
+			background-image: url(/assets/images/arrow-icon-1.png);
+			background-repeat: no-repeat;
+			background-position: center right;
+
+			@media (max-width:991px) {
+				padding-right: 34px !important;
+			}
+		}
+
+		.browseImage {
+			background-image: url(/assets/images/brouse-image.png);
+			background-repeat: no-repeat;
+			background-position: center right;
+
+			@media (max-width:991px) {
+				padding-right: 34px !important;
+			}
+		}
+
+		button {
+			border: none;
+			padding: 6px 15px;
+			border-radius: 3px;
+			outline: none;
+
+			&:hover {
+				background-color: #1c3b50;
+				color: #fff;
+			}
+
+			@media (max-width:1024px) {
+				// margin-bottom: 5px;
+			}
+
+		}
+
+		textarea {
+			width: 100%;
+			resize: none;
+			min-height: 180px;
+			padding: 14px;
+		}
+
+		.btn-blue {
+			text-transform: uppercase;
+			min-width: 120px;
+			background-color: #4c5a67;
+			border-radius: 50px;
+			margin-right: 10px;
+		}
+
+		.repeatOption {
+			background-color: #1c3b50;
+			color: #fff;
+			background-image: url(/assets/images/arrow-icon-2.png);
+			background-repeat: no-repeat;
+			background-position: center right;
+
+			option {
+				background-color: #fff;
+				color: #000;
+			}
+		}
+
+		.grayBg {
+			background-color: #dde5ec;
+			display: flex;
+			width: 100%;
+			justify-content: space-around;
+			padding: 8px 2px;
+
+			@media (max-width:991px) {
+				justify-content: flex-start;
+				flex-flow: wrap;
+				padding: 6px;
+			}
+
+			.weekDay {
+				background-color: #fff !important;
+				padding: 4px 15px;
+				font-weight: 600;
+
+				&:hover {
+					color: #000;
+				}
+
+				@media (max-width:991px) {
+					margin-right: 5px;
+				}
+			}
+		}
+	}
+
+	.srv-validation-message {
+		font-size: 12px;
+		color: #dc3545;
+		left: 0;
+		bottom: -20px;
+		position: absolute;
+	}
+
+}
+
+.MuiPickersToolbar-toolbar {
+	background-color: #1c3b50 !important;
+
+}
+
+.MuiPickersDay-daySelected {
+	background-color: #1c3b50 !important;
+}
+
+
+.MuiPickerDTTabs-tabs {
+	color: #fff;
+	background-color: #1c3b50 !important;
+}

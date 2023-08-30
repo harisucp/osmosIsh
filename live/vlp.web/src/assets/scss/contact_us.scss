@@ -1,0 +1,164 @@
+/*--contact Us--*/
+
+.contactBanner {
+	height: 100%;
+	//display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	margin: 0;
+	padding: 130px 0 40px 0px;
+	background-image: url("../images/contactus_banner.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	.bannerTitle {
+		display: flex;
+		align-items: center;
+		height: 100%;
+		h1 {
+			font-size: 58px;
+			line-height: 70px;
+			margin: 0px;
+			font-weight: bold;
+			@media (max-width: 640px) {
+				font-size:40px;
+				line-height: normal;
+				margin: 0 0 10px 0;
+			}
+		}
+		.breadcrumbSection {
+			position: absolute;
+			left: 22px;
+			bottom: 50px;
+			@media (max-width: 640px) {
+				bottom: -15px;
+			}
+			ul {
+				margin: 0px;
+				padding: 0px;
+				list-style: none;
+				li {
+					width: auto;
+					display: inline-block;
+					color: #343e51;
+					font-size: 16px;
+					a {
+						color: #a0a6af;
+					}
+				}
+			}
+		}
+	}
+	.thumbImage {
+		text-align: right;
+		@media (max-width: 640px) {
+			display:none;
+		}
+		img {
+			max-width: 100%;
+		}
+	}
+}
+
+.contactDetail {
+	padding: 50px 0;
+	.contactDesc {
+		//        max-width: 800px;
+		margin: 0 auto;
+		background-color: #f2f2f2;
+		padding: 15px;
+		border-radius: 4px;
+		border: 1px solid #ddd;
+		h2 {
+			margin: 0 0 20px 0;
+			position: relative;
+			&:before {
+				content: "";
+				position: absolute;
+				background: #1c3b50;
+				height: 2px;
+				width: 50px;
+				left: 0;
+				bottom: -6px;
+			}
+		}
+		p {
+			line-height: 22px;
+			margin: 0 0 20px 0;
+		}
+		.form-group {
+			position: relative;
+			margin: 0 0 24px 0;
+			textarea {
+				height: 150px;
+			}
+		}
+		.btn {
+			border-radius: 4px;
+		}
+		.srv-validation-message {
+			font-size: 12px;
+			color: #dc3545;
+			position: absolute;
+			left: 0;
+			bottom: -20px;
+		}
+	}
+}
+
+.greyBg {
+	background-color: #f9f9f9;
+	padding: 35px 0;
+	.thumbDesc {
+		text-align: center;
+		@media (max-width: 767px) {
+			margin:0 0 20px 0;
+		}
+		.thumbIcon {
+			margin: 0 0 14px 0;
+			i {
+				font-size: 30px;
+				color: #1c3b50;
+			}
+		}
+		h3 {
+			margin: 0 0 10px 0;
+		}
+		p {
+			margin: 0 0 10px 0;
+		}
+		a {
+			color: #1c3b50;
+		}
+	}
+}
+
+.contactbg {
+	background-image: url("../images/contactbgimage.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	padding: 20px 0;
+	.thumbDesc {
+		position: relative;
+		h3 {
+			color: #fff;
+			@media (max-width: 767px) {
+				margin:0 0 12px 0;
+			}
+		}
+		p {
+			color: #fff;
+			@media (max-width: 767px) {
+				margin:0 0 12px 0;
+			}
+		}
+		.whiteBtn {
+			position: absolute;
+			right: 0;
+			bottom: 0;
+			@media (max-width: 767px) {
+				position:relative;
+			}
+		}
+	}
+}

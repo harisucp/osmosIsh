@@ -1,0 +1,202 @@
+.studentProfile {
+	.greyBg {
+		.thumbContent {
+			.thumbImage {
+				img {
+					width: 160px;
+					border-radius: 8px;
+				}
+			}
+			.thumbDesc {
+				text-align: left;
+				h1 {
+					font-size: 35px;
+					margin: 0 0 5px 0;
+					font-weight: bold;
+				}
+				button {
+					margin: 8px 8px 8px 0px;
+				}
+			}
+		}
+		
+		.progressGraph {
+			width: 100%;
+			.thumbImage {
+				width: 60%;
+				margin: 0 auto 20px;
+				img {
+					max-width: 100%;
+				}
+			}
+			.thumbDesc {
+				ul {
+					list-style: none;
+					display: flex;
+					flex-wrap: wrap;
+					li {
+						width: 46%;
+						color: #1c3b50;
+						margin: 0 10px 10px 0;
+						text-align: left;
+						font-size: 13px;
+						text-transform: capitalize;
+						span {
+							height: 12px;
+							width: 12px;
+							left: 0px;
+							top: 0px;
+							border-width: 0px;
+							border-color: white;
+							border-radius: 12px;
+							position: relative;
+							display: inline-block;
+							margin: 0 6px 0 0;
+							&.blue {
+								background: #005073;
+								color: #005073;
+							}
+							&.orange {
+								background: #107dac;
+								color: #107dac;
+							}
+							&.red {
+								background: #189ad3;
+								color: #189ad3;
+							}
+							&.purple {
+								background: #1ebbd7;
+								color: #1ebbd7;
+							}
+							&.green {
+								background: #71c7ec;
+								color: #71c7ec;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+.fullCalendar {
+	.commonHeading {
+		font-size: 30px;
+		margin: 0px;
+		padding: 0px;
+		font-family: 'century_gothicregular';
+		color: #1c3b50;
+		margin-bottom: 20px;
+		margin-top: 10px;
+	}
+}
+
+.sessionDeleivered {
+	padding: 0px 0 20px;
+	.dataHaeding {
+		margin: 0 0 20px 0;
+		text-align: center;
+		h4 {
+			font-size: 30px;
+			margin-bottom: 20px;
+             margin-top: 10px;
+		}
+	}
+	button {
+		margin: 5px;
+	}
+	.dataContent {
+		border: 1px solid #ddd;
+		border-radius: 15px;
+		background-color: #f8f8f8;
+		.table {
+			margin: 0px;
+			thead {
+				tr {
+					border-bottom: 1px solid #ddd;
+					th {
+						font-size: 16px;
+						font-weight: bold;
+						text-align: center;
+						border-bottom: 0px;
+						border-top: 0px;
+					}
+				}
+			}
+			tbody {
+				tr {
+					td {
+						font-size: 14px;
+						font-weight: 400;
+						text-align: center;
+						border-top: 0px;
+					}
+					&:nth-child(even) {
+						background-color: #d9dde0;
+					}
+				}
+			}
+		}
+		.loadMore {
+			text-align: center;
+			margin: 30px 0;
+		}
+	}
+	.widgetCategotry {
+		margin: 0 0 30px 0;
+		border: 1px solid #e8eaed;
+		background: #f8f8f8;
+		border-radius: 4px;
+		.widgetBody {
+			padding: 0 15px 15px 15px;
+			.widgetItem {
+				margin-bottom: 0;
+				position: relative;
+				border-bottom: 1px solid #dde2ea;
+				padding: 15px 0;
+				.widgetThumb {
+					width: 85px;
+					height: 85px;
+					border-radius: 100px;
+					position: absolute;
+					top: 15px;
+					left: 0;
+					background-repeat: no-repeat;
+					background-size: cover;
+				}
+				.widgetContent {
+					padding-left: 100px;
+					min-height: 70px;
+					display: flex;
+					justify-content: center;
+					flex-direction: column;
+					h6 {
+						font-size: 14px;
+						font-weight: bold;
+						margin: 0 0 5px 0;
+						letter-spacing: 0.4px;
+						line-height: 21px;
+						a {
+							color: #1c3b50;
+						}
+					}
+					.date {
+						font-size: 14px;
+					}
+					.confirm {
+						text-align: right;
+						.btn {
+							padding: 3px 12px;
+							font-size: 14px;
+							border-radius: 12px;
+						}
+					}
+				}
+				&:last-child {
+					border-bottom: 0px;
+				}
+			}
+		}
+	}
+}
