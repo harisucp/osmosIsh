@@ -1,4 +1,4 @@
-﻿using Amazon.Chime.Model;
+﻿using Amazon.ChimeSDKMeetings.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;

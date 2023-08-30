@@ -1,6 +1,6 @@
 ﻿using Amazon;
-using Amazon.Chime;
-using Amazon.Chime.Model;
+using Amazon.ChimeSDKMeetings;
+using Amazon.ChimeSDKMeetings.Model;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using OsmosIsh.Core.DTOs.Request;
@@ -28,7 +28,7 @@ namespace OsmosIsh.Service.Service
         #region Private
         private MainResponse _MainResponse;
         public OsmosIshContext _ObjContext;
-        private AmazonChimeClient _AmazonChimeClient = null;
+        private AmazonChimeSDKMeetingsClient _AmazonChimeClient = null;
         private string _AmazonChimeRegion = "us-east-1";
         #endregion
         public AmazonChimeService(IMapper Mapper, OsmosIshContext ObjContext, IAmazonChimeRepository AmazonChimeRepository)
@@ -38,7 +38,7 @@ namespace OsmosIsh.Service.Service
             _Mapper = Mapper;
             _MainResponse = new MainResponse();
             _ObjContext = ObjContext;
-            _AmazonChimeClient = new AmazonChimeClient(AppSettingConfigurations.AppSettings.AWSAccessKeyId, AppSettingConfigurations.AppSettings.AWSSecretAccessKey, RegionEndpoint.APEast1);
+            _AmazonChimeClient = new AmazonChimeSDKMeetingsClient(AppSettingConfigurations.AppSettings.AWSAccessKeyId, AppSettingConfigurations.AppSettings.AWSSecretAccessKey, RegionEndpoint.USEast1);
         }
 
         public async Task<MainResponse> CreateMeeting(AmazonChimeMeetingRequest amazonChimeMeetingRequest)
