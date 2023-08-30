@@ -1,5 +1,5 @@
 {
-  "homepage": "https://www.osmosish.com/BetaTest240972",
+  "homepage": "https://www.osmosish.com",
   "name": "OsmosIsh",
   "version": "0.1.1",
   "private": true,
@@ -16,7 +16,7 @@
     "@types/dom-mediacapture-record": "^1.0.11",
     "@types/jquery": "^3.3.31",
     "abortcontroller-polyfill": "^1.4.0",
-    "amazon-chime-sdk-js": "^1.10.0",
+    "amazon-chime-sdk-js": "^1.22.0",
     "autoprefixer": "^9.6.4",
     "awesome-typescript-loader": "^5.2.1",
     "aws-sdk": "^2.704.0",

@@ -34,6 +34,7 @@ export declare class DemoMeetingApp implements AudioVideoObserver, DeviceChangeO
     static readonly DATA_MESSAGE_LIFETIME_MS: number;
     static readonly API_URL: string;
     static readonly REACT_APP_URL: string;
+    static readonly REACT_APP_LIVE_URL: string;
     static readonly REACT_APP_TIMEOUT_IN_MINUTES: number;
     static screenSharedAllowedAttendeeId: string;
     static activeSpeakerAttendeeId: string;

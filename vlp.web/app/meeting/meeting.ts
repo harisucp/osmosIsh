@@ -147,10 +147,11 @@ export class DemoMeetingApp
 
   static readonly DATA_MESSAGE_LIFETIME_MS: number = 300000;
   // static readonly API_URL: string = "https://localhost:44336";
-  static readonly API_URL: string = "https://www.osmosish.com/apiBeta";
+  static readonly API_URL: string = "https://www.osmosish.com/api";
   // static readonly API_URL: string = "https://www.osmosish.com/api";
 // static readonly REACT_APP_URL: string = window.location.origin; 
 static readonly REACT_APP_URL: string = window.location.origin + "/BetaTest240972"; 
+static readonly REACT_APP_LIVE_URL: string = window.location.origin + "/"; 
 // window.location.origin + "/BetaTest240972"; 
 
   static readonly REACT_APP_TIMEOUT_IN_MINUTES: number = 30;
@@ -259,7 +260,7 @@ static readonly REACT_APP_URL: string = window.location.origin + "/BetaTest24097
     var logo = document.getElementsByClassName("logoImage");
     var i;
     for (i = 0; i < logo.length; i++) {
-      var logoImage = DemoMeetingApp.REACT_APP_URL + "/logo.png";
+      var logoImage = DemoMeetingApp.REACT_APP_LIVE_URL + "/logo.png";
       logo[i].innerHTML =
         "<img class='logo'  alt='logo' src='" + logoImage + "'/>";
     }
@@ -715,7 +716,7 @@ static readonly REACT_APP_URL: string = window.location.origin + "/BetaTest24097
         //this.showErrorBox("Thank you for using Osmos-ish.", "Information")
         // @ts-ignore
         window.location.href =
-          DemoMeetingApp.REACT_APP_URL + "/Feedback/" + this.sessionId + "/y";
+          DemoMeetingApp.REACT_APP_LIVE_URL + "Feedback/" + this.sessionId + "/y";
       });
     });
 
@@ -1488,7 +1489,7 @@ static readonly REACT_APP_URL: string = window.location.origin + "/BetaTest24097
       if (DemoMeetingApp.autoStop && data.UserId === this.userId && data.NewAttendeeid !== this.meetingSession.configuration.credentials.attendeeId) {
         this.leave();
         var redirectUrl = this.userType == UserType.Teacher ? '/TutorDashboard' : '/StudentDashboard';
-        window.location.href = DemoMeetingApp.REACT_APP_URL + redirectUrl;
+        window.location.href = DemoMeetingApp.REACT_APP_LIVE_URL + redirectUrl;
       }
       else {
         return;
@@ -1646,8 +1647,8 @@ static readonly REACT_APP_URL: string = window.location.origin + "/BetaTest24097
           request
         );
         window.location.href =
-          DemoMeetingApp.REACT_APP_URL +
-          "/Feedback/" +
+          DemoMeetingApp.REACT_APP_LIVE_URL +
+          "Feedback/" +
           meetingObject.sessionId +
           "/n";
       }
@@ -2136,10 +2137,10 @@ static readonly REACT_APP_URL: string = window.location.origin + "/BetaTest24097
       // @ts-ignore
       if (this.userType == UserType.Student) {
         window.location.href =
-          DemoMeetingApp.REACT_APP_URL + "/Feedback/" + this.sessionId + "/y";
+          DemoMeetingApp.REACT_APP_LIVE_URL + "Feedback/" + this.sessionId + "/y";
       } else {
         window.location.href =
-          DemoMeetingApp.REACT_APP_URL + "/Feedback/" + this.sessionId + "/n";
+          DemoMeetingApp.REACT_APP_LIVE_URL + "Feedback/" + this.sessionId + "/n";
       }
     }
   }
