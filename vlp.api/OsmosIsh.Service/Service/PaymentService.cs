@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 using PayPal.Api;
 using OsmosIsh.Core.Shared.Static;
 using System.Globalization;
-using Amazon.Chime.Model;
+using Amazon.ChimeSDKMeetings.Model;
 
 namespace OsmosIsh.Service.Service
 {

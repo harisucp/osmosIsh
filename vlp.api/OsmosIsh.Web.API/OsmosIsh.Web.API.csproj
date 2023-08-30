@@ -60,7 +60,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AWSSDK.Chime" Version="3.3.113.8" />
+    <PackageReference Include="AWSSDK.ChimeSDKMeetings" Version="3.7.201.9" />
     <PackageReference Include="Caliburn.Micro.Core" Version="4.0.173" />
     <PackageReference Include="Google.Apis.Auth" Version="1.45.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.1" />
