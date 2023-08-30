@@ -14,6 +14,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="LogData\**" />
+    <Content Remove="LogData\**" />
+    <EmbeddedResource Remove="LogData\**" />
+    <None Remove="LogData\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="wwwroot\images\corner-down-right.png" />
     <Content Remove="wwwroot\images\Facebook.png" />
     <Content Remove="wwwroot\images\headerbg.jpg" />
@@ -96,7 +103,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="LogData\" />
     <Folder Include="wwwroot\Upload\Series\Image\" />
     <Folder Include="wwwroot\Upload\Series\Video\" />
     <Folder Include="wwwroot\Upload\Series-Session\" />

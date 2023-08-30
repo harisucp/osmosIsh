@@ -1,0 +1,24 @@
+[
+  {
+    "EntityName": "Subscriptions",
+    "MapPrePostMethod": {
+      "PreMethodClassFullPath": "OsmosIsh.Service.Common.Subscriptions",
+      "PreMethodName": "OnSubscriptionPreSaved"
+    }
+  },
+  {
+    "EntityName": "UserColumnSettings",
+    "MappedStoreProcedureData": {
+      "StoredProcedure": "sp_InsertModifyColumnSettings",
+      "SqlParameters": [
+        "UserId",
+        "TabName",
+        "HiddenColumns",
+        "ColumnOrder",
+        "GridName",
+        "ActionPerformedBy",
+        "Action"
+      ]
+    }
+  }
+]

@@ -1,0 +1,396 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OsmosIsh.Core</name>
+    </assembly>
+    <members>
+        <member name="T:OsmosIsh.Core.DTOs.Request.BaseRequest">
+            <summary>
+            This class will contain common property that is used by all API request in the application.
+            </summary>
+        </member>
+        <member name="T:OsmosIsh.Core.DTOs.Request.SaveRequest">
+            <summary>
+            Json object used for perform common save/update opertion on entity.
+            </summary>
+        </member>
+        <member name="P:OsmosIsh.Core.DTOs.Request.SaveRequest.Data">
+            <summary>
+            Json object used for send entity data.
+            </summary>
+            <example></example>
+        </member>
+        <member name="P:OsmosIsh.Core.DTOs.Request.SaveRequest.EntityName">
+            <summary>
+            The entity name on which we need to perform create/update operation.
+            </summary>
+            <example>Clients</example>
+        </member>
+        <member name="P:OsmosIsh.Core.DTOs.Request.SaveRequest.AdditionalFields">
+            <summary>
+            Json object used for any odditional information that we need to send with entity data.
+            </summary>
+        </member>
+        <member name="P:OsmosIsh.Core.DTOs.Request.AdditionalFields.UserName">
+            <summary>
+            Pass currently logged in user in the application.
+            </summary>
+            <example>Admin</example>
+        </member>
+        <member name="T:OsmosIsh.Core.DTOs.Request.GetRequest">
+            <summary>
+            Json object used for perform common get opertion on entity.
+            </summary>
+        </member>
+        <member name="P:OsmosIsh.Core.DTOs.Request.GetRequest.Data">
+            <summary>
+            Json object used to send data.
+            </summary>
+            <example></example>
+        </member>
+        <member name="P:OsmosIsh.Core.DTOs.Request.GetRequest.KeyName">
+            <summary>
+            The key name which is used to get data.
+            </summary>
+            <example>GetAllGlobalCodes</example>
+        </member>
+        <member name="T:OsmosIsh.Core.DTOs.Request.GetTabRequest">
+            <summary>
+            Json object used for perform common get opertion on entity.
+            </summary>
+        </member>
+        <member name="P:OsmosIsh.Core.DTOs.Request.GetTabRequest.Data">
+            <summary>
+            Json object used to send data.
+            </summary>
+            <example></example>
+        </member>
+        <member name="P:OsmosIsh.Core.DTOs.Request.GetTabRequest.TabName">
+            <summary>
+            The tab name which is used to get data.
+            </summary>
+            <example>Medications</example>
+        </member>
+        <member name="P:OsmosIsh.Core.DTOs.Request.UpdateSeriesDetailRequest.IsImageUpdated">
+            <example>false</example>
+        </member>
+        <member name="P:OsmosIsh.Core.DTOs.Request.UpdateSeriesDetailRequest.IsVideoUpdated">
+            <example>false</example>
+        </member>
+        <member name="P:OsmosIsh.Core.DTOs.Request.CreateUpdateSessionRequest.IsImageUpdated">
+            <example>false</example>
+        </member>
+        <member name="P:OsmosIsh.Core.DTOs.Request.CreateUpdateSessionRequest.IsVideoUpdated">
+            <example>false</example>
+        </member>
+        <member name="P:OsmosIsh.Core.DTOs.Request.UpdateStudentProfileRequest.IsImageUpdated">
+            <example>false</example>
+        </member>
+        <member name="P:OsmosIsh.Core.DTOs.Request.SubscribeEmailRequest.Email">
+            <summary>
+            Email address that need to subscribe.
+            </summary>
+        </member>
+        <member name="P:OsmosIsh.Core.DTOs.Request.SubscribeEmailRequest.FirstName">
+            <summary>
+            First Name
+            </summary>
+            <example></example>
+        </member>
+        <member name="P:OsmosIsh.Core.DTOs.Request.SubscribeEmailRequest.LastName">
+            <summary>
+            Last Name
+            </summary>
+            <example></example>
+        </member>
+        <member name="P:OsmosIsh.Core.DTOs.Request.SubscribeEmailRequest.UserType">
+            <summary>
+            User Type :- Tutor,Student,both 
+            </summary>
+            <example></example>
+        </member>
+        <member name="P:OsmosIsh.Core.DTOs.Request.UpdateTeacherProfileRequest.IsImageUpdated">
+            <example>false</example>
+        </member>
+        <member name="P:OsmosIsh.Core.DTOs.Request.LoginRequest.Email">
+            <summary>
+            Registered Email Address
+            </summary>
+            <example></example>
+        </member>
+        <member name="P:OsmosIsh.Core.DTOs.Request.LoginRequest.Password">
+            <summary>
+            Password
+            </summary>
+            <example></example>
+        </member>
+        <member name="P:OsmosIsh.Core.DTOs.Request.ForgotPasswordRequest.Email">
+            <summary>
+            Email
+            </summary>
+        </member>
+        <member name="P:OsmosIsh.Core.DTOs.Request.ResetForgotPasswordRequest.Token">
+            <summary>
+            OTP
+            </summary>
+        </member>
+        <member name="P:OsmosIsh.Core.DTOs.Request.ResetForgotPasswordRequest.Password">
+            <summary>
+            New Password
+            </summary>
+        </member>
+        <member name="P:OsmosIsh.Core.DTOs.Request.ChangePasswordRequest.Token">
+            <summary>
+            OTP
+            </summary>
+        </member>
+        <member name="P:OsmosIsh.Core.DTOs.Request.ChangePasswordRequest.UserId">
+            <summary>
+            UserId
+            </summary>
+        </member>
+        <member name="P:OsmosIsh.Core.DTOs.Request.ChangePasswordRequest.OldPassword">
+            <summary>
+            Old Password
+            </summary>
+        </member>
+        <member name="P:OsmosIsh.Core.DTOs.Request.ChangePasswordRequest.NewPassword">
+            <summary>
+            New Password
+            </summary>
+        </member>
+        <member name="P:OsmosIsh.Core.DTOs.Request.SignUpRequest.Email">
+            <summary>
+            Email
+            </summary>
+            <example></example>
+        </member>
+        <member name="P:OsmosIsh.Core.DTOs.Request.SignUpRequest.FullName">
+            <summary>
+            FullName combination of firstname and lastname ex:- John Smith
+            </summary>
+            <example></example>
+        </member>
+        <member name="P:OsmosIsh.Core.DTOs.Request.SignUpRequest.Password">
+            <summary>
+            New Password
+            </summary>
+            <example></example>
+        </member>
+        <member name="P:OsmosIsh.Core.DTOs.Request.SignUpRequest.IsBecomeTutor">
+            <summary>
+            This property should be true if we want to signup as tutor.By default all signup set as student.
+            </summary>
+            <example>false</example>
+        </member>
+        <member name="P:OsmosIsh.Core.DTOs.Request.SignUpRequest.IsExternalSignUp">
+            <summary>
+            This property should be true if we want to signup from external signup.
+            </summary>
+            <example>false</example>
+        </member>
+        <member name="P:OsmosIsh.Core.DTOs.Request.ExternalSignInRequest.TokenId">
+            <summary>
+            TokenId Returned by Google/Facebook
+            </summary>
+        </member>
+        <member name="P:OsmosIsh.Core.DTOs.Request.ExternalSignInRequest.ProviderName">
+            <summary>
+            Provider we are using right now :- Facebook/Google
+            </summary>
+        </member>
+        <member name="P:OsmosIsh.Core.DTOs.Request.VerifyAccountRequest.Token">
+            <summary>
+            OTP
+            </summary>
+        </member>
+        <member name="P:OsmosIsh.Core.DTOs.Request.VerifyAccountRequest.Email">
+            <summary>
+            Email
+            </summary>
+        </member>
+        <member name="P:OsmosIsh.Core.DTOs.Request.ResendAccountVerificationRequest.Email">
+            <summary>
+            Email
+            </summary>
+        </member>
+        <member name="T:OsmosIsh.Core.DTOs.Response.BaseResponse">
+            <summary>
+            This class will contain common property that is used by all API response in the application.
+            </summary>
+        </member>
+        <member name="P:OsmosIsh.Core.DTOs.Response.FacebookResposne.Email">
+            <summary>
+            Email returned by Facebook
+            </summary>       
+        </member>
+        <member name="P:OsmosIsh.Core.DTOs.Response.FacebookResposne.First_Name">
+            <summary>
+            FirstName returned by Facebook
+            </summary>
+        </member>
+        <member name="P:OsmosIsh.Core.DTOs.Response.FacebookResposne.Last_Name">
+            <summary>
+            LastName returned by Facebook
+            </summary>
+        </member>
+        <member name="T:OsmosIsh.Core.Enums.Exceptions">
+            <summary>  
+            Different types of exceptions.  
+            </summary>  
+        </member>
+        <member name="P:OsmosIsh.Core.Shared.Common.MapPrePostMethod.PreMethodClassFullPath">
+            <summary>
+            Pass full path of class in which pre method defined.
+            </summary>
+        </member>
+        <member name="P:OsmosIsh.Core.Shared.Common.MapPrePostMethod.PreMethodName">
+            <summary>
+            Pass method name that needs to bind for per save event.
+            </summary>
+        </member>
+        <member name="P:OsmosIsh.Core.Shared.Common.MapPrePostMethod.PostMethodClassFullPath">
+            <summary>
+            Pass full path of class in which post method defined.
+            </summary>
+        </member>
+        <member name="P:OsmosIsh.Core.Shared.Common.MapPrePostMethod.PostMethodName">
+            <summary>
+            Pass method name that needs to bind for post save event.
+            </summary>
+        </member>
+        <member name="P:OsmosIsh.Core.Shared.Common.MappedStoreProcedureData.StoredProcedure">
+            <summary>
+            Pass store procedure name that need to bind.
+            </summary>
+        </member>
+        <member name="P:OsmosIsh.Core.Shared.Common.MappedStoreProcedureData.SqlParameters">
+            <summary>
+            Pass sql parmeters that need to pass binded store procedure.
+            </summary>
+        </member>
+        <member name="P:OsmosIsh.Core.Shared.Common.MappedKeyData.StoredProcedure">
+            <summary>
+            Pass store procedure name that need to bind.
+            </summary>
+        </member>
+        <member name="P:OsmosIsh.Core.Shared.Common.MappedKeyData.SqlParameters">
+            <summary>
+            Pass sql parmeters that need to pass binded store procedure.
+            </summary>
+        </member>
+        <member name="P:OsmosIsh.Core.Shared.Common.MappedKeyData.MappedEntityClassPath">
+            <summary>
+            Pass entity path that need to bind with data return by store procedure. 
+            </summary>
+        </member>
+        <member name="M:OsmosIsh.Core.Shared.Helper.ReadDataJsonFile.CheckMappingSpecificEntityName(System.String)">
+            <summary>
+            This method used to get specific object set mapped with passed entityname.
+            </summary>
+            <param name="EntityName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Core.Shared.Helper.ReadDataJsonFile.CheckMappingSpecificKeyName(System.String)">
+            <summary>
+            This method used to get specific object set mapped with passed key name.
+            </summary>
+            <param name="KeyName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Core.Shared.Static.CommonFunction.GetEntityPath(System.String)">
+            <summary>
+            This function is used to combine class name with namespace of data project.
+            </summary>
+            <param name="EntityName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Core.Shared.Static.CommonFunction.GetType(System.String)">
+            <summary>
+            This function is used to get type from different layer and try to access method of different layer.
+            </summary>
+            <param name="typeName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Core.Shared.Static.CommonFunction.GetPrimaryKeyValue``1(``0,OsmosIsh.Data.DBContext.OsmosIshContext)">
+            <summary>
+            This function used to get primary column name of specific entity.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="entity"></param>
+            <param name="ObjContext"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Core.Shared.Static.CommonFunction.GetSQLParameters(System.String)">
+            <summary>
+            This function is used to convert get sql parameters to object to key and value pair.
+            </summary>
+            <param name="Data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Core.Shared.Static.CommonFunction.MapWithSpecificEntityType(System.String,System.Object)">
+            <summary>
+            Map object specific entity type.
+            </summary>
+            <param name="EntityPath"></param>
+            <param name="dataList"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Core.Shared.Static.CommonFunction.GetStructureType(System.String)">
+            <summary>
+            Get structure of particular entity type.
+            </summary>
+            <param name="EntityPath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Core.Shared.Static.CommonFunction.GetStructureTypeWithRequiredCheck(System.String)">
+            <summary>
+            Get structure of particular entity type.
+            </summary>
+            <param name="EntityPath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Core.Shared.Static.CommonFunction.GetDataFromJsonFile(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="FilePath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Core.Shared.Static.CommonFunction.EncryptPassword(System.String)">
+            <summary>
+            This method will be used to encrypt string information
+            </summary>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Core.Shared.Static.CommonFunction.ConvertObjectToString(System.Object)">
+            <summary>
+            Convert to object to string.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Core.Shared.Static.CommonFunction.GetTemplateFromHtml(System.String,System.String)">
+            <summary>
+            This method is used to read all template data.
+            </summary>
+            <param name="templateName"></param>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Core.Shared.Static.CommonFunction.GenerateCode">
+            <summary>
+            This is method is used to generate.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:OsmosIsh.Core.Shared.Static.GetErrorCodes.GetErrorCode(System.Type)">
+            <summary>  
+            This method will return the status code based on the exception type.  
+            </summary>  
+            <param name="exceptionType"></param>  
+            <returns>HttpStatusCode</returns>  
+        </member>
+    </members>
+</doc>

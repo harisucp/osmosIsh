@@ -1,0 +1,680 @@
+[
+  {
+    "KeyName": "GetAllGlobalCodes",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetGlobalCodesByCategory",
+      "SqlParameters": [
+        "globalcodeid"
+      ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.GlobalCodes"
+    }
+  },
+  {
+    "KeyName": "GetCustomerReviews",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetCustomerReviews",
+      "SqlParameters": [
+        "StudentId"
+      ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.CustomerReviews"
+    }
+  },
+  {
+    "KeyName": "GetSeriesSessions",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetSeriesSessions",
+      "SqlParameters": [
+        "SearchText",
+        "SessionType",
+        "CategoryId",
+        "StartDate",
+        "EndDate",
+        "MinPrice",
+        "MaxPrice",
+        "userid",
+        "PageNbr",
+        "PageSize",
+        "Type",
+        "Tag",
+        "CountryId"
+      ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.SeriesSession"
+    }
+  },
+  {
+    "KeyName": "GetSessionCategories",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetSessionCategories",
+      "SqlParameters": [
+        "SessionCategoryId"
+      ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.SessionCategories"
+    }
+  },
+  {
+    "KeyName": "GetGlobalCodesByCategory",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetGlobalCodesByCategory",
+      "SqlParameters": [
+        "CategoryId"
+      ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Response.GlobalCodes"
+    }
+  },
+  {
+    "KeyName": "GetAllAvilableTags",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetAllAvailableTags",
+      "SqlParameters": [],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.AvailableTags"
+    }
+  },
+  {
+    "KeyName": "GetTutorDetail",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetTutorDetail",
+      "SqlParameters": [ "TeacherId" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.TutorDetail"
+    }
+  },
+  {
+    "KeyName": "GetSessionDetail",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetSessionDetail",
+      "SqlParameters": [ "SessionId", "StudentId", "UserType" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.SessionDetail"
+    }
+  },
+  {
+    "KeyName": "GetCancelledSessionDetail",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetCancelledSessionDetailById",
+      "SqlParameters": [ "SessionId" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.SessionDetail"
+    }
+  },
+  {
+    "KeyName": "GetSeriesDetail",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetSeriesDetail",
+      "SqlParameters": [ "SeriesId", "StudentId", "UserType" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.SeriesDetail"
+    }
+  },
+  {
+    "KeyName": "GetCancelledSeriesDetail",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetCancelledSeriesDetailById",
+      "SqlParameters": [ "SeriesId" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.SeriesDetail"
+    }
+  },
+  {
+    "KeyName": "GetStudentDashboard",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetStudentDashboard",
+      "SqlParameters": [ "StudentId" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.StudentDashboardDetail"
+    }
+  },
+  {
+    "KeyName": "GetStudentTodaySession",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetStudentTodaysSession",
+      "SqlParameters": [ "StudentId" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.StudentTodaySessionDetail"
+    }
+  },
+  {
+    "KeyName": "GetStudentUpcoingEnrolledSession",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetStudentsUpcomingEnrolledSessions",
+      "SqlParameters": [ "StudentId" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.DataResponse"
+    }
+  },
+  {
+    "KeyName": "GetStudentCancelledSession",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetStudentCancelledSession",
+      "SqlParameters": [ "StudentId", "PageNbr", "PageSize", "Search" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.DataResponse"
+    }
+  },
+  {
+    "KeyName": "GetStudentRecentSession",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetStudentRecentSession",
+      "SqlParameters": [ "StudentId" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.DataResponse"
+    }
+  },
+  {
+    "KeyName": "GetStudentFavoriteTeacher",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetMyFavoriteTeachersList",
+      "SqlParameters": [ "StudentId", "PageNbr", "PageSize", "Search" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.DataResponse"
+    }
+  },
+  {
+    "KeyName": "GetMyHostsList",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetMyHostsList",
+      "SqlParameters": [ "StudentId", "PageNbr", "PageSize", "Search" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.DataResponse"
+    }
+  },
+  {
+    "KeyName": "GetStudentFavoriteSession",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetStudentsFavoriteSessions",
+      "SqlParameters": [ "StudentId" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.StudentFavoriteSessions"
+    }
+  },
+  {
+    "KeyName": "GetTutorDashboardData",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetTutorDashboardDetail",
+      "SqlParameters": [ "TeacherId" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.TeacherDashboardDetail"
+    }
+  },
+  {
+    "KeyName": "GetTutorRecentSession",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetTutorRecentSessions",
+      "SqlParameters": [ "TeacherId" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.DataResponse"
+    }
+  },
+  {
+    "KeyName": "GetTutorUpcomingSession",
+    "MappedKeyData": {
+      "SqlParameters": [ "TeacherId" ],
+      "StoredProcedure": "sp_GetTutorUpcomingSessions",
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.DataResponse"
+    }
+  },
+  {
+    "KeyName": "GetTutoCancelledSession",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetTutorCancelledSession",
+      "SqlParameters": [ "TeacherId", "PageNbr", "PageSize", "Search" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.DataResponse"
+    }
+  },
+  {
+    "KeyName": "GetStudentProfileDetail",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetStudentProfileDetail",
+      "SqlParameters": [ "Studentid" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.StudentProfileDetail"
+    }
+  },
+  {
+    "KeyName": "GetTutorProfileDetail",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetTutorProfileDetail",
+      "SqlParameters": [ "TeacherId" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.TeacherProfileDetail"
+    }
+  },
+  {
+    "KeyName": "GetAllSessionsOfTutor",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetSeriesSessionByTutor",
+      "SqlParameters": [ "TutorId" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.TeachersSessionDetail"
+    }
+  },
+  {
+    "KeyName": "GetTutorsTodaysSession",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetTeacherTodaysSession",
+      "SqlParameters": [ "TutorId" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.TeachersTodaysSession"
+    }
+  },
+  {
+    "KeyName": "SeriesDetail",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_SeriesDetail",
+      "SqlParameters": [ "SeriesId" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Response.SeriesDetailResponse"
+    }
+  },
+  {
+    "KeyName": "SessionDetail",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_SessionDetail",
+      "SqlParameters": [ "SessionId" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Response.SessionDetailResponse"
+    }
+  },
+  {
+    "KeyName": "GetAllCountries",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetAllCountries",
+      "SqlParameters": [ "CountryId" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.Countries"
+    }
+  },
+  {
+    "KeyName": "GetAllTutors",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetTutors",
+      "SqlParameters": [ "CategoryId", "IsPrivateSession", "SearchTutor", "StudentId", "TeacherId", "PageNbr", "PageSize", "SortBy" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.DataResponse"
+    }
+  },
+  {
+    "KeyName": "GetEnrollmentsByStudent",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetEnrollmentsByStudent",
+      "SqlParameters": [ "StudentId" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.StudentEnrollmentDetail"
+    }
+  },
+  {
+    "KeyName": "GetCartItemDetail",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetCartItemDetail",
+      "SqlParameters": [ "Id", "Type" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Response.UnauthorizedCartItemDetails"
+    }
+  },
+  {
+    "KeyName": "GetTutorPrivateSessionNotifications",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetNotifications",
+      "SqlParameters": [ "TeacherId", "StudentId", "PrivateSessionLogId" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.TeacherPrivateSessionResponse"
+    }
+  },
+  {
+    "KeyName": "GetMessages",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetMessages",
+      "SqlParameters": [ "SenderId", "RecipientId", "Status", "PrivateSessionLogId" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Response.ChatMessage"
+    }
+  },
+  {
+    "KeyName": "GetAllNotifications",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetAllNotifications",
+      "SqlParameters": [ "TeacherId", "StudentId" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.AllNotifications"
+    }
+  },
+  {
+    "KeyName": "GetTeacherRatingReviews",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetTeacherRatingReviews",
+      "SqlParameters": [ "TeacherId", "PageNbr", "PageSize" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.DataResponse"
+    }
+  },
+  {
+    "KeyName": "GetAdminDashboardWidgetDetails",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetAdminDashboardWidgetDetails",
+      "SqlParameters": [],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.DataResponse"
+    }
+  },
+  {
+    "KeyName": "GetDisputeList",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetDisputeList",
+      "SqlParameters": [],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.DataResponse"
+    }
+  },
+  {
+    "KeyName": "GetAdminDisputeDetail",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetAdminDisputeDetail",
+      "SqlParameters": [ "DisputeId", "PageNbr", "PageSize", "Search" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.DataResponse"
+    }
+  },
+  {
+    "KeyName": "GetSpecificDisputeDetail",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetSpecificDisputeDetail",
+      "SqlParameters": [ "DisputeId" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.DisputeDetail"
+    }
+  },
+  {
+    "KeyName": "GetAdminSeriesCancellationList",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetAdminSeriesCancellationList",
+      "SqlParameters": [],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.DataResponse"
+    }
+  },
+  {
+    "KeyName": "GetAdminCancelledSeriesSessionDetail",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetAdminCancelledSeriesSessionDetail",
+      "SqlParameters": [ "SeriesCancellationId", "PageNbr", "PageSize", "Search" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.DataResponse"
+    }
+  },
+  {
+    "KeyName": "GetSpecificCancellationSeriesRequestDetail",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetSpecificCancellationSeriesRequestDetail",
+      "SqlParameters": [ "SeriesCancellationId" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.SpecificCancellationSeriesRequestDetail"
+    }
+  },
+  {
+    "KeyName": "GetAdminSeriesList",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetAdminSeriesList",
+      "SqlParameters": [],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.DataResponse"
+    }
+  },
+  {
+    "KeyName": "GetAdminSeriesSessionDetail",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetAdminSeriesSessionDetail",
+      "SqlParameters": [ "SeriesId", "PageNbr", "PageSize", "Search" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.DataResponse"
+    }
+  },
+  {
+    "KeyName": "GetAdminSessionList",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetAdminSessionList",
+      "SqlParameters": [],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.DataResponse"
+    }
+  },
+  {
+    "KeyName": "GetAdminEnrollmentList",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetAdminEnrollmentList",
+      "SqlParameters": [],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.DataResponse"
+    }
+  },
+  {
+    "KeyName": "GetAdminTutorList",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetAdminTutorList",
+      "SqlParameters": [],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.DataResponse"
+    }
+  },
+  {
+    "KeyName": "GetAdminTeacherDetail",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetAdminTeacherDetail",
+      "SqlParameters": [ "TeacherId", "PageNbr", "PageSize", "Search" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.DataResponse"
+    }
+  },
+  {
+    "KeyName": "GetAdminTransactionList",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetAdminTransactionList",
+      "SqlParameters": [],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.DataResponse"
+    }
+  },
+  {
+    "KeyName": "GetAdminTransactionDetail",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetAdminTransactionDetail",
+      "SqlParameters": [ "TransactionId", "PageNbr", "PageSize", "Search" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.DataResponse"
+    }
+  },
+  {
+    "KeyName": "GetAdminCancelledEnrollmentList",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetAdminCancelledEnrollmentList",
+      "SqlParameters": [],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.DataResponse"
+    }
+  },
+  {
+    "KeyName": "GetAdminCancelledSeriesSessionByTutor",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetAdminCancelledSeriesSessionByTutor",
+      "SqlParameters": [],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.DataResponse"
+    }
+  },
+  {
+    "KeyName": "GetAdminCancelledTutorSessionDetail",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetAdminCancelledTutorSessionDetail",
+      "SqlParameters": [ "SessionId", "SeriesId" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.DataResponse"
+    }
+  },
+  {
+    "KeyName": "GetAdminStudentList",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetAdminStudentList",
+      "SqlParameters": [],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.DataResponse"
+    }
+  },
+  {
+    "KeyName": "GetCancelledSeriesList",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetCancelledSeriesList",
+      "SqlParameters": [],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.CancelledSeriesListDetail"
+    }
+  },
+  {
+    "KeyName": "GetCancelledSeriesSessionsList",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetCancelledSeriesSessionsList",
+      "SqlParameters": [ "CancelledSeriesId" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.CancelledSeriesSessionListDetail"
+    }
+  },
+  {
+    "KeyName": "GetSpecificCancelledSeriesDetail",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetSpecificCancelledSeriesDetail",
+      "SqlParameters": [ "CancelledSeriesId" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.CancelledDetail"
+    }
+  },
+  {
+    "KeyName": "GetStudentDisputedSession",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetStudentDisputedSession",
+      "SqlParameters": [ "StudentId", "PageNbr", "PageSize", "Search" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.DataResponse"
+    }
+  },
+  {
+    "KeyName": "GetTeacherDisputedSession",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetTeacherDisputedSession",
+      "SqlParameters": [ "TeacherId", "PageNbr", "PageSize", "Search" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.DataResponse"
+    }
+  },
+  {
+    "KeyName": "GetSessionTutor",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetSessionTutor",
+      "SqlParameters": [ "SessionId", "StudentId" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Response.SessionTutorId"
+    }
+  },
+  {
+    "KeyName": "GetPrivateSessionAvailableDaySlots",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetPrivateSessionAvailableDaySlots",
+      "SqlParameters": [ "TeacherId" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.PrivateSessionAvailableDay"
+    }
+  },
+  {
+    "KeyName": "GetTutorPrivateSessionCategories",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetTutorPrivateSessionCategories",
+      "SqlParameters": [
+        "TeacherId"
+      ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.SessionCategories"
+    }
+  },
+  {
+    "KeyName": "GetCartItemCount",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetCartItemCount",
+      "SqlParameters": [ "StudentId" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Response.CartCountResponse"
+    }
+  },
+  {
+    "KeyName": "GetAdminSubscriptionList",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetAdminSubscriptionList",
+      "SqlParameters": [],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.DataResponse"
+    }
+  },
+  {
+    "KeyName": "GetSpecificCancellationSeriesRequestPayoutDetail",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetSpecificCancellationSeriesRequestPayoutDetail",
+      "SqlParameters": [ "SeriesCancellationId", "PageNbr", "PageSize", "Search" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.DataResponse"
+    }
+  },
+  {
+    "KeyName": "GetSpecificCancellationSeriesRequestRefundDetail",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetSpecificCancellationSeriesRequestRefundDetail",
+      "SqlParameters": [ "SeriesCancellationId", "PageNbr", "PageSize", "Search" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.DataResponse"
+    }
+  },
+  {
+    "KeyName": "GetStudentCancelledSeriesRequest",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetStudentCancelledSeriesRequest",
+      "SqlParameters": [ "StudentId", "PageNbr", "PageSize", "Search" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.DataResponse"
+    }
+  },
+  {
+    "KeyName": "GetDisputeNoShowRefundDetail",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetDisputeNoShowRefundDetail",
+      "SqlParameters": [ "DisputeId", "PageNbr", "PageSize", "Search" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Response.NoShowRefundResponse"
+    }
+  },
+  {
+    "KeyName": "GetResolvedDisputeDetail",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetResolvedDisputeDetail",
+      "SqlParameters": [ "DisputeId", "EnrollmentId" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Response.ResolveDisputeDetailResponse"
+    }
+  },
+  {
+    "KeyName": "GetCancelledSeriesRequestDetail",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetCancelledSeriesRequestDetail",
+      "SqlParameters": [ "CancelledSeriesRequestId" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Response.CancelledSeriesDetailResponse"
+    }
+  },
+  {
+    "KeyName": "GetCoupons",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetCoupons",
+      "SqlParameters": [ "CouponId", "CouponType" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Response.CouponDetailResponse"
+    }
+  },
+  {
+    "KeyName": "GetAffiliates",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetAffiliates",
+      "SqlParameters": [ "AffiliateId" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Response.AffiliateDetailResponse"
+    }
+
+  },
+  {
+    "KeyName": "GetAffiliatesLog",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetAffiliatePayoutDetailLog",
+      "SqlParameters": [ "AffiliateId" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Response.AffiliateLogResponse"
+    }
+  },
+  {
+    "KeyName": "GetSentCouponResponse",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetUserCouponLogs",
+      "SqlParameters": [ "CouponId", "UserCouponLogId" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Response.SentCouponDetailResponse"
+    }
+  },
+  {
+    "KeyName": "GetTeacherPayoutDetail",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetTeacherPayoutDetailEdited",
+      "SqlParameters": [],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Response.TutorPayoutDetail"
+    }
+  },
+  {
+    "KeyName": "GetSessionCostDetail",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetSessionCostDetail",
+      "SqlParameters": [],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.DataResponse"
+    }
+  },
+  {
+    "KeyName": "GetSessionPurchaseDetail",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetSessionPurchaseDetail",
+      "SqlParameters": [ "SessionId" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.DataResponse"
+    }
+  },
+  {
+    "KeyName": "GetTutorPayoutReportDetail",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetTutorPayoutReportDetail",
+      "SqlParameters": [ "SessionId" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.DataResponse"
+    }
+  },
+  {
+    "KeyName": "GetAffiliatePayoutReportDetail",
+    "MappedKeyData": {
+      "StoredProcedure": "sp_GetAffiliatePayoutReportDetail",
+      "SqlParameters": [ "SessionId" ],
+      "MappedEntityClassPath": "OsmosIsh.Core.DTOs.Mapped.Common.DataResponse"
+    }
+  }
+
+
+
+
+
+]
